@@ -52,12 +52,12 @@ default values.
    --- a/wharf-helm/README.md
    +++ b/wharf-helm/README.md
    @@ -2,7 +2,7 @@
-   
+
     ## Changes
-   
+
     -### 1.0.0 (WIP)
     +### 1.0.0 (2021-02-12)
-   
+
      - BREAKING: Changed `.Values.postgres` to `.Values.postgresKubeDB`
    ```
 
@@ -76,6 +76,20 @@ default values.
    ```
 
 5. Done!
+
+## Linting markdown
+
+- Requires Node.js (npm) to be installed: <https://nodejs.org/en/download/>
+
+```sh
+npm install
+
+npm run lint-md
+
+# Some errors can be fixed automatically. Keep in mind that this updates the
+# files in place.
+npm run lint-md-fix
+```
 
 ---
 
