@@ -1,0 +1,131 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wharf-helm.fullname" . }}-api
+  labels:
+    {{- include "wharf-helm.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.api.replicaCount }}
+  selector:
+    matchLabels:
+      component: api
+      {{- include "wharf-helm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: api
+        {{- include "wharf-helm.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "wharf-helm.serviceAccountName" . }}
+      {{- with .Values.api.podSecurityContext }}
+      securityContext: {{- toYaml . | nindent 12 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name | quote }}
+          {{- with .Values.api.containerSecurityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: {{ .Values.api.image | quote }}
+          {{- with .Values.api.imagePullPolicy }}
+          imagePullPolicy: {{ . | quote }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.api.containerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          env:
+            {{- with .Values.global.instanceId }}
+            - name: WHARF_INSTANCE
+              value: {{ quote . }}
+            {{- end }}
+            - name: CI_URL
+              {{- .Values.api.ciUrl | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: CI_TOKEN
+              {{- .Values.api.ciToken | include "wharf-helm.environmentValue" | nindent 14 }}
+
+            {{- with .Values.api.rabbitmq }}
+            {{- if .enabled }}
+            - name: RABBITMQENABLED
+              value: "true"
+            - name: RABBITMQUSER
+              {{- .username | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: RABBITMQPASS
+              {{- .password | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: RABBITMQHOST
+              {{- .host | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: RABBITMQPORT
+              {{- .port | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: RABBITMQVHOST
+              {{- .vHost | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: RABBITMQNAME
+              {{- .name | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: RABBITMQCONNATTEMPTS
+              {{- .connAttempts | include "wharf-helm.environmentValue" | nindent 14 }}
+            {{- else }}
+            - name: RABBITMQENABLED
+              value: "false"
+            {{- end }}{{/* if .enabled */}}
+            {{- end }}{{/* with .Values.api.rabbitmq */}}
+
+						{{- with .Values.api.db }}
+            - name: DBDRIVER
+              {{- .driver | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: DBNAME
+              {{- .name | include "wharf-helm.environmentValue" | nindent 14 }}
+            {{- if eq .driver "postgres" }}
+            - name: DBUSER
+              {{- .username | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: DBPASS
+              {{- .password | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: DBPORT
+              {{- .port | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: DBHOST
+              {{- .host | include "wharf-helm.environmentValue" | nindent 14 }}
+            {{- end }}{{/* if .driver == "postgres" */}}
+            {{- end }}{{/* with .Values.api.db */}}
+
+            {{- with .Values.api.extraEnvs }}
+              {{- toYaml . | nindent 12}}
+            {{- end }}
+          {{- with .Values.api.resources }}
+          resources: {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.api.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.api.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.api.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wharf-helm.fullname" . }}-api
+  labels:
+    {{- include "wharf-helm.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.api.serviceType | quote }}
+  ports:
+    - port: {{ .Values.api.servicePort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    component: api
+    {{- include "wharf-helm.selectorLabels" . | nindent 4 }}
+---
