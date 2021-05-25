@@ -26,6 +26,19 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+### v1.1.0 (WIP)
+
+- Added `.Values.ingressRoute.extraRoutes` and `.Values.ingress.extraPaths` to
+  define routes/paths in addition to the existing routes added for the
+  web (`/`), provider APIs (`/import/*`), and the main API (`/api`). (#?)
+
+- Fixed error with `.Values.web.imagePullPolicy` in `web.yaml`. (#?)
+
+- Fixed missing `service.port` -> `servicePort` translations. (#?)
+
+- Fixed missing ports on providers in Ingress and IngressRoute when leaving
+  values unset. (#?)
+
 ### v1.0.0 (2021-05-24)
 
 - BREAKING: Changed `.Values.ingressRoute` structure a lot. Check the

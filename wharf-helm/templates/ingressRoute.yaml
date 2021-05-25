@@ -30,7 +30,7 @@ spec:
       kind: Rule
       services:
         - name: {{ printf "%s-api" $fullName | quote }}
-          port: {{ $.Values.api.service.port }}
+          port: {{ $.Values.api.servicePort }}
       {{- with $entry.middlewares }}
       middlewares: {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -46,13 +46,16 @@ spec:
       kind: Rule
       services:
         - name: {{ printf "%s-%s" $fullName $providerName | quote }}
-          port: {{ $provider.servicePort }}
+          port: {{ $provider.servicePort | default 80 }}
       {{- with $entry.middlewares }}
       middlewares: {{- toYaml . | nindent 8 }}
       {{- end }}
     {{- end }}{{/* if provider.enabled */}}
     {{- end }}{{/* range of providers */}}
     {{- end }}{{/* with .Values.providers */}}
+    {{- with $.Values.ingressRoute.extraRoutes }}
+      {{- . | toYaml | nindent 4 }}
+    {{- end }}{{/* with .Values.ingressRoute.extraRoutes */}}
   {{- with $entry.tls }}
   tls: {{- toYaml . | nindent 4 }}
   {{- end }}
