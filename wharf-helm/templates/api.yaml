@@ -79,7 +79,7 @@ spec:
             {{- end }}{{/* if .enabled */}}
             {{- end }}{{/* with .Values.api.rabbitmq */}}
 
-						{{- with .Values.api.db }}
+            {{- with .Values.api.db }}
             - name: DBDRIVER
               {{- .driver | include "wharf-helm.environmentValue" | nindent 14 }}
             - name: DBNAME
