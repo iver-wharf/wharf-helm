@@ -1,0 +1,6 @@
+
+package:
+  wharf:
+    helm-package:
+      chart-path: wharf-helm
+

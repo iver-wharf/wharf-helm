@@ -1,0 +1,118 @@
+{{- $fullName := include "wharf-helm.fullname" . -}}
+{{- with .Values.providers }}
+{{- range $providerName, $provider := . -}}
+{{- if $provider.enabled -}}
+{{/* $providerName & $providerUrlBase ordering matters here, as we want
+     $provider.nameOverride to affect the $providerUrlBase.
+*/}}
+{{- $providerName := $provider.nameOverride | default $providerName }}
+{{- $providerUrlBase := $provider.urlBaseOverride | default (printf "/import/%s" $providerName) }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-%s" $fullName $providerName | quote }}
+  labels:
+    {{- include "wharf-helm.labels" $ | nindent 4 }}
+    {{- with $provider.labels }}
+      {{- toYaml . | indent 4 }}
+    {{- end }}
+spec:
+  replicas: {{ $provider.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      wharf.iver.com/provider: {{ $providerName | quote }}
+      {{- include "wharf-helm.selectorLabels" $ | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        wharf.iver.com/provider: {{ $providerName | quote }}
+        {{- include "wharf-helm.selectorLabels" $ | nindent 8 }}
+        {{- with $provider.podLabels }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with ($provider.imagePullSecrets | default $.Values.imagePullSecrets) }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "wharf-helm.serviceAccountName" $ }}
+      {{- with $provider.podSecurityContext }}
+      securityContext: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ $providerName | quote }}
+          {{- with $provider.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: {{ $provider.image | quote }}
+          {{- with $provider.imagePullPolicy }}
+          imagePullPolicy: {{ . | quote }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ $provider.containerPort | default 8080 }}
+              protocol: TCP
+          {{- if $provider.livenessProbe }}
+          livenessProbe: {{ toYaml $provider.livenessProbe | nindent 12 }}
+          {{- else }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          {{- end }}
+          {{- if $provider.readinessProbe }}
+          readinessProbe: {{ toYaml $provider.readinessProbe | nindent 12 }}
+          {{- else }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          {{- end }}
+          env:
+            - name: WHARF_URL
+              value: {{ $.Values.global.url | quote }}
+            - name: WHARF_API_URL
+              value: {{ printf "http://%s-api" $fullName | quote }}
+            - name: WHARF_PROVIDER_URL_BASE
+              value: {{ $providerUrlBase | quote }}
+            {{- with $provider.extraEnvs }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with $provider.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with $provider.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $provider.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $provider.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ printf "%s-%s" $fullName $providerName | quote }}
+  labels:
+    wharf.iver.com/provider: {{ $providerName | quote }}
+    {{- include "wharf-helm.labels" $ | nindent 4 }}
+spec:
+  type: {{ $provider.serviceType | default "ClusterIP" | quote }}
+  ports:
+    - port: {{ $provider.servicePort | default 80 }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    wharf.iver.com/provider: {{ $providerName | quote }}
+    {{- include "wharf-helm.selectorLabels" $ | nindent 4 }}
+{{- end -}}{{/* if provider.enabled */}}
+{{- end -}}{{/* range of providers */}}
+{{- end -}}{{/* with .Values.providers */}}
