@@ -1,0 +1,8 @@
+# Full list of options can be found in this schema file:
+# https://github.com/helm/chart-testing/blob/v2.1.0/etc/chart_schema.yaml
+# Or a sample (not default values) here:
+# https://github.com/helm/chart-testing/blob/v2.1.0/pkg/config/test_config.yaml
+
+helm-extra-args: --timeout 600s
+check-version-increment: true
+debug: true
