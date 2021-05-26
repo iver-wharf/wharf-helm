@@ -38,3 +38,14 @@ jobs:
 
       - name: Run chart-testing (lint)
         run: ct lint --lint-conf .github/ct.yaml
+
+  lint-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+
+      - name: Run helm-docs
+        run: .github/helm-docs.sh

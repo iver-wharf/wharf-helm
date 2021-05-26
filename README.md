@@ -43,6 +43,28 @@ helm install wharf --namespace wharf wharf/wharf
 Use -f values.yaml and point it to a modified values.yaml file to overrride
 default values.
 
+## Generating `charts/*/README.md`
+
+The `README.md` files in each chart is generated using
+[norwoodj/helm-docs](https://github.com/norwoodj/helm-docs).
+
+1. Install `helm-docs`. Installation instructions can be found at:
+   <https://github.com/norwoodj/helm-docs#installation>
+
+   If you have Go installed, you may run:
+
+   ```sh
+   $ go get -u github.com/norwoodj/helm-docs/cmd/helm-docs
+   ```
+
+2. Run `helm-docs`, preferrably before you create your pull requests:
+
+   ```sh
+   $ helm-docs
+   ```
+
+3. Commit the changes on the `README.md` files.
+
 ## Publishing
 
 1. Add a merge request to set the date of the deployment in the chart's
