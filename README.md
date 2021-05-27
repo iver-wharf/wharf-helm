@@ -2,46 +2,16 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6d3504733d1844c49a8678633b1a78f8)](https://www.codacy.com/gh/iver-wharf/wharf-helm/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iver-wharf/wharf-helm&amp;utm_campaign=Badge_Grade)
 
-Download helm from: <https://github.com/helm/helm/releases>, unpack and move
-binaries to most convenient place for you.
+Repository of Wharf's [Helm](https://helm.sh/) charts. Currently hosting:
 
-For more information surf to install guide: <https://helm.sh/docs/intro/install/>
+- [`wharf-helm`](charts/wharf-helm/README.md):
+  Deploy Wharf to Kubernetes using Helm
 
-On windows add helm path to PATH in environment variables.
-
-Do a test render into stdout using helm template:
+To start using, add the Wharf Helm chart repository:
 
 ```sh
-# helm v2
-helm template wharf-helm
-# helm v3
-helm template wharf-helm --generate-name
+helm repo add iver-wharf https://iver-wharf.github.io/wharf-helm
 ```
-
-Test for common errors using `helm lint`:
-
-```sh
-helm lint wharf-helm
-```
-
-To install the chart on kubernetes cluster use command:
-
-Locally
-
-```sh
-helm install wharf --namespace wharf ./wharf
-```
-
-Repo
-
-```sh
-helm repo add wharf https://<url_when_public>/wharf-charts
-helm repo update
-helm install wharf --namespace wharf wharf/wharf
-```
-
-Use -f values.yaml and point it to a modified values.yaml file to overrride
-default values.
 
 ## Generating `charts/*/README.md`
 
@@ -67,39 +37,25 @@ The `README.md` files in each chart is generated using
 
 ## Publishing
 
-1. Add a merge request to set the date of the deployment in the chart's
-   "Changes" section of the `wharf-helm/README.md` file.
+The charts in this repository are published automatically using
+[helm/chart-releaser](https://github.com/helm/chart-releaser). No further
+action is required except getting your change into the `master` branch.
 
-   ```diff
-   diff --git a/wharf-helm/README.md b/wharf-helm/README.md
-   index 050b39f..68ff38f 100644
-   --- a/wharf-helm/README.md
-   +++ b/wharf-helm/README.md
-   @@ -2,7 +2,7 @@
+If you need to group changes into a single release, it's suggested to instead
+follow git-flow and create a release branch, like so:
 
-    ## Changes
+```sh
+git checkout master
 
-    -### 1.0.0 (WIP)
-    +### 1.0.0 (2021-02-12)
+git pull
 
-     - BREAKING: Changed `.Values.postgres` to `.Values.postgresKubeDB`
-   ```
+git checkout -b release/wharf-helm/v1.2.0
+```
 
-2. Doublecheck that the version in `Chart.yaml` is correct for the chart.
-
-3. Run a build in Wharf to build the stage that packages the chart.
-
-4. Tag the latest commit on `master` with the version, prefixed with "v":
-
-   ```sh
-   git checkout master
-
-   git pull
-
-   git tag v1.0.0 -m "wharf-helm v1.0.0"
-   ```
-
-5. Done!
+Then target all your grouped changes and PRs to that release branch.
+Once you're ready to deploy it you create a pull request from that release
+branch over to `master`, where it will be published automatically as soon as
+it's merged.
 
 ## Linting markdown
 
