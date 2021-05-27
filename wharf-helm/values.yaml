@@ -398,6 +398,14 @@ ingress:
   tls: {}
     # secretName: wharf-example-tls
 
+  ## Optionally add additional paths that will be added on top of the routes
+  ## for the web (/), main API (/api), and the provider APIs (/import/*)
+  #extraPaths:
+  #  - path: /logstash
+  #    backend:
+  #      serviceName: wharf-logstash
+  #      servicePort: 8080
+
 # Traefik IngressRoute
 ingressRoute:
   enabled: false
@@ -421,4 +429,13 @@ ingressRoute:
       tls:
         secretName: wharf-example-tls
       #annotations: {}
+
+  ## Optionally add additional routes that will be added on top of the routes
+  ## for the web (/), main API (/api), and the provider APIs (/import/*)
+  #extraRoutes:
+  #  - kind: Rule
+  #    match: Host(`wharf.example.com`) && PathPrefix(`/logstash`)
+  #    services:
+  #    - name: wharf-logstash
+  #      port: 8080
 

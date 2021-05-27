@@ -21,27 +21,30 @@ spec:
     - host: {{ .Values.global.url | quote }}
       http:
         paths:
-        - path: /
-          backend:
-            serviceName: {{ printf "%v-web" $fullName | quote }}
-            servicePort: {{ $svcPortWeb }}
-        - path: /api
-          backend:
-            serviceName: {{ printf "%v-api" $fullName | quote }}
-            servicePort: {{ $svcPortApi }}
-        {{- with $.Values.providers }}
-        {{- range $providerName, $provider := . }}
-        {{- if $provider.enabled }}
-        {{/* $providerName & $providerUrlBase ordering matters here, as we want
-             $provider.nameOverride to affect the $providerUrlBase.
-        */}}
-        {{- $providerName := $provider.name | default $providerName }}
-        {{- $providerUrlBase := $provider.urlBaseOverride | default (printf "/import/%s" $providerName) }}
-        - path: {{ $providerUrlBase | quote }}
-          backend:
-            serviceName: {{ printf "%s-%s" $fullName $providerName | quote }}
-            servicePort: {{ $provider.servicePort }}
-        {{- end }}{{/* if provider.enabled */}}
-        {{- end }}{{/* range of providers */}}
-        {{- end }}{{/* with .Values.providers */}}
+          - path: /
+            backend:
+              serviceName: {{ printf "%v-web" $fullName | quote }}
+              servicePort: {{ $svcPortWeb }}
+          - path: /api
+            backend:
+              serviceName: {{ printf "%v-api" $fullName | quote }}
+              servicePort: {{ $svcPortApi }}
+          {{- with .Values.providers }}
+          {{- range $providerName, $provider := . }}
+          {{- if $provider.enabled }}
+          {{/* $providerName & $providerUrlBase ordering matters here, as we want
+               $provider.nameOverride to affect the $providerUrlBase.
+          */}}
+          {{- $providerName := $provider.name | default $providerName }}
+          {{- $providerUrlBase := $provider.urlBaseOverride | default (printf "/import/%s" $providerName) }}
+          - path: {{ $providerUrlBase | quote }}
+            backend:
+              serviceName: {{ printf "%s-%s" $fullName $providerName | quote }}
+              servicePort: {{ $provider.servicePort | default 80 }}
+          {{- end }}{{/* if provider.enabled */}}
+          {{- end }}{{/* range of providers */}}
+          {{- end }}{{/* with .Values.providers */}}
+          {{- with .Values.ingress.extraPaths }}
+            {{- . | toYaml | nindent 10 }}
+          {{- end }}{{/* with .Values.ingress.extraPaths */}}
 {{- end }}
