@@ -38,7 +38,7 @@ spec:
           {{- end }}
           image: {{ .Values.web.image | quote }}
           {{- with .Values.web.imagePullPolicy }}
-          imagePullPolicy: {{ .Values.web.imagePullPolicy | quote }}
+          imagePullPolicy: {{ . | quote }}
           {{- end }}
           ports:
             - name: http
