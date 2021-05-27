@@ -54,13 +54,13 @@ The `README.md` files in each chart is generated using
    If you have Go installed, you may run:
 
    ```sh
-   $ go get -u github.com/norwoodj/helm-docs/cmd/helm-docs
+   go get -u github.com/norwoodj/helm-docs/cmd/helm-docs
    ```
 
 2. Run `helm-docs`, preferrably before you create your pull requests:
 
    ```sh
-   $ helm-docs
+   helm-docs
    ```
 
 3. Commit the changes on the `README.md` files.
