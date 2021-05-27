@@ -14,12 +14,14 @@ web:
   ## Defaults to 1
   replicaCount: 1
 
-  ## Docker image that runs the frontend/web
-  image: harbor.local/tools/wharf-project/web-ng:v1.1.0
+  ## TODO: Change this when Wharf's Docker images are publicly available
+  ## Used in .github/workflow/ci.yaml
+  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+  image: nginx:alpine ## NON-DEFAULT
 
   ## Defaults to unset
   ## Read more: https://kubernetes.io/docs/concepts/containers/images/#updating-images
-  #imagePullPolicy: IfNotPresent
+  imagePullPolicy: IfNotPresent ## NON-DEFAULT
   
   ## Security context on the pod level. Defaults to unset
   ## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
@@ -41,20 +43,30 @@ web:
   ## This defaults to no limits. It's best practice to apply some
   ## appropriate values here
   ## Read more: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-  #resources:
-  #  limits:
-  #    cpu: 100m
-  #    memory: 128Mi
-  #  requests:
-  #    cpu: 100m
-  #    memory: 128Mi
+  resources: ## NON-DEFAULT
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
 
   ## Defaults to 'kubernetes.io/os=linux'
   nodeSelector:
     kubernetes.io/os: linux
 
-  #tolerations: []
-  #affinity: {}
+  tolerations: [] ## NON-DEFAULT
+  affinity: {} ## NON-DEFAULT
   
   ## Recommended to set these for nginx to have faster and more flexible caching
   ## Defaults to emptyDir on '/run' and '/var/cache/nginx' dirs
@@ -74,17 +86,22 @@ web:
   ## Defaults to 80
   servicePort: 80
   ## Defaults to 8080
-  containerPort: 8080
+  ## TODO: Change this when Wharf's Docker images are publicly available
+  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+  containerPort: 80 ## NON-DEFAULT
 
 api:
   ## Defaults to 1
   replicaCount: 1
 
-  image: harbor.local/tools/wharf-project/api:v3.0.0
+  ## TODO: Change this when Wharf's Docker images are publicly available
+  ## Used in .github/workflow/ci.yaml
+  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+  image: nginx:alpine ## NON-DEFAULT
   
   ## Defaults to unset
   ## Read more: https://kubernetes.io/docs/concepts/containers/images/#updating-images
-  #imagePullPolicy: IfNotPresent
+  imagePullPolicy: IfNotPresent ## NON-DEFAULT
 
   ## Security context on the pod level. Defaults to unset
   ## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
@@ -104,27 +121,29 @@ api:
   ## This defaults to no limits. It's best practice to apply some
   ## appropriate values here
   ## Read more: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-  #resources:
-  #  limits:
-  #    cpu: 100m
-  #    memory: 128Mi
-  #  requests:
-  #    cpu: 100m
-  #    memory: 128Mi
+  resources: ## NON-DEFAULT
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
 
   ## Defaults to 'kubernetes.io/os=linux'
   nodeSelector:
     kubernetes.io/os: linux
 
-  #tolerations: []
-  #affinity: {}
+  tolerations: [] ## NON-DEFAULT
+  affinity: {} ## NON-DEFAULT
 
   ## Defaults to ClusterIP
   serviceType: ClusterIP
   ## Defaults to 80
   servicePort: 80
   ## Defaults to 8080
-  containerPort: 8080
+  ## TODO: Change this when Wharf's Docker images are publicly available
+  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+  containerPort: 80 ## NON-DEFAULT
   
   ## Jenkins webhook endpoint used when starting new builds.
   ## Supports string or Kubernetes environments setting map, without the 'name:'
@@ -184,7 +203,7 @@ api:
     ## Defaults to false/disabled.
     ## All other .Values.api.rabbitmq* settings are ignored if RabbitMQ has been
     ## disabled.
-    enabled: false
+    enabled: true ## NON-DEFAULT
     ## Username used by Wharf to authenticate with RabbitMQ.
     ## Supports string or Kubernetes environments setting map, without the 'name:'
     username: user
@@ -213,7 +232,7 @@ api:
     ## Supports string or Kubernetes environments setting map, without the 'name:'
     connAttempts: "10"
 
-  extraEnvs:
+  extraEnvs: ## NON-DEFAULT
     ## If .Values.api.dbDriver is unset, then you must populate your own
     ## database connection here.
     #- name: DBHOST
@@ -224,6 +243,8 @@ api:
     #  value: postgres
     #- name: DBPASS
     #  value: changeit
+    - name: FOO_BAR
+      value: foo-bar
 
 providers:
   ## You are free to add more providers here.
@@ -340,8 +361,14 @@ providers:
 
   gitlab:
     enabled: true
-    image: harbor.local/tools/wharf-project/gitlab:v1.1.0
+    ## TODO: Change this when Wharf's Docker images are publicly available
+    ## Used in .github/workflow/ci.yaml
+    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+    image: nginx:alpine ## NON-DEFAULT
     imagePullPolicy: IfNotPresent
+    ## TODO: Change this when Wharf's Docker images are publicly available
+    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+    containerPort: 80 ## NON-DEFAULT
     resources:
       limits:
         cpu: 100m
@@ -354,8 +381,14 @@ providers:
 
   github:
     enabled: true
-    image: harbor.local/tools/wharf-project/github:v1.1.0
+    ## TODO: Change this when Wharf's Docker images are publicly available
+    ## Used in .github/workflow/ci.yaml
+    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+    image: nginx:alpine ## NON-DEFAULT
     imagePullPolicy: IfNotPresent
+    ## TODO: Change this when Wharf's Docker images are publicly available
+    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+    containerPort: 80 ## NON-DEFAULT
     resources:
       limits:
         cpu: 100m
@@ -368,8 +401,14 @@ providers:
 
   azuredevops:
     enabled: true
-    image: harbor.local/tools/wharf-project/azuredevops:v1.1.0
+    ## TODO: Change this when Wharf's Docker images are publicly available
+    ## Used in .github/workflow/ci.yaml
+    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+    image: nginx:alpine ## NON-DEFAULT
     imagePullPolicy: IfNotPresent
+    ## TODO: Change this when Wharf's Docker images are publicly available
+    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+    containerPort: 80 ## NON-DEFAULT
     resources:
       limits:
         cpu: 100m
@@ -392,19 +431,11 @@ serviceAccount:
   name:
 
 ingress:
-  enabled: false
+  enabled: true ## NON-DEFAULT
   apiVersion: networking.k8s.io/v1beta1
   annotations: {}
   tls: {}
     # secretName: wharf-example-tls
-
-  ## Optionally add additional paths that will be added on top of the routes
-  ## for the web (/), main API (/api), and the provider APIs (/import/*)
-  #extraPaths:
-  #  - path: /logstash
-  #    backend:
-  #      serviceName: wharf-logstash
-  #      servicePort: 8080
 
 # Traefik IngressRoute
 ingressRoute:
@@ -429,13 +460,4 @@ ingressRoute:
       tls:
         secretName: wharf-example-tls
       #annotations: {}
-
-  ## Optionally add additional routes that will be added on top of the routes
-  ## for the web (/), main API (/api), and the provider APIs (/import/*)
-  #extraRoutes:
-  #  - kind: Rule
-  #    match: Host(`wharf.example.com`) && PathPrefix(`/logstash`)
-  #    services:
-  #    - name: wharf-logstash
-  #      port: 8080
 
