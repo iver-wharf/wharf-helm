@@ -14,6 +14,9 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 
 ## v1.1.0 (WIP)
 
+- Added `livenessProbe` and `readinessProbe` configs to `.Values.api` and
+  to `.Values.web`. (#8)
+
 - Added `.Values.ingressRoute.extraRoutes` and `.Values.ingress.extraPaths` to
   define routes/paths in addition to the existing routes added for the
   web (`/`), provider APIs (`/import/*`), and the main API (`/api`). (#6)

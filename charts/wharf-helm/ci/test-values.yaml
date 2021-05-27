@@ -129,6 +129,17 @@ api:
       cpu: 100m
       memory: 128Mi
 
+  ## TODO: Change this when Wharf's Docker images are publicly available
+  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
+  readinessProbe:
+    httpGet:
+      path: / ## NON-DEFAULT
+      port: http
+  livenessProbe:
+    httpGet:
+      path: / ## NON-DEFAULT
+      port: http
+
   ## Defaults to 'kubernetes.io/os=linux'
   nodeSelector:
     kubernetes.io/os: linux

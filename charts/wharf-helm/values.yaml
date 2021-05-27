@@ -49,6 +49,16 @@ web:
   #    cpu: 100m
   #    memory: 128Mi
 
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+
   ## Defaults to 'kubernetes.io/os=linux'
   nodeSelector:
     kubernetes.io/os: linux
@@ -111,6 +121,16 @@ api:
   #  requests:
   #    cpu: 100m
   #    memory: 128Mi
+
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: http
+
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: http
 
   ## Defaults to 'kubernetes.io/os=linux'
   nodeSelector:
