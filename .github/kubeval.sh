@@ -6,7 +6,7 @@ set -euo pipefail
 : ${SCHEMA_LOCATION:="https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/"}
 
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-CHART_DIRS="$(git diff --find-renames --name-only "$GIT_BRANCH" remotes/origin/master -- charts | grep '[cC]hart.yaml' | sed -e 's#/[Cc]hart.yaml##g')"
+CHART_DIRS="$(git diff --find-renames --name-only "$GIT_BRANCH" remotes/origin/master -- charts | grep '[Cc]hart.yaml' | sed -e 's#/[Cc]hart.yaml##g')"
 
 # install kubeval
 curl --silent --show-error --fail --location \

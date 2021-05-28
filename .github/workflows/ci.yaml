@@ -34,7 +34,9 @@ jobs:
         id: list-changed
         run: |
           changed=$(ct list-changed)
+          echo "# Changed charts:"
           echo "$changed"
+          echo "# End of changed charts."
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           else
