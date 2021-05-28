@@ -1,45 +1,35 @@
-# Wharf Helm chart
-
-## Prerequisites
-
-- Postgres database. Could be deployed anywhere, as long as Wharf can reach it.
-
-  To deploy it on "bare metal", we recommend going through their official
-  documentation: <https://www.postgresql.org/docs/current/installation.html>
-
-  To deploy in Kubernetes, you may use the [Bitnami's
-  Postgres Helm chart](https://github.com/bitnami/charts/tree/master/bitnami/postgresql),
-  [Zalando's Postgres operator](https://postgres-operator.readthedocs.io/en/latest/),
-  or [KubeDB](https://kubedb.com/docs/latest/guides/postgres/), for example.
-
-## Changes
+# Chart wharf-helm changes
 
 This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 
 <!--
 	When composing new changes to this list, try to follow convention.
 
-	The WIP release shall be updated just before adding the Git tag.
-	From (WIP) to (YYYY-MM-DD), ex: (2021-02-09) for 9th of Febuary, 2021
+	Since PR #6 we no longer specify WIP or date per version, in contrast to how
+	we operate in our other iver-wharf repos. All changes are published as soon
+	as they hit the master branch.
 
 	A good source on conventions can be found here:
 	https://changelog.md/
 -->
 
-### v1.1.0 (WIP)
+## v1.1.0
+
+- Added `livenessProbe` and `readinessProbe` configs to `.Values.api` and
+  to `.Values.web`. (#8)
 
 - Added `.Values.ingressRoute.extraRoutes` and `.Values.ingress.extraPaths` to
   define routes/paths in addition to the existing routes added for the
-  web (`/`), provider APIs (`/import/*`), and the main API (`/api`). (#4)
+  web (`/`), provider APIs (`/import/*`), and the main API (`/api`). (#6)
 
-- Fixed error with `.Values.web.imagePullPolicy` in `web.yaml`. (#4)
+- Fixed error with `.Values.web.imagePullPolicy` in `web.yaml`. (#6)
 
-- Fixed missing `service.port` -> `servicePort` translations. (#4)
+- Fixed missing `service.port` -> `servicePort` translations. (#6)
 
 - Fixed missing ports on providers in Ingress and IngressRoute when leaving
-  values unset. (#4)
+  values unset. (#6)
 
-### v1.0.0 (2021-05-24)
+## v1.0.0 (2021-05-24)
 
 - BREAKING: Changed `.Values.ingressRoute` structure a lot. Check the
   `values.yaml` for reference. (!13)

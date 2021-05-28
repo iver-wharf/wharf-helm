@@ -1,0 +1,38 @@
+# Wharf Helm chart
+
+{{ template "chart.versionBadge" . }}
+{{ template "chart.typeBadge" . }}
+
+{{ template "chart.homepageLine" . }}
+
+## Prerequisites
+
+- Postgres database. Could be deployed anywhere, as long as Wharf can reach it.
+
+  To deploy it on "bare metal", we recommend going through their official
+  documentation: <https://www.postgresql.org/docs/current/installation.html>
+
+  To deploy in Kubernetes, you may use the [Bitnami's
+  Postgres Helm chart](https://github.com/bitnami/charts/tree/master/bitnami/postgresql),
+  [Zalando's Postgres operator](https://postgres-operator.readthedocs.io/en/latest/),
+  or [KubeDB](https://kubedb.com/docs/latest/guides/postgres/), for example.
+
+## Installing the Chart
+
+To install the chart with the release name `my-release`:
+
+```sh
+helm repo add iver-wharf https://iver-wharf.github.io/wharf-helm
+helm install my-release iver-wharf/wharf-helm
+```
+
+{{ template "chart.valuesSection" . }}
+
+## Changes
+
+See the [CHANGELOG.md](./CHANGELOG.md) file inside this Helm chart.
+
+---
+
+Maintained by [Iver](https://www.iver.com/en).
+Licensed under the [MIT license](https://github.com/iver-wharf/wharf-helm/blob/master/LICENSE).
