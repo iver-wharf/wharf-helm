@@ -13,6 +13,11 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v1.1.1
+
+- Changed to use real [Quay.io images](https://quay.io/organization/iver-wharf)
+  instead of our temporary fake images in the `values.yaml` file. (#11)
+
 ## v1.1.0
 
 - Added `livenessProbe` and `readinessProbe` configs to `.Values.api` and
