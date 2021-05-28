@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square)
+![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
@@ -40,7 +40,7 @@ helm install my-release iver-wharf/wharf-helm
 | api.db.port | string | `"5432"` |  |
 | api.db.username | string | `"postgres"` |  |
 | api.extraEnvs | string | `nil` |  |
-| api.image | string | `"harbor.local/tools/wharf-project/api:v3.0.0"` |  |
+| api.image | string | `"quay.io/iver-wharf/wharf-api:v4.0.0"` |  |
 | api.livenessProbe.httpGet.path | string | `"/health"` |  |
 | api.livenessProbe.httpGet.port | string | `"http"` |  |
 | api.nodeSelector."kubernetes.io/os" | string | `"linux"` |  |
@@ -74,7 +74,7 @@ helm install my-release iver-wharf/wharf-helm
 | ingressRoute.entries[1].tls.secretName | string | `"wharf-example-tls"` |  |
 | nameOverride | string | `""` |  |
 | providers.azuredevops.enabled | bool | `true` |  |
-| providers.azuredevops.image | string | `"harbor.local/tools/wharf-project/azuredevops:v1.1.0"` |  |
+| providers.azuredevops.image | string | `"quay.io/iver-wharf/wharf-provider-azuredevops:v1.1.1"` |  |
 | providers.azuredevops.imagePullPolicy | string | `"IfNotPresent"` |  |
 | providers.azuredevops.nodeSelector."kubernetes.io/os" | string | `"linux"` |  |
 | providers.azuredevops.resources.limits.cpu | string | `"100m"` |  |
@@ -82,7 +82,7 @@ helm install my-release iver-wharf/wharf-helm
 | providers.azuredevops.resources.requests.cpu | string | `"100m"` |  |
 | providers.azuredevops.resources.requests.memory | string | `"128Mi"` |  |
 | providers.github.enabled | bool | `true` |  |
-| providers.github.image | string | `"harbor.local/tools/wharf-project/github:v1.1.0"` |  |
+| providers.github.image | string | `"quay.io/iver-wharf/wharf-provider-github:v1.1.1"` |  |
 | providers.github.imagePullPolicy | string | `"IfNotPresent"` |  |
 | providers.github.nodeSelector."kubernetes.io/os" | string | `"linux"` |  |
 | providers.github.resources.limits.cpu | string | `"100m"` |  |
@@ -90,7 +90,7 @@ helm install my-release iver-wharf/wharf-helm
 | providers.github.resources.requests.cpu | string | `"100m"` |  |
 | providers.github.resources.requests.memory | string | `"128Mi"` |  |
 | providers.gitlab.enabled | bool | `true` |  |
-| providers.gitlab.image | string | `"harbor.local/tools/wharf-project/gitlab:v1.1.0"` |  |
+| providers.gitlab.image | string | `"quay.io/iver-wharf/wharf-provider-gitlab:v1.1.1"` |  |
 | providers.gitlab.imagePullPolicy | string | `"IfNotPresent"` |  |
 | providers.gitlab.nodeSelector."kubernetes.io/os" | string | `"linux"` |  |
 | providers.gitlab.resources.limits.cpu | string | `"100m"` |  |
@@ -100,7 +100,7 @@ helm install my-release iver-wharf/wharf-helm
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `nil` |  |
 | web.containerPort | int | `8080` |  |
-| web.image | string | `"harbor.local/tools/wharf-project/web-ng:v1.1.0"` |  |
+| web.image | string | `"quay.io/iver-wharf/wharf-web:v1.2.0"` |  |
 | web.livenessProbe.httpGet.path | string | `"/"` |  |
 | web.livenessProbe.httpGet.port | string | `"http"` |  |
 | web.nodeSelector."kubernetes.io/os" | string | `"linux"` |  |
