@@ -90,10 +90,7 @@ api:
   ## Defaults to 1
   #replicaCount: 1
 
-  ## TODO: Change this when Wharf's Docker images are publicly available
-  ## Used in .github/workflow/ci.yaml
-  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-  image: nginx:alpine ## NON-DEFAULT
+  #image: quay.io/iver-wharf/wharf-api:v4.0.0
   
   ## Defaults to unset
   ## Read more: https://kubernetes.io/docs/concepts/containers/images/#updating-images
@@ -125,16 +122,14 @@ api:
       cpu: 100m
       memory: 128Mi
 
-  ## TODO: Change this when Wharf's Docker images are publicly available
-  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-  readinessProbe:
-    httpGet:
-      path: / ## NON-DEFAULT
-      port: http
-  livenessProbe:
-    httpGet:
-      path: / ## NON-DEFAULT
-      port: http
+  #readinessProbe:
+  #  httpGet:
+  #    path: / ## NON-DEFAULT
+  #    port: http
+  #livenessProbe:
+  #  httpGet:
+  #    path: / ## NON-DEFAULT
+  #    port: http
 
   ## Defaults to 'kubernetes.io/os=linux'
   #nodeSelector:
@@ -148,9 +143,7 @@ api:
   ## Defaults to 80
   #servicePort: 80
   ## Defaults to 8080
-  ## TODO: Change this when Wharf's Docker images are publicly available
-  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-  containerPort: 80 ## NON-DEFAULT
+  #containerPort: 8080
   
   ## Jenkins webhook endpoint used when starting new builds.
   ## Supports string or Kubernetes environments setting map, without the 'name:'
@@ -165,52 +158,56 @@ api:
   #      key: webhook-token
 
   ## Settings for Wharf API's database connection
-  #db:
-  #  ## Currently only "postgres" is a valid value here. Set to null or empty
-  #  ## string if you wish to populate the DBHOST, DBPORT, DBUSER, DBPASS
-  #  ## environment variables yourself via .Values.api.extraEnvs.
-  #  ## Defaults to "postgres"
-  #  driver: postgres
-  #
-  #  ## Name of the database (or "schema" in MySQL terms) holding all the tables.
-  #  ## Defaults to "wharf"
-  #  name: wharf
+  db:
+    ## Currently only "postgres" is a valid value here. Set to null or empty
+    ## string if you wish to populate the DBHOST, DBPORT, DBUSER, DBPASS
+    ## environment variables yourself via .Values.api.extraEnvs.
+    ## Defaults to "postgres"
+    driver: postgres
+  
+    ## Name of the database (or "schema" in MySQL terms) holding all the tables.
+    ## Defaults to "wharf"
+    name: wharf
 
-  #  ## Username used when connecting to the database. Sets "DBUSER".
-  #  ## Defaults to 'value: postgres'
-  #  ## Supports string or Kubernetes environments setting map, without the 'name:'
-  #  ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-  #  username: postgres
-  #
-  #  ## Password used when connecting to the database. Sets "DBPASS".
-  #  ## Recommended to pull this from a secret.
-  #  ## Supports string or Kubernetes environments setting map, without the 'name:'
-  #  ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-  #  password: changeit
-  #  #password:
-  #  #  valueFrom:
-  #  #    secretKeyRef:
-  #  #      name: my-wharf-postgres-cred-secret
-  #  #      key: postgresql-password
+    ## Username used when connecting to the database. Sets "DBUSER".
+    ## Defaults to 'value: postgres'
+    ## Supports string or Kubernetes environments setting map, without the 'name:'
+    ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
+    username: wharf
+  
+    ## Password used when connecting to the database. Sets "DBPASS".
+    ## Recommended to pull this from a secret.
+    ## Supports string or Kubernetes environments setting map, without the 'name:'
+    ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
+    password: github-ci
+    #password:
+    #  valueFrom:
+    #    secretKeyRef:
+    #      name: my-wharf-postgres-cred-secret
+    #      key: postgresql-password
 
-  #  ## Database hostname used when connecting to the database. Sets "DBHOST".
-  #  ## Supports string or Kubernetes environments setting map, without the 'name:'
-  #  ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-  #  host: wharf-db
+    ## Database hostname used when connecting to the database. Sets "DBHOST".
+    ## Supports string or Kubernetes environments setting map, without the 'name:'
+    ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
+    host:
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: status.hostIP
 
-  #  ## Database port used when connecting to the database. Sets "DBPORT".
-  #  ## Defaults to "5432" (Integers must be quoted!)
-  #  ## Supports string or Kubernetes environments setting map, without the 'name:'
-  #  ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-  #  port: "5432"
+    ## Database port used when connecting to the database. Sets "DBPORT".
+    ## Defaults to "5432" (Integers must be quoted!)
+    ## Supports string or Kubernetes environments setting map, without the 'name:'
+    ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
+    port: "5432"
 
   ## Settings Wharf API's integration with RabbitMQ
-  rabbitmq:
-    ## true to enable RabbitMQ integration, false to disable it.
-    ## Defaults to false/disabled.
-    ## All other .Values.api.rabbitmq* settings are ignored if RabbitMQ has been
-    ## disabled.
-    enabled: true ## NON-DEFAULT
+  #rabbitmq:
+  #  ## true to enable RabbitMQ integration, false to disable it.
+  #  ## Defaults to false/disabled.
+  #  ## All other .Values.api.rabbitmq* settings are ignored if RabbitMQ has been
+  #  ## disabled.
+  #  enabled: false
   #  ## Username used by Wharf to authenticate with RabbitMQ.
   #  ## Supports string or Kubernetes environments setting map, without the 'name:'
   #  username: user
