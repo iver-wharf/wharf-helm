@@ -15,7 +15,7 @@ web:
   replicaCount: 1
 
   ## Docker image that runs the frontend/web
-  image: harbor.local/tools/wharf-project/web-ng:v1.1.0
+  image: quay.io/iver-wharf/wharf-web:v1.2.0
 
   ## Defaults to unset
   ## Read more: https://kubernetes.io/docs/concepts/containers/images/#updating-images
@@ -90,7 +90,7 @@ api:
   ## Defaults to 1
   replicaCount: 1
 
-  image: harbor.local/tools/wharf-project/api:v3.0.0
+  image: quay.io/iver-wharf/wharf-api:v4.0.0
   
   ## Defaults to unset
   ## Read more: https://kubernetes.io/docs/concepts/containers/images/#updating-images
@@ -360,7 +360,7 @@ providers:
 
   gitlab:
     enabled: true
-    image: harbor.local/tools/wharf-project/gitlab:v1.1.0
+    image: quay.io/iver-wharf/wharf-provider-gitlab:v1.1.1
     imagePullPolicy: IfNotPresent
     resources:
       limits:
@@ -374,7 +374,7 @@ providers:
 
   github:
     enabled: true
-    image: harbor.local/tools/wharf-project/github:v1.1.0
+    image: quay.io/iver-wharf/wharf-provider-github:v1.1.1
     imagePullPolicy: IfNotPresent
     resources:
       limits:
@@ -388,7 +388,7 @@ providers:
 
   azuredevops:
     enabled: true
-    image: harbor.local/tools/wharf-project/azuredevops:v1.1.0
+    image: quay.io/iver-wharf/wharf-provider-azuredevops:v1.1.1
     imagePullPolicy: IfNotPresent
     resources:
       limits:

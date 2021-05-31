@@ -1,127 +1,42 @@
-nameOverride: ""
-fullnameOverride: ""
-
-global:
-  url: wharf.example.org
-  ## Used in RabbitMQ & Jenkins to multiplex jobs and messages on the same
-  ## instances while keeping track of their origin.
-  instanceId: dev
-  ## This flag is forwarded to the frontend where it can be used to show
-  ## slightly different styling depending on if it's for production or not.
-  isProduction: false
-
 web:
-  ## Defaults to 1
-  replicaCount: 1
-
-  ## TODO: Change this when Wharf's Docker images are publicly available
-  ## Used in .github/workflow/ci.yaml
-  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-  image: nginx:alpine ## NON-DEFAULT
-
-  ## Defaults to unset
-  ## Read more: https://kubernetes.io/docs/concepts/containers/images/#updating-images
   imagePullPolicy: IfNotPresent ## NON-DEFAULT
   
-  ## Security context on the pod level. Defaults to unset
-  ## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-  #podSecurityContext:
-  #  fsGroup: 2000
+  podSecurityContext:
+    fsGroup: 2000
   
-  ## Security context inside the container. Defaults to unset
-  ## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container
-  #containerSecurityContext:
-  #  capabilities:
-  #    drop:
-  #    - ALL
-  #    add:
-  #    - NET_BIND_SERVICE
-  #  readOnlyRootFilesystem: true
-  #  runAsNonRoot: true
-  #  runAsUser: 1000
+  containerSecurityContext:
+    capabilities:
+      drop:
+      - ALL
+      add:
+      - NET_BIND_SERVICE
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
 
-  ## This defaults to no limits. It's best practice to apply some
-  ## appropriate values here
-  ## Read more: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-  resources: ## NON-DEFAULT
+  resources:
     limits:
       cpu: 100m
       memory: 128Mi
     requests:
       cpu: 100m
       memory: 128Mi
-
-  livenessProbe:
-    httpGet:
-      path: /
-      port: http
-
-  readinessProbe:
-    httpGet:
-      path: /
-      port: http
-
-  ## Defaults to 'kubernetes.io/os=linux'
-  nodeSelector:
-    kubernetes.io/os: linux
-
-  tolerations: [] ## NON-DEFAULT
-  affinity: {} ## NON-DEFAULT
-  
-  ## Recommended to set these for nginx to have faster and more flexible caching
-  ## Defaults to emptyDir on '/run' and '/var/cache/nginx' dirs
-  volumes:
-    - name: cache
-      emptyDir: {}
-    - name: run
-      emptyDir: {}
-  volumeMounts:
-    - name: cache
-      mountPath: /var/cache/nginx
-    - name: run
-      mountPath: /run
-
-  ## Defaults to ClusterIP
-  serviceType: ClusterIP
-  ## Defaults to 80
-  servicePort: 80
-  ## Defaults to 8080
-  ## TODO: Change this when Wharf's Docker images are publicly available
-  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-  containerPort: 80 ## NON-DEFAULT
 
 api:
-  ## Defaults to 1
-  replicaCount: 1
+  imagePullPolicy: IfNotPresent
 
-  ## TODO: Change this when Wharf's Docker images are publicly available
-  ## Used in .github/workflow/ci.yaml
-  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-  image: nginx:alpine ## NON-DEFAULT
-  
-  ## Defaults to unset
-  ## Read more: https://kubernetes.io/docs/concepts/containers/images/#updating-images
-  imagePullPolicy: IfNotPresent ## NON-DEFAULT
+  podSecurityContext:
+    fsGroup: 2000
 
-  ## Security context on the pod level. Defaults to unset
-  ## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-  #podSecurityContext:
-  #  fsGroup: 2000
+  containerSecurityContext:
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
 
-  ## Security context inside the container. Defaults to unset
-  ## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container
-  #containerSecurityContext:
-  #  capabilities:
-  #    drop:
-  #    - ALL
-  #  readOnlyRootFilesystem: true
-  #  runAsNonRoot: true
-  #  runAsUser: 1000
-
-  ## This defaults to no limits. It's best practice to apply some
-  ## appropriate values here
-  ## Read more: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-  resources: ## NON-DEFAULT
+  resources:
     limits:
       cpu: 100m
       memory: 128Mi
@@ -129,346 +44,12 @@ api:
       cpu: 100m
       memory: 128Mi
 
-  ## TODO: Change this when Wharf's Docker images are publicly available
-  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-  readinessProbe:
-    httpGet:
-      path: / ## NON-DEFAULT
-      port: http
-  livenessProbe:
-    httpGet:
-      path: / ## NON-DEFAULT
-      port: http
-
-  ## Defaults to 'kubernetes.io/os=linux'
-  nodeSelector:
-    kubernetes.io/os: linux
-
-  tolerations: [] ## NON-DEFAULT
-  affinity: {} ## NON-DEFAULT
-
-  ## Defaults to ClusterIP
-  serviceType: ClusterIP
-  ## Defaults to 80
-  servicePort: 80
-  ## Defaults to 8080
-  ## TODO: Change this when Wharf's Docker images are publicly available
-  ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-  containerPort: 80 ## NON-DEFAULT
-  
-  ## Jenkins webhook endpoint used when starting new builds.
-  ## Supports string or Kubernetes environments setting map, without the 'name:'
-  ciUrl: http://jenkins.example.com/generic-webhook-trigger/invoke
-  ## Jenkins webhook secret token used when starting new builds.
-  ## Supports string or Kubernetes environments setting map, without the 'name:'
-  ciToken: changeit
-  #ciToken:
-  #  valueFrom:
-  #    secretKeyRef:
-  #      name: wharf-jenkins-secrets
-  #      key: webhook-token
-
-  ## Settings for Wharf API's database connection
   db:
-    ## Currently only "postgres" is a valid value here. Set to null or empty
-    ## string if you wish to populate the DBHOST, DBPORT, DBUSER, DBPASS
-    ## environment variables yourself via .Values.api.extraEnvs.
-    ## Defaults to "postgres"
-    driver: postgres
-  
-    ## Name of the database (or "schema" in MySQL terms) holding all the tables.
-    ## Defaults to "wharf"
-    name: wharf
+    host: wharf-db.default.svc.cluster.local
 
-    ## Username used when connecting to the database. Sets "DBUSER".
-    ## Defaults to 'value: postgres'
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-    username: postgres
-  
-    ## Password used when connecting to the database. Sets "DBPASS".
-    ## Recommended to pull this from a secret.
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-    password: changeit
-    #password:
-    #  valueFrom:
-    #    secretKeyRef:
-    #      name: my-wharf-postgres-cred-secret
-    #      key: postgresql-password
-
-    ## Database hostname used when connecting to the database. Sets "DBHOST".
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-    host: wharf-db
-
-    ## Database port used when connecting to the database. Sets "DBPORT".
-    ## Defaults to "5432" (Integers must be quoted!)
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-    port: "5432"
-
-  ## Settings Wharf API's integration with RabbitMQ
-  rabbitmq:
-    ## true to enable RabbitMQ integration, false to disable it.
-    ## Defaults to false/disabled.
-    ## All other .Values.api.rabbitmq* settings are ignored if RabbitMQ has been
-    ## disabled.
-    enabled: true ## NON-DEFAULT
-    ## Username used by Wharf to authenticate with RabbitMQ.
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    username: user
-    ## Password used by Wharf to authenticate with RabbitMQ.
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    password: changeit
-    #password:
-    #  valueFrom:
-    #    secretKeyRef:
-    #      name: rabbitmq-auth
-    #      value: password
-    ## Host name (without the protocol) used by Wharf to connect to RabbitMQ.
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    host: rabbitmq.local
-    ## Host port used by Wharf to connect to RabbitMQ.
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    port: "5672"
-    ## RabbitMQ virtual host to push RabbitMQ messages into.
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    vHost: /
-    ## RabbitMQ queue name to push RabbitMQ messages into.
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    name: wharf_queue
-    ## When the Wharf API starts up, how many times should it attempt to connect
-    ## to the RabbitMQ instance before giving up and restarting?
-    ## Supports string or Kubernetes environments setting map, without the 'name:'
-    connAttempts: "10"
-
-  extraEnvs: ## NON-DEFAULT
-    ## If .Values.api.dbDriver is unset, then you must populate your own
-    ## database connection here.
-    #- name: DBHOST
-    #  value: wharf-db
-    #- name: DBPORT
-    #  value: "5432"
-    #- name: DBUSER
-    #  value: postgres
-    #- name: DBPASS
-    #  value: changeit
+  extraEnvs:
     - name: FOO_BAR
       value: foo-bar
 
-providers:
-  ## You are free to add more providers here.
-  #myNewProvider:
-  #  ## If this is false or unset then this provider will be ignored.
-  #  enabled: true
-  #
-  #  ## The provider name affects the pod name, service name, URL base, et.al.
-  #  ## Defaults to name of .Values.providers map/directory key (ex: "myNewProvider")
-  #  #nameOverride: myNewProvider
-  #
-  #  ## Overrides URL base path
-  #  ## Defaults to "/import/" followed by name of provider
-  #  ## (ex: "/import/myNewProvider"). Default is affected by the
-  #  ## .Values.providers.X.nameOverride setting.
-  #  #urlBaseOverride: /import/myNewProvider
-  #
-  #  ## Defaults to 1
-  #  #replicaCount: 1
-  #
-  #  ## Docker image that runs the provider API
-  #  image: ubuntu:latest
-  #
-  #  ## Defaults to unset
-  #  ## Read more: https://kubernetes.io/docs/concepts/containers/images/#updating-images
-  #  #imagePullPolicy: IfNotPresent
-  #
-  #  ## Defaults to .Values.imagePullSecrets
-  #  ## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-  #  #imagePullSecrets:
-  #  #  - name: myDockerCredentialsSecret
-  #
-  #  ## Additional labels to add to the deployment
-  #  #labels:
-  #  #  app: my-new-wharf-provider
-  #
-  #  ## Additional annotations to add to the deployment
-  #  #annotations:
-  #  #  prometheus.io/scrape: "true"
-  #
-  #  ## Additional labels to add to the pod
-  #  #podLabels:
-  #  #  app: my-new-wharf-provider
-  #
-  #  ## Additional annotations to add to the pod
-  #  #podAnnotations:
-  #  #  prometheus.io/scrape: "true"
-  #
-  #  ## Defaults to 8080
-  #  #containerPort: 8080
-  #
-  #  ## Defaults to ClusterIP
-  #  #serviceType: ClusterIP
-  #
-  #  ## Defaults to 80
-  #  #servicePort: 80
-  #
-  #  ## Security context on the pod level. Defaults to unset
-  #  ## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-  #  #podSecurityContext:
-  #  #  fsGroup: 2000
-  #
-  #  ## Security context inside the container. Defaults to unset
-  #  ## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container
-  #  #containerSecurityContext:
-  #  #  capabilities:
-  #  #    drop:
-  #  #    - ALL
-  #  #  readOnlyRootFilesystem: true
-  #  #  runAsNonRoot: true
-  #  #  runAsUser: 1000
-  #
-  #  ## This defaults to no limits. It's best practice to apply some
-  #  ## appropriate values here
-  #  #resources:
-  #  #  limits:
-  #  #    cpu: 100m
-  #  #    memory: 128Mi
-  #  #  requests:
-  #  #    cpu: 100m
-  #  #    memory: 128Mi
-  #
-  #  ## Defaults to unset
-  #  #nodeSelector: {}
-  #
-  #  ## Defaults to unset
-  #  #tolerations: []
-  #
-  #  ## Defaults to unset
-  #  #affinity: {}
-  #
-  #  ## Wharf adds the following environment variable:
-  #  ##   WHARF_API_URL={.Values.global.url}/api
-  #  ##   WHARF_PROVIDER_URL_BASE={.Values.global.url}/api/import/{.Values.providers.*.name}
-  #  ## But you can add more with this block:
-  #  #extraEnvs:
-  #  #  - name: MY_ENV_VALUE:
-  #  #    value: foo
-  #  #  - name: MY_ENV_SECRET:
-  #  #    valueFrom:
-  #  #      secretKeyRef:
-  #  #        name: some-k8s-secret-name
-  #  #        key: some-k8s-secret-key
-  #
-  #  ## Defaults to 'httpGet' on path '/'
-  #  #livenessProbe:
-  #  #  httpGet:
-  #  #    path: /
-  #  #    port: http
-  #  #readinessProbe:
-  #  #  httpGet:
-  #  #    path: /
-  #  #    port: http
-
-  gitlab:
-    enabled: true
-    ## TODO: Change this when Wharf's Docker images are publicly available
-    ## Used in .github/workflow/ci.yaml
-    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-    image: nginx:alpine ## NON-DEFAULT
-    imagePullPolicy: IfNotPresent
-    ## TODO: Change this when Wharf's Docker images are publicly available
-    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-    containerPort: 80 ## NON-DEFAULT
-    resources:
-      limits:
-        cpu: 100m
-        memory: 128Mi
-      requests:
-        cpu: 100m
-        memory: 128Mi
-    nodeSelector:
-      kubernetes.io/os: linux
-
-  github:
-    enabled: true
-    ## TODO: Change this when Wharf's Docker images are publicly available
-    ## Used in .github/workflow/ci.yaml
-    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-    image: nginx:alpine ## NON-DEFAULT
-    imagePullPolicy: IfNotPresent
-    ## TODO: Change this when Wharf's Docker images are publicly available
-    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-    containerPort: 80 ## NON-DEFAULT
-    resources:
-      limits:
-        cpu: 100m
-        memory: 128Mi
-      requests:
-        cpu: 100m
-        memory: 128Mi
-    nodeSelector:
-      kubernetes.io/os: linux
-
-  azuredevops:
-    enabled: true
-    ## TODO: Change this when Wharf's Docker images are publicly available
-    ## Used in .github/workflow/ci.yaml
-    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-    image: nginx:alpine ## NON-DEFAULT
-    imagePullPolicy: IfNotPresent
-    ## TODO: Change this when Wharf's Docker images are publicly available
-    ## See: https://github.com/iver-wharf/iver-wharf.github.io/issues/49
-    containerPort: 80 ## NON-DEFAULT
-    resources:
-      limits:
-        cpu: 100m
-        memory: 128Mi
-      requests:
-        cpu: 100m
-        memory: 128Mi
-    nodeSelector:
-      kubernetes.io/os: linux
-
-## Read more: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-#imagePullSecrets:
-#  - name: myDockerCredentialsSecret
-
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name:
-
 ingress:
-  enabled: true ## NON-DEFAULT
-  apiVersion: networking.k8s.io/v1beta1
-  annotations: {}
-  tls: {}
-    # secretName: wharf-example-tls
-
-# Traefik IngressRoute
-ingressRoute:
-  enabled: false
-  apiVersion: traefik.containo.us/v1alpha1
-
-  entries:
-    - name: http # Only used in the IngressRoute object names
-      entryPoints:
-        - web # Sample entrypoint that could be for :80 traffic
-      ## Good idea is to hook up the RedirectScheme to redirect http->https
-      #middlewares:
-      #  - name: httpredirect
-      #    namespace: default
-      #tls: {}
-      #annotations: {}
-
-    - name: https # Only used in the IngressRoute object names
-      entryPoints:
-        - websecure # Sample entrypoint that could be for :443 traffic
-      #middlewares: []
-      tls:
-        secretName: wharf-example-tls
-      #annotations: {}
-
+  enabled: true
