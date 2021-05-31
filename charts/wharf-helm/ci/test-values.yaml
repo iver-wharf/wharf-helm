@@ -189,7 +189,7 @@ api:
     ## Database hostname used when connecting to the database. Sets "DBHOST".
     ## Supports string or Kubernetes environments setting map, without the 'name:'
     ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-    #host: wharf-db
+    host: wharf-db.default.svc.cluster.local ## NON-DEFAULT
 
     ## Database port used when connecting to the database. Sets "DBPORT".
     ## Defaults to "5432" (Integers must be quoted!)
