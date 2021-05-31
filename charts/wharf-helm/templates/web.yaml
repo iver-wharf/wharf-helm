@@ -44,10 +44,10 @@ spec:
             - name: http
               containerPort: {{ .Values.web.containerPort }}
               protocol: TCP
-          {{- with .Values.api.livenessProbe }}
+          {{- with .Values.web.livenessProbe }}
           livenessProbe: {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.api.readinessProbe }}
+          {{- with .Values.web.readinessProbe }}
           readinessProbe: {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
