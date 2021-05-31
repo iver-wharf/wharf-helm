@@ -124,11 +124,11 @@ api:
 
   #readinessProbe:
   #  httpGet:
-  #    path: / ## NON-DEFAULT
+  #    path: /
   #    port: http
   #livenessProbe:
   #  httpGet:
-  #    path: / ## NON-DEFAULT
+  #    path: /
   #    port: http
 
   ## Defaults to 'kubernetes.io/os=linux'
@@ -167,19 +167,19 @@ api:
   
     ## Name of the database (or "schema" in MySQL terms) holding all the tables.
     ## Defaults to "wharf"
-    name: wharf
+    #name: wharf
 
     ## Username used when connecting to the database. Sets "DBUSER".
     ## Defaults to 'value: postgres'
     ## Supports string or Kubernetes environments setting map, without the 'name:'
     ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-    username: wharf
+    username: postgres
   
     ## Password used when connecting to the database. Sets "DBPASS".
     ## Recommended to pull this from a secret.
     ## Supports string or Kubernetes environments setting map, without the 'name:'
     ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-    password: github-ci
+    password: changeit
     #password:
     #  valueFrom:
     #    secretKeyRef:
@@ -189,17 +189,13 @@ api:
     ## Database hostname used when connecting to the database. Sets "DBHOST".
     ## Supports string or Kubernetes environments setting map, without the 'name:'
     ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-    host:
-      valueFrom:
-        fieldRef:
-          apiVersion: v1
-          fieldPath: status.hostIP
+    #host: wharf-db
 
     ## Database port used when connecting to the database. Sets "DBPORT".
     ## Defaults to "5432" (Integers must be quoted!)
     ## Supports string or Kubernetes environments setting map, without the 'name:'
     ## Read more: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables
-    port: "5432"
+    #port: "5432"
 
   ## Settings Wharf API's integration with RabbitMQ
   #rabbitmq:

@@ -111,19 +111,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Start PostgreSQL on Ubuntu
-        run: |
-          sudo systemctl start postgresql.service
-          pg_isready
-
-      - name: Create PostgreSQL Wharf user
-        run: sudo -u postgres psql --command="CREATE USER wharf PASSWORD 'github-ci'" --command="\du"
-
-      - name: Create PostgreSQL Wharf database
-        run: |
-          sudo -u postgres createdb --owner=wharf wharf
-          PGPASSWORD=github-ci psql --username=wharf --host=localhost --list wharf
-
       - name: Create KIND ${{ matrix.k8s }} cluster
         uses: helm/kind-action@v1.1.0
         with:
@@ -142,6 +129,11 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.7
+
+      - name: Install Postgres
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm install wharf-db bitnami/postgresql -f charts/wharf-helm/ci/postgres.yml
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.1.0
