@@ -28,6 +28,65 @@ helm install my-release iver-wharf/wharf-helm
 
 {{ template "chart.valuesSection" . }}
 
+## Smart environment fields
+
+This chart uses a trick to let you more consicely specify environment variable
+values. Normally to specify a Kubernetes environment variable, you have a
+setting such as:
+
+```yaml
+env:
+  - name: "DBHOST"
+    value: "my value"
+
+  - name: "DBHOST"
+    valueFrom:
+      secretKeyRef:
+        name: my-secret
+        key: my-key-in-the-secret
+```
+
+Any setting that specifies it supports "Smart environment field", such as the
+`api.db.host` setting, allows these values except the `name` field.
+
+But there's also a shorthand. If the value of the setting is just simply a
+`string`, then it translates to a `value: ...` setting.
+
+The following three samples of setting `api.db.host` are all valid:
+
+```yaml
+api:
+  db:
+    host:
+      value: "my value"
+    # Would be added to the Pod's environment variables as:
+    #env:
+    #  - name: DBHOST
+    #    value: "my value"
+
+    host:
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: my-key-in-the-secret
+    # Would be added to the Pod's environment variables as:
+    #env:
+    #  - name: DBHOST
+    #    valueFrom:
+    #      secretKeyRef:
+    #        name: my-secret
+    #        key: my-key-in-the-secret
+
+    host: "my value"
+    # Would be added to the Pod's environment variables as:
+    #env:
+    #  - name: DBHOST
+    #    value: "my value"
+```
+
+The object fields available, such as the `value` and `valueFrom`, can be found
+over at: <https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables>
+
 ## Changes
 
 See the [CHANGELOG.md](./CHANGELOG.md) file inside this Helm chart.
