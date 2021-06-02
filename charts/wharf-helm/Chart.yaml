@@ -2,7 +2,7 @@ apiVersion: v2
 name: wharf-helm
 description: Deploy Wharf to Kubernetes
 type: application
-version: 1.1.2
+version: 1.1.3
 home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm
 maintainers:
   - name: jilleJr
