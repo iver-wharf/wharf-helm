@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square)
+![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
@@ -8,6 +8,8 @@
 ## Prerequisites
 
 - Postgres database. Could be deployed anywhere, as long as Wharf can reach it.
+  By default, it's expected on the host `"wharf-db"` and
+  port `"5432"`.
 
   To deploy it on "bare metal", we recommend going through their official
   documentation: <https://www.postgresql.org/docs/current/installation.html>
@@ -25,6 +27,16 @@ To install the chart with the release name `my-release`:
 helm repo add iver-wharf https://iver-wharf.github.io/wharf-helm
 helm install my-release iver-wharf/wharf-helm
 ```
+
+## Default images
+
+| GitHub repository | Quay.io version | Image
+| ----------------- | --------------- | -----
+| [iver-wharf/wharf-api](https://github.com/iver-wharf/wharf-api) | [![Version: v4.0.0](https://img.shields.io/badge/Version-v4.0.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-api) |`"quay.io/iver-wharf/wharf-api:v4.0.0"`
+| [iver-wharf/wharf-web](https://github.com/iver-wharf/wharf-web) | [![Version: v1.2.0](https://img.shields.io/badge/Version-v1.2.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-web) |`"quay.io/iver-wharf/wharf-web:v1.2.0"`
+| [iver-wharf/wharf-provider-github](https://github.com/iver-wharf/wharf-provider-github) | [![Version: v1.1.1](https://img.shields.io/badge/Version-v1.1.1-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-github) |`"quay.io/iver-wharf/wharf-provider-github:v1.1.1"`
+| [iver-wharf/wharf-provider-gitlab](https://github.com/iver-wharf/wharf-provider-gitlab) | [![Version: v1.1.1](https://img.shields.io/badge/Version-v1.1.1-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-gitlab) |`"quay.io/iver-wharf/wharf-provider-gitlab:v1.1.1"`
+| [iver-wharf/wharf-provider-azuredevops](https://github.com/iver-wharf/wharf-provider-azuredevops) | [![Version: v1.1.1](https://img.shields.io/badge/Version-v1.1.1-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-azuredevops) |`"quay.io/iver-wharf/wharf-provider-azuredevops:v1.1.1"`
 
 ## Values
 

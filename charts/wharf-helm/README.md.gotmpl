@@ -5,9 +5,34 @@
 
 {{ template "chart.homepageLine" . }}
 
+{{- $defaultValues := dict }}
+{{- range .Values }}
+  {{- $defaultValues = set $defaultValues (replace "." "_" .Key) .Default }}
+{{- end }}
+
+{{- define "wharf-helm.imageVersionBadge" }}
+{{- $imageVersion := regexReplaceAll ".*:([\\w_+.-]+)[\"`]*" . "${1}" -}}
+![Version: {{ $imageVersion }}](https://img.shields.io/badge/Version-{{ $imageVersion | replace "-" "--" }}-informational?style=flat-square)
+{{- end }}
+
+{{- define "wharf-helm.imageGitHubRepoLink" }}
+{{- $gitHubRepo := regexReplaceAll "[\"`]*quay\\.io/(.*):.*" . "${1}" -}}
+[{{ $gitHubRepo }}](https://github.com/{{ $gitHubRepo }})
+{{- end }}
+
+{{- define "wharf-helm.imageQuayIoRepo" -}}
+https://quay.io/repository/{{- regexReplaceAll "[\"`]*quay\\.io/(.*):.*" . "${1}" }}
+{{- end }}
+
+{{- define "wharf-helm.imageColumns" }}
+{{- template "wharf-helm.imageGitHubRepoLink" . }} | [{{ template "wharf-helm.imageVersionBadge" . }}]({{ template "wharf-helm.imageQuayIoRepo" . }}) | {{- . }}
+{{- end }}
+
 ## Prerequisites
 
 - Postgres database. Could be deployed anywhere, as long as Wharf can reach it.
+  By default, it's expected on the host {{ $defaultValues.api_db_host }} and
+  port {{ $defaultValues.api_db_port }}.
 
   To deploy it on "bare metal", we recommend going through their official
   documentation: <https://www.postgresql.org/docs/current/installation.html>
@@ -25,6 +50,16 @@ To install the chart with the release name `my-release`:
 helm repo add iver-wharf https://iver-wharf.github.io/wharf-helm
 helm install my-release iver-wharf/wharf-helm
 ```
+
+## Default images
+
+| GitHub repository | Quay.io version | Image
+| ----------------- | --------------- | -----
+| {{ template "wharf-helm.imageColumns" $defaultValues.api_image }}
+| {{ template "wharf-helm.imageColumns" $defaultValues.web_image }}
+| {{ template "wharf-helm.imageColumns" $defaultValues.providers_github_image }}
+| {{ template "wharf-helm.imageColumns" $defaultValues.providers_gitlab_image }}
+| {{ template "wharf-helm.imageColumns" $defaultValues.providers_azuredevops_image }}
 
 {{ template "chart.valuesSection" . }}
 
