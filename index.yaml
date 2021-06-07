@@ -2,6 +2,19 @@ apiVersion: v1
 entries:
   wharf-helm:
   - apiVersion: v2
+    created: "2021-06-07T07:30:46.296586238Z"
+    description: Deploy Wharf to Kubernetes
+    digest: 0f60c62db5b02c539946f0667865e7afdda11af825c989f95300d319d40a4e6f
+    home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm
+    maintainers:
+    - email: kalle.jillheden@iver.se
+      name: jilleJr
+    name: wharf-helm
+    type: application
+    urls:
+    - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-helm-1.1.3/wharf-helm-1.1.3.tgz
+    version: 1.1.3
+  - apiVersion: v2
     created: "2021-06-02T19:03:16.045066519Z"
     description: Deploy Wharf to Kubernetes
     digest: 376e11f248fe67e03944b302bf828ac58c4b003ff5ac172a0be5b0b162838980
@@ -40,4 +53,4 @@ entries:
     urls:
     - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-helm-1.1.0/wharf-helm-1.1.0.tgz
     version: 1.1.0
-generated: "2021-06-02T19:03:16.04507772Z"
+generated: "2021-06-07T07:30:46.296602938Z"
