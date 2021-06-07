@@ -61,7 +61,16 @@ helm install my-release iver-wharf/wharf-helm
 | {{ template "wharf-helm.imageColumns" $defaultValues.providers_gitlab_image }}
 | {{ template "wharf-helm.imageColumns" $defaultValues.providers_azuredevops_image }}
 
-{{ template "chart.valuesSection" . }}
+## Values
+
+{{ range .Values }}
+### `{{ .Key }}`
+
+> {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }}
+
+*Type:* `{{ .Type }}`\
+*Default:* {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }}
+{{ end }}
 
 ## Smart environment fields
 

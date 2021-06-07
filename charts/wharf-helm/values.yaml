@@ -283,13 +283,13 @@ api:
 # `providers.gitea.image`, etc.
 providers:
   # Example new provider, with all of its settings.
-  exampleProvider:
+  example:
     # -- If this is `false` or unset then this provider will be ignored.
     enabled: false
   
     # -- The provider name affects the pod name, service name, URL base, et.al.
     # If left unset, it will default to name of `providers.*` map/directory key
-    # (ex: `providers.exampleProvider` => `"exampleProvider"`)
+    # (ex: `providers.example` => `"example"`)
     nameOverride: example-provider
   
     # -- Overrides URL base path
@@ -402,7 +402,7 @@ providers:
 
   gitlab:
     # -- There are far more settings available. Take a look at the
-    # `providers.exampleProvider.*` settings for a comparison.
+    # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `gitlab` provider
     image: quay.io/iver-wharf/wharf-provider-gitlab:v1.1.1
@@ -422,7 +422,7 @@ providers:
 
   github:
     # -- There are far more settings available. Take a look at the
-    # `providers.exampleProvider.*` settings for a comparison.
+    # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `github` provider
     image: quay.io/iver-wharf/wharf-provider-github:v1.1.1
@@ -442,7 +442,7 @@ providers:
 
   azuredevops:
     # -- There are far more settings available. Take a look at the
-    # `providers.exampleProvider.*` settings for a comparison.
+    # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `azuredevops` provider
     image: quay.io/iver-wharf/wharf-provider-azuredevops:v1.1.1
