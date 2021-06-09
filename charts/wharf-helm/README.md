@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square)
+![Version: 1.1.4](https://img.shields.io/badge/Version-1.1.4-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
@@ -40,671 +40,782 @@ helm install my-release iver-wharf/wharf-helm
 
 ## Values
 
-### (object) `api.affinity`
+### `api.affinity`
 
-Description: [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+> [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (string) `api.ciToken`
+### `api.ciToken`
 
-Description: Jenkins webhook secret token used when starting new builds. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Jenkins webhook secret token used when starting new builds. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"changeit"`
+*Type:* `string`\
+*Default:* `"changeit"`
 
-### (string) `api.ciUrl`
+### `api.ciUrl`
 
-Description: Jenkins webhook endpoint used when starting new builds. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Jenkins webhook endpoint used when starting new builds. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"http://jenkins.example.com/generic-webhook-trigger/invoke"`
+*Type:* `string`\
+*Default:* `"http://jenkins.example.com/generic-webhook-trigger/invoke"`
 
-### (int) `api.containerPort`
+### `api.containerPort`
 
-Description: Container port. This needs to correlate to the port that the application listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
+> Container port. This needs to correlate to the port that the application listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
 
-Default: `8080`
+*Type:* `int`\
+*Default:* `8080`
 
-### (object) `api.containerSecurityContext`
+### `api.containerSecurityContext`
 
-Description: Security context inside the container. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container)
+> Security context inside the container. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (string) `api.db.driver`
+### `api.db.driver`
 
-Description: Currently only `"postgres"` is a valid value here. Set to `null` or empty string `""` if you wish to populate the `DBHOST`, `DBPORT`, `DBUSER`, `DBPASS` environment variables yourself via `api.extraEnvs` Sets `DBDRIVER` environment variable. Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
+> Currently only `"postgres"` is a valid value here. Set to `null` or empty string `""` if you wish to populate the `DBHOST`, `DBPORT`, `DBUSER`, `DBPASS` environment variables yourself via `api.extraEnvs` Sets `DBDRIVER` environment variable. Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"postgres"`
+*Type:* `string`\
+*Default:* `"postgres"`
 
-### (string) `api.db.host`
+### `api.db.host`
 
-Description: Database hostname used when connecting to the database. Sets `DBHOST` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Database hostname used when connecting to the database. Sets `DBHOST` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"wharf-db"`
+*Type:* `string`\
+*Default:* `"wharf-db"`
 
-### (string) `api.db.name`
+### `api.db.name`
 
-Description: Name of the database (or "schema" in MySQL terms) holding all the tables. Sets `DBNAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Name of the database (or "schema" in MySQL terms) holding all the tables. Sets `DBNAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"wharf"`
+*Type:* `string`\
+*Default:* `"wharf"`
 
-### (string) `api.db.password`
+### `api.db.password`
 
-Description: Password used when connecting to the database. Sets `DBPASS` environment variable. Recommended to pull this from a secret. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Password used when connecting to the database. Sets `DBPASS` environment variable. Recommended to pull this from a secret. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"changeit"`
+*Type:* `string`\
+*Default:* `"changeit"`
 
-### (string) `api.db.port`
+### `api.db.port`
 
-Description: Database port used when connecting to the database. Sets `DBPORT` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Database port used when connecting to the database. Sets `DBPORT` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"5432"`
+*Type:* `string`\
+*Default:* `"5432"`
 
-### (string) `api.db.username`
+### `api.db.username`
 
-Description: Username used when connecting to the database. Sets `DBUSER` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Username used when connecting to the database. Sets `DBUSER` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"postgres"`
+*Type:* `string`\
+*Default:* `"postgres"`
 
-### (list) `api.extraEnvs`
+### `api.extraEnvs`
 
-Description: If `api.db.driver` is unset, then you must populate your own database connection here. [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
+> If `api.db.driver` is unset, then you must populate your own database connection here. [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (string) `api.image`
+### `api.image`
 
-Description: Docker image that runs the frontend/web
+> Docker image that runs the frontend/web
 
-Default: `"quay.io/iver-wharf/wharf-api:v4.0.0"`
+*Type:* `string`\
+*Default:* `"quay.io/iver-wharf/wharf-api:v4.0.0"`
 
-### (string) `api.imagePullPolicy`
+### `api.imagePullPolicy`
 
-Description: [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+> [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
 
-Default: `""`
+*Type:* `string`\
+*Default:* `""`
 
-### (object) `api.livenessProbe`
+### `api.livenessProbe`
 
-Description: Unhealthy liveness probes makes pod restart. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+> Unhealthy liveness probes makes pod restart. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
-Default: `{"httpGet":{"path":"/health","port":"http"}}`
+*Type:* `object`\
+*Default:* `{"httpGet":{"path":"/health","port":"http"}}`
 
-### (object) `api.nodeSelector`
+### `api.nodeSelector`
 
-Description: Select which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
+> Select which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
 
-Default: `{"kubernetes.io/os":"linux"}`
+*Type:* `object`\
+*Default:* `{"kubernetes.io/os":"linux"}`
 
-### (object) `api.podSecurityContext`
+### `api.podSecurityContext`
 
-Description: Security context on the pod level. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)
+> Security context on the pod level. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (string) `api.rabbitmq.connAttempts`
+### `api.rabbitmq.connAttempts`
 
-Description: When the Wharf API starts up, how many times should it attempt to connect to the RabbitMQ instance before giving up and restarting? Sets `RABBITMQCONNATTEMPTS` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> When the Wharf API starts up, how many times should it attempt to connect to the RabbitMQ instance before giving up and restarting? Sets `RABBITMQCONNATTEMPTS` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"10"`
+*Type:* `string`\
+*Default:* `"10"`
 
-### (bool) `api.rabbitmq.enabled`
+### `api.rabbitmq.enabled`
 
-Description: `true` to enable RabbitMQ integration, `false` to disable it. All other `api.rabbitmq...` settings are ignored if RabbitMQ has been disabled. Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
+> `true` to enable RabbitMQ integration, `false` to disable it. All other `api.rabbitmq...` settings are ignored if RabbitMQ has been disabled. Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `false`
+*Type:* `bool`\
+*Default:* `false`
 
-### (string) `api.rabbitmq.host`
+### `api.rabbitmq.host`
 
-Description:
+>
 
-Default: `"rabbitmq.local"`
+*Type:* `string`\
+*Default:* `"rabbitmq.local"`
 
-### (string) `api.rabbitmq.name`
+### `api.rabbitmq.name`
 
-Description: RabbitMQ queue name to push RabbitMQ messages into. Sets `RABBITMQNAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> RabbitMQ queue name to push RabbitMQ messages into. Sets `RABBITMQNAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"wharf_queue"`
+*Type:* `string`\
+*Default:* `"wharf_queue"`
 
-### (string) `api.rabbitmq.password`
+### `api.rabbitmq.password`
 
-Description: Password used by Wharf to authenticate with RabbitMQ. Sets `RABBITMQPASS` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Password used by Wharf to authenticate with RabbitMQ. Sets `RABBITMQPASS` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"changeit"`
+*Type:* `string`\
+*Default:* `"changeit"`
 
-### (string) `api.rabbitmq.port`
+### `api.rabbitmq.port`
 
-Description: Host port used by Wharf to connect to RabbitMQ. Sets `RABBITMQPORT` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Host port used by Wharf to connect to RabbitMQ. Sets `RABBITMQPORT` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"5672"`
+*Type:* `string`\
+*Default:* `"5672"`
 
-### (string) `api.rabbitmq.username`
+### `api.rabbitmq.username`
 
-Description: Username used by Wharf to authenticate with RabbitMQ. Sets `RABBITMQUSER` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Username used by Wharf to authenticate with RabbitMQ. Sets `RABBITMQUSER` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"user"`
+*Type:* `string`\
+*Default:* `"user"`
 
-### (string) `api.rabbitmq.vHost`
+### `api.rabbitmq.vHost`
 
-Description: RabbitMQ virtual host to push RabbitMQ messages into. Sets `RABBITMQVHOST` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> RabbitMQ virtual host to push RabbitMQ messages into. Sets `RABBITMQVHOST` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
-Default: `"/"`
+*Type:* `string`\
+*Default:* `"/"`
 
-### (object) `api.readinessProbe`
+### `api.readinessProbe`
 
-Description: Unhealthy readiness probes makes pod never recieve network traffic. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+> Unhealthy readiness probes makes pod never recieve network traffic. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
-Default: `{"httpGet":{"path":"/health","port":"http"}}`
+*Type:* `object`\
+*Default:* `{"httpGet":{"path":"/health","port":"http"}}`
 
-### (int) `api.replicaCount`
+### `api.replicaCount`
 
-Description: Number of deployment replicas.
+> Number of deployment replicas.
 
-Default: `1`
+*Type:* `int`\
+*Default:* `1`
 
-### (object) `api.resources`
+### `api.resources`
 
-Description: Resource requests and limits. It's best practice to apply some appropriate values here [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
+> Resource requests and limits. It's best practice to apply some appropriate values here [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (int) `api.servicePort`
+### `api.servicePort`
 
-Description: Service port. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
+> Service port. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
 
-Default: `80`
+*Type:* `int`\
+*Default:* `80`
 
-### (string) `api.serviceType`
+### `api.serviceType`
 
-Description: Service type. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
+> Service type. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
 
-Default: `"ClusterIP"`
+*Type:* `string`\
+*Default:* `"ClusterIP"`
 
-### (list) `api.tolerations`
+### `api.tolerations`
 
-Description: [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+> [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (string) `fullnameOverride`
+### `fullnameOverride`
 
-Description: String to fully override the pod and service names. If set, deployments, services, ingresses, *et.al*, will use this name, and `nameOverride` will be ignored.
+> String to fully override the pod and service names. If set, deployments, services, ingresses, *et.al*, will use this name, and `nameOverride` will be ignored.
 
-Default: `""`
+*Type:* `string`\
+*Default:* `""`
 
-### (string) `global.instanceId`
+### `global.instanceId`
 
-Description: Used in RabbitMQ & Jenkins to multiplex jobs and messages on the same instances while keeping track of their origin.
+> Used in RabbitMQ & Jenkins to multiplex jobs and messages on the same instances while keeping track of their origin.
 
-Default: `"dev"`
+*Type:* `string`\
+*Default:* `"dev"`
 
-### (bool) `global.isProduction`
+### `global.isProduction`
 
-Description: This flag is forwarded to the frontend where it can be used to show slightly different styling depending on if it's for production or not.
+> This flag is forwarded to the frontend where it can be used to show slightly different styling depending on if it's for production or not.
 
-Default: `false`
+*Type:* `bool`\
+*Default:* `false`
 
-### (string) `global.url`
+### `global.url`
 
-Description: URL of this Wharf instance. Mostly only used in the `ingress` and `ingressRoute` settings to route the appropriate requests, but also in Wharf's API so it can properly refer to itself.
+> URL of this Wharf instance. Mostly only used in the `ingress` and `ingressRoute` settings to route the appropriate requests, but also in Wharf's API so it can properly refer to itself.
 
-Default: `"wharf.example.org"`
+*Type:* `string`\
+*Default:* `"wharf.example.org"`
 
-### (list) `imagePullSecrets`
+### `imagePullSecrets`
 
-Description:
+>
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (object) `ingress.annotations`
+### `ingress.annotations`
 
-Description:
+>
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (string) `ingress.apiVersion`
+### `ingress.apiVersion`
 
-Description:
+>
 
-Default: `"networking.k8s.io/v1beta1"`
+*Type:* `string`\
+*Default:* `"networking.k8s.io/v1beta1"`
 
-### (bool) `ingress.enabled`
+### `ingress.enabled`
 
-Description: Enables deploying a preconfigured Kubernetes Ingress to route traffic to the different Wharf services, using `global.url` as host name.
+> Enables deploying a preconfigured Kubernetes Ingress to route traffic to the different Wharf services, using `global.url` as host name.
 
-Default: `false`
+*Type:* `bool`\
+*Default:* `false`
 
-### (list) `ingress.extraPaths`
+### `ingress.extraPaths`
 
-Description: Optionally add additional paths that will be added on top of the routes for the web `/`, main API `/api`, and the provider APIs `/import/*`
+> Optionally add additional paths that will be added on top of the routes for the web `/`, main API `/api`, and the provider APIs `/import/*`
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (object) `ingress.tls`
+### `ingress.tls`
 
-Description:
+>
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (string) `ingressRoute.apiVersion`
+### `ingressRoute.apiVersion`
 
-Description:
+>
 
-Default: `"traefik.containo.us/v1alpha1"`
+*Type:* `string`\
+*Default:* `"traefik.containo.us/v1alpha1"`
 
-### (bool) `ingressRoute.enabled`
+### `ingressRoute.enabled`
 
-Description: Enables deploying a preconfigured Traefik IngressRoute to route traffic to the different Wharf services, using `global.url` as host name.
+> Enables deploying a preconfigured Traefik IngressRoute to route traffic to the different Wharf services, using `global.url` as host name.
 
-Default: `false`
+*Type:* `bool`\
+*Default:* `false`
 
-### (object) `ingressRoute.entries[0].annotations`
+### `ingressRoute.entries[0].annotations`
 
-Description:
+>
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (list) `ingressRoute.entries[0].entryPoints`
+### `ingressRoute.entries[0].entryPoints`
 
-Description: Sample Traefik entrypoint that could be for `:80` traffic
+> Sample Traefik entrypoint that could be for `:80` traffic
 
-Default: `["web"]`
+*Type:* `list`\
+*Default:* `["web"]`
 
-### (list) `ingressRoute.entries[0].middlewares`
+### `ingressRoute.entries[0].middlewares`
 
-Description: Good idea is to hook up the RedirectScheme to redirect http->https
+> Good idea is to hook up the RedirectScheme to redirect http->https
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (string) `ingressRoute.entries[0].name`
+### `ingressRoute.entries[0].name`
 
-Description: Only used in the IngressRoute object names
+> Only used in the IngressRoute object names
 
-Default: `"http"`
+*Type:* `string`\
+*Default:* `"http"`
 
-### (object) `ingressRoute.entries[0].tls`
+### `ingressRoute.entries[0].tls`
 
-Description:
+>
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (object) `ingressRoute.entries[1].annotations`
+### `ingressRoute.entries[1].annotations`
 
-Description:
+>
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (list) `ingressRoute.entries[1].entryPoints`
+### `ingressRoute.entries[1].entryPoints`
 
-Description: Sample Traefik entrypoint that could be for `:443` traffic
+> Sample Traefik entrypoint that could be for `:443` traffic
 
-Default: `["websecure"]`
+*Type:* `list`\
+*Default:* `["websecure"]`
 
-### (list) `ingressRoute.entries[1].middlewares`
+### `ingressRoute.entries[1].middlewares`
 
-Description:
+>
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (string) `ingressRoute.entries[1].name`
+### `ingressRoute.entries[1].name`
 
-Description: Only used in the IngressRoute object names
+> Only used in the IngressRoute object names
 
-Default: `"https"`
+*Type:* `string`\
+*Default:* `"https"`
 
-### (string) `ingressRoute.entries[1].tls.secretName`
+### `ingressRoute.entries[1].tls.secretName`
 
-Description:
+>
 
-Default: `"wharf-example-tls"`
+*Type:* `string`\
+*Default:* `"wharf-example-tls"`
 
-### (list) `ingressRoute.extraRoutes`
+### `ingressRoute.extraRoutes`
 
-Description: Optionally add additional routes that will be added on top of the routes for the web `/`, main API `/api`, and the provider APIs `/import/*`
+> Optionally add additional routes that will be added on top of the routes for the web `/`, main API `/api`, and the provider APIs `/import/*`
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (string) `nameOverride`
+### `nameOverride`
 
-Description: String to partially override the pod and service names. Will maintain the release name.
+> String to partially override the pod and service names. Will maintain the release name.
 
-Default: `""`
+*Type:* `string`\
+*Default:* `""`
 
-### (bool) `providers.azuredevops.enabled`
+### `providers.azuredevops.enabled`
 
-Description: There are far more settings available. Take a look at the `providers.exampleProvider.*` settings for a comparison.
+> There are far more settings available. Take a look at the `providers.example.*` settings for a comparison.
 
-Default: `true`
+*Type:* `bool`\
+*Default:* `true`
 
-### (string) `providers.azuredevops.image`
+### `providers.azuredevops.image`
 
-Description: Default image used in the `azuredevops` provider
+> Default image used in the `azuredevops` provider
 
-Default: `"quay.io/iver-wharf/wharf-provider-azuredevops:v1.1.1"`
+*Type:* `string`\
+*Default:* `"quay.io/iver-wharf/wharf-provider-azuredevops:v1.1.1"`
 
-### (string) `providers.azuredevops.imagePullPolicy`
+### `providers.azuredevops.imagePullPolicy`
 
-Description: Default image pull policy used in the `azuredevops` provider
+> Default image pull policy used in the `azuredevops` provider
 
-Default: `"IfNotPresent"`
+*Type:* `string`\
+*Default:* `"IfNotPresent"`
 
-### (object) `providers.azuredevops.nodeSelector`
+### `providers.azuredevops.nodeSelector`
 
-Description: Default node selector for the `azuredevops` provider
+> Default node selector for the `azuredevops` provider
 
-Default: `{"kubernetes.io/os":"linux"}`
+*Type:* `object`\
+*Default:* `{"kubernetes.io/os":"linux"}`
 
-### (object) `providers.azuredevops.resources`
+### `providers.azuredevops.resources`
 
-Description: Default resources requested by the `azuredevops` provider
+> Default resources requested by the `azuredevops` provider
 
-Default: `{"limits":{"cpu":"100m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}`
+*Type:* `object`\
+*Default:* `{"limits":{"cpu":"100m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}`
 
-### (object) `providers.example.affinity`
+### `providers.example.affinity`
 
-Description: [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+> [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (object) `providers.example.annotations`
+### `providers.example.annotations`
 
-Description: Additional annotations to add to this provider's deployment
+> Additional annotations to add to this provider's deployment
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (int) `providers.example.containerPort`
+### `providers.example.containerPort`
 
-Description: Container port. This needs to correlate to the port that the application listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
+> Container port. This needs to correlate to the port that the application listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
 
-Default: `8080`
+*Type:* `int`\
+*Default:* `8080`
 
-### (object) `providers.example.containerSecurityContext`
+### `providers.example.containerSecurityContext`
 
-Description: Security context inside the container. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container)
+> Security context inside the container. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (bool) `providers.example.enabled`
+### `providers.example.enabled`
 
-Description: If this is `false` or unset then this provider will be ignored.
+> If this is `false` or unset then this provider will be ignored.
 
-Default: `false`
+*Type:* `bool`\
+*Default:* `false`
 
-### (list) `providers.example.extraEnvs`
+### `providers.example.extraEnvs`
 
-Description: This chart adds `WHARF_API_URL` and `WHARF_PROVIDER_URL_BASE` environment variables, but you are free to add additional environment variables here. [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
+> This chart adds `WHARF_API_URL` and `WHARF_PROVIDER_URL_BASE` environment variables, but you are free to add additional environment variables here. [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (string) `providers.example.image`
+### `providers.example.image`
 
-Description: Docker image that runs the provider API
+> Docker image that runs the provider API
 
-Default: `"ubuntu:latest"`
+*Type:* `string`\
+*Default:* `"ubuntu:latest"`
 
-### (string) `providers.example.imagePullPolicy`
+### `providers.example.imagePullPolicy`
 
-Description: [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+> [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
 
-Default: `""`
+*Type:* `string`\
+*Default:* `""`
 
-### (list) `providers.example.imagePullSecrets`
+### `providers.example.imagePullSecrets`
 
-Description:
+>
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (object) `providers.example.labels`
+### `providers.example.labels`
 
-Description: Additional labels to add to this provider's deployment
+> Additional labels to add to this provider's deployment
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (object) `providers.example.livenessProbe`
+### `providers.example.livenessProbe`
 
-Description: Unhealthy liveness probes makes pod restart. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+> Unhealthy liveness probes makes pod restart. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
-Default: `{"httpGet":{"path":"/","port":"http"}}`
+*Type:* `object`\
+*Default:* `{"httpGet":{"path":"/","port":"http"}}`
 
-### (string) `providers.example.nameOverride`
+### `providers.example.nameOverride`
 
-Description: The provider name affects the pod name, service name, URL base, et.al. If left unset, it will default to name of `providers.*` map/directory key (ex: `providers.example` => `"example"`)
+> The provider name affects the pod name, service name, URL base, et.al. If left unset, it will default to name of `providers.*` map/directory key (ex: `providers.example` => `"example"`)
 
-Default: `"example-provider"`
+*Type:* `string`\
+*Default:* `"example-provider"`
 
-### (object) `providers.example.nodeSelector`
+### `providers.example.nodeSelector`
 
-Description: Select which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
+> Select which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (object) `providers.example.podAnnotations`
+### `providers.example.podAnnotations`
 
-Description:
+>
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (object) `providers.example.podLabels`
+### `providers.example.podLabels`
 
-Description: Additional labels to add to this provider's pod
+> Additional labels to add to this provider's pod
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (object) `providers.example.podSecurityContext`
+### `providers.example.podSecurityContext`
 
-Description: Security context on the pod level. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)
+> Security context on the pod level. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (object) `providers.example.readinessProbe`
+### `providers.example.readinessProbe`
 
-Description: Unhealthy readiness probes makes pod never recieve network traffic. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+> Unhealthy readiness probes makes pod never recieve network traffic. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
-Default: `{"httpGet":{"path":"/","port":"http"}}`
+*Type:* `object`\
+*Default:* `{"httpGet":{"path":"/","port":"http"}}`
 
-### (int) `providers.example.replicaCount`
+### `providers.example.replicaCount`
 
-Description: Number of deployment replicas.
+> Number of deployment replicas.
 
-Default: `1`
+*Type:* `int`\
+*Default:* `1`
 
-### (object) `providers.example.resources`
+### `providers.example.resources`
 
-Description: Resource requests and limits. It's best practice to apply some appropriate values here [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
+> Resource requests and limits. It's best practice to apply some appropriate values here [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (int) `providers.example.servicePort`
+### `providers.example.servicePort`
 
-Description: Service port. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
+> Service port. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
 
-Default: `80`
+*Type:* `int`\
+*Default:* `80`
 
-### (string) `providers.example.serviceType`
+### `providers.example.serviceType`
 
-Description: Service type. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
+> Service type. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
 
-Default: `"ClusterIP"`
+*Type:* `string`\
+*Default:* `"ClusterIP"`
 
-### (list) `providers.example.tolerations`
+### `providers.example.tolerations`
 
-Description: [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+> [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (string) `providers.example.urlBaseOverride`
+### `providers.example.urlBaseOverride`
 
-Description: Overrides URL base path If left unset, it will default to `"/import/"` followed by name of provider (ex: `"/import/example-provider"`). Default is affected by the `providers.*.nameOverride` setting.
+> Overrides URL base path If left unset, it will default to `"/import/"` followed by name of provider (ex: `"/import/example-provider"`). Default is affected by the `providers.*.nameOverride` setting.
 
-Default: `"/import/my-example-provider"`
+*Type:* `string`\
+*Default:* `"/import/my-example-provider"`
 
-### (bool) `providers.github.enabled`
+### `providers.github.enabled`
 
-Description: There are far more settings available. Take a look at the `providers.exampleProvider.*` settings for a comparison.
+> There are far more settings available. Take a look at the `providers.example.*` settings for a comparison.
 
-Default: `true`
+*Type:* `bool`\
+*Default:* `true`
 
-### (string) `providers.github.image`
+### `providers.github.image`
 
-Description: Default image used in the `github` provider
+> Default image used in the `github` provider
 
-Default: `"quay.io/iver-wharf/wharf-provider-github:v1.1.1"`
+*Type:* `string`\
+*Default:* `"quay.io/iver-wharf/wharf-provider-github:v1.1.1"`
 
-### (string) `providers.github.imagePullPolicy`
+### `providers.github.imagePullPolicy`
 
-Description: Default image pull policy used in the `github` provider
+> Default image pull policy used in the `github` provider
 
-Default: `"IfNotPresent"`
+*Type:* `string`\
+*Default:* `"IfNotPresent"`
 
-### (object) `providers.github.nodeSelector`
+### `providers.github.nodeSelector`
 
-Description: Default node selector for the `github` provider
+> Default node selector for the `github` provider
 
-Default: `{"kubernetes.io/os":"linux"}`
+*Type:* `object`\
+*Default:* `{"kubernetes.io/os":"linux"}`
 
-### (object) `providers.github.resources`
+### `providers.github.resources`
 
-Description: Default resources requested by the `github` provider
+> Default resources requested by the `github` provider
 
-Default: `{"limits":{"cpu":"100m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}`
+*Type:* `object`\
+*Default:* `{"limits":{"cpu":"100m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}`
 
-### (bool) `providers.gitlab.enabled`
+### `providers.gitlab.enabled`
 
-Description: There are far more settings available. Take a look at the `providers.exampleProvider.*` settings for a comparison.
+> There are far more settings available. Take a look at the `providers.example.*` settings for a comparison.
 
-Default: `true`
+*Type:* `bool`\
+*Default:* `true`
 
-### (string) `providers.gitlab.image`
+### `providers.gitlab.image`
 
-Description: Default image used in the `gitlab` provider
+> Default image used in the `gitlab` provider
 
-Default: `"quay.io/iver-wharf/wharf-provider-gitlab:v1.1.1"`
+*Type:* `string`\
+*Default:* `"quay.io/iver-wharf/wharf-provider-gitlab:v1.1.1"`
 
-### (string) `providers.gitlab.imagePullPolicy`
+### `providers.gitlab.imagePullPolicy`
 
-Description: Default image pull policy used in the `gitlab` provider
+> Default image pull policy used in the `gitlab` provider
 
-Default: `"IfNotPresent"`
+*Type:* `string`\
+*Default:* `"IfNotPresent"`
 
-### (object) `providers.gitlab.nodeSelector`
+### `providers.gitlab.nodeSelector`
 
-Description: Default node selector for the `gitlab` provider
+> Default node selector for the `gitlab` provider
 
-Default: `{"kubernetes.io/os":"linux"}`
+*Type:* `object`\
+*Default:* `{"kubernetes.io/os":"linux"}`
 
-### (object) `providers.gitlab.resources`
+### `providers.gitlab.resources`
 
-Description: Default resources requested by the GitLab provider
+> Default resources requested by the GitLab provider
 
-Default: `{"limits":{"cpu":"100m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}`
+*Type:* `object`\
+*Default:* `{"limits":{"cpu":"100m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}`
 
-### (bool) `serviceAccount.create`
+### `serviceAccount.create`
 
-Description: Specifies whether a service account should be created
+> Specifies whether a service account should be created
 
-Default: `true`
+*Type:* `bool`\
+*Default:* `true`
 
-### (string) `serviceAccount.name`
+### `serviceAccount.name`
 
-Description: The name of the service account to use. If not set and `serviceAccount.create` is `true`, a name is generated using the fullname template
+> The name of the service account to use. If not set and `serviceAccount.create` is `true`, a name is generated using the fullname template
 
-Default: `""`
+*Type:* `string`\
+*Default:* `""`
 
-### (object) `web.affinity`
+### `web.affinity`
 
-Description: [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+> [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (int) `web.containerPort`
+### `web.containerPort`
 
-Description: Container port. This needs to correlate to the port that the application listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
+> Container port. This needs to correlate to the port that the application listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
 
-Default: `8080`
+*Type:* `int`\
+*Default:* `8080`
 
-### (object) `web.containerSecurityContext`
+### `web.containerSecurityContext`
 
-Description: Security context inside the container. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container)
+> Security context inside the container. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (string) `web.image`
+### `web.image`
 
-Description: Docker image that runs the frontend/web
+> Docker image that runs the frontend/web
 
-Default: `"quay.io/iver-wharf/wharf-web:v1.2.0"`
+*Type:* `string`\
+*Default:* `"quay.io/iver-wharf/wharf-web:v1.2.0"`
 
-### (string) `web.imagePullPolicy`
+### `web.imagePullPolicy`
 
-Description: [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+> [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
 
-Default: `""`
+*Type:* `string`\
+*Default:* `""`
 
-### (object) `web.livenessProbe`
+### `web.livenessProbe`
 
-Description: Unhealthy liveness probes makes pod restart. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+> Unhealthy liveness probes makes pod restart. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
-Default: `{"httpGet":{"path":"/","port":"http"}}`
+*Type:* `object`\
+*Default:* `{"httpGet":{"path":"/","port":"http"}}`
 
-### (object) `web.nodeSelector`
+### `web.nodeSelector`
 
-Description: Select which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
+> Select which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
 
-Default: `{"kubernetes.io/os":"linux"}`
+*Type:* `object`\
+*Default:* `{"kubernetes.io/os":"linux"}`
 
-### (object) `web.podSecurityContext`
+### `web.podSecurityContext`
 
-Description: Security context on the pod level. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)
+> Security context on the pod level. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (object) `web.readinessProbe`
+### `web.readinessProbe`
 
-Description: Unhealthy readiness probes makes pod never recieve network traffic. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+> Unhealthy readiness probes makes pod never recieve network traffic. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
-Default: `{"httpGet":{"path":"/","port":"http"}}`
+*Type:* `object`\
+*Default:* `{"httpGet":{"path":"/","port":"http"}}`
 
-### (int) `web.replicaCount`
+### `web.replicaCount`
 
-Description: Number of deployment replicas.
+> Number of deployment replicas.
 
-Default: `1`
+*Type:* `int`\
+*Default:* `1`
 
-### (object) `web.resources`
+### `web.resources`
 
-Description: Resource requests and limits. It's best practice to apply some appropriate values here [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
+> Resource requests and limits. It's best practice to apply some appropriate values here [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 
-Default: `{}`
+*Type:* `object`\
+*Default:* `{}`
 
-### (int) `web.servicePort`
+### `web.servicePort`
 
-Description: Service port. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
+> Service port. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
 
-Default: `80`
+*Type:* `int`\
+*Default:* `80`
 
-### (string) `web.serviceType`
+### `web.serviceType`
 
-Description: Service type. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
+> Service type. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
 
-Default: `"ClusterIP"`
+*Type:* `string`\
+*Default:* `"ClusterIP"`
 
-### (list) `web.tolerations`
+### `web.tolerations`
 
-Description: [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+> [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 
-Default: `[]`
+*Type:* `list`\
+*Default:* `[]`
 
-### (list) `web.volumeMounts`
+### `web.volumeMounts`
 
-Description: Recommended to add `emptyDir` volumes for nginx to have faster and more flexible caching.
+> Recommended to add `emptyDir` volumes for nginx to have faster and more flexible caching.
 
-Default: `[{"mountPath":"/var/cache/nginx","name":"cache"},{"mountPath":"/run","name":"run"}]`
+*Type:* `list`\
+*Default:* `[{"mountPath":"/var/cache/nginx","name":"cache"},{"mountPath":"/run","name":"run"}]`
 
-### (list) `web.volumes`
+### `web.volumes`
 
-Description: Recommended to add `emptyDir` volumes for nginx to have faster and more flexible caching.
+> Recommended to add `emptyDir` volumes for nginx to have faster and more flexible caching.
 
-Default: `[{"emptyDir":{},"name":"cache"},{"emptyDir":{},"name":"run"}]`
+*Type:* `list`\
+*Default:* `[{"emptyDir":{},"name":"cache"},{"emptyDir":{},"name":"run"}]`
 
 ## Smart environment fields
 
