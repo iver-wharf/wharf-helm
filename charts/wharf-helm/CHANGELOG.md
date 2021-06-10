@@ -17,7 +17,7 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 
 - Changed image version of `web` from v1.2.0 to v1.3.0. (#15)
 
-- Added `GIN_MODE=release` environment variable to `api` service when
+- Added `GIN_MODE=release` environment variable to all API services when
   `.Values.global.isProduction` is set, which will suppress debug logs. (#15)
 
 ## v1.1.2-v1.1.4
