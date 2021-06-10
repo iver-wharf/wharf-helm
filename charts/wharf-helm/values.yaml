@@ -23,7 +23,7 @@ web:
   replicaCount: 1
 
   # -- Docker image that runs the frontend/web
-  image: quay.io/iver-wharf/wharf-web:v1.2.0
+  image: quay.io/iver-wharf/wharf-web:v1.3.0
 
   # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
   imagePullPolicy: ""

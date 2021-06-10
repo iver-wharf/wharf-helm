@@ -13,6 +13,17 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v1.1.5
+
+- Changed image version of `web` from v1.2.0 to v1.3.0. (#15)
+
+- Added `GIN_MODE=release` environment variable to `api` service when
+  `.Values.global.isProduction` is set, which will suppress debug logs. (#15)
+
+## v1.1.2-v1.1.4
+
+- Changed documentation. Nothing major. (#12, #13, #14)
+
 ## v1.1.1
 
 - Changed to use real [Quay.io images](https://quay.io/organization/iver-wharf)
