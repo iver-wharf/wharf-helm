@@ -76,7 +76,7 @@ spec:
               value: {{ printf "http://%s-api" $fullName | quote }}
             - name: WHARF_PROVIDER_URL_BASE
               value: {{ $providerUrlBase | quote }}
-            {{- if .Values.global.isProduction }}
+            {{- if $.Values.global.isProduction }}
             - name: GIN_MODE
               value: release
             {{- end }}
