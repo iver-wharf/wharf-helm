@@ -53,6 +53,11 @@ spec:
             - name: CI_TOKEN
               {{- .Values.api.ciToken | include "wharf-helm.environmentValue" | nindent 14 }}
 
+            {{- if .Values.global.isProduction }}
+            - name: GIN_MODE
+              value: release
+            {{- end }}
+
             {{- with .Values.api.rabbitmq }}
             {{- if .enabled }}
             - name: RABBITMQENABLED
