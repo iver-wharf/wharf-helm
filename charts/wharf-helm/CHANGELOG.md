@@ -13,6 +13,11 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v1.1.6
+
+- Changed image version of `web` from v1.3.0 to v1.3.1. (#16)
+- Changed image version of `api` from v4.0.0 to v4.1.0. (#16)
+
 ## v1.1.5
 
 - Changed image version of `web` from v1.2.0 to v1.3.0. (#15)
