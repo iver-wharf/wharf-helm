@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 1.1.6](https://img.shields.io/badge/Version-1.1.6-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
@@ -123,6 +123,20 @@ helm install my-release iver-wharf/wharf-helm
 
 *Type:* `list`\
 *Default:* `[]`
+
+### `api.http.basicAuth`
+
+> Adds BasicAuth to the API. This is expiermental and is not automatically applied to the web, but only applied to the API. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+
+*Type:* `string`\
+*Default:* `""`
+
+### `api.http.bindAddress`
+
+> Sets the IP address and port to bind the API server to. Sets `BIND_ADDRESS` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+
+*Type:* `string`\
+*Default:* `"0.0.0.0:8080"`
 
 ### `api.image`
 
@@ -474,6 +488,13 @@ helm install my-release iver-wharf/wharf-helm
 *Type:* `object`\
 *Default:* `{}`
 
+### `providers.example.apiUrlOverride`
+
+> Overrides URL used to connect to the Wharf API. Sets `WHARF_API_URL` environment variable. Defaults to the full release name suffixed with "-api", to target the Wharf API Kubernetes service, when left unset. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+
+*Type:* `string`\
+*Default:* `"http://my-custom-wharf-api-service"`
+
 ### `providers.example.containerPort`
 
 > Container port. This needs to correlate to the port that the application listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
@@ -501,6 +522,13 @@ helm install my-release iver-wharf/wharf-helm
 
 *Type:* `list`\
 *Default:* `[]`
+
+### `providers.example.http.bindAddress`
+
+> Sets the IP address and port to bind the API server to. Sets `BIND_ADDRESS` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+
+*Type:* `string`\
+*Default:* `"0.0.0.0:8080"`
 
 ### `providers.example.image`
 
@@ -620,6 +648,13 @@ helm install my-release iver-wharf/wharf-helm
 
 *Type:* `string`\
 *Default:* `"/import/my-example-provider"`
+
+### `providers.example.urlOverride`
+
+> Overrides outside URL to Wharf. Sets `WHARF_URL` environment variable. Defaults to the `global.url` value when unset. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+
+*Type:* `string`\
+*Default:* `"wharf.example.org"`
 
 ### `providers.github.enabled`
 

@@ -53,6 +53,13 @@ spec:
             - name: CI_TOKEN
               {{- .Values.api.ciToken | include "wharf-helm.environmentValue" | nindent 14 }}
 
+            {{- with .Values.api.http }}
+            - name: BASIC_AUTH
+              {{- .basicAuth | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: BIND_ADDRESS
+              {{- .bindAddress | include "wharf-helm.environmentValue" | nindent 14 }}
+            {{- end }}{{/* with .Values.api.http */}}
+
             {{- if .Values.global.isProduction }}
             - name: GIN_MODE
               value: release
