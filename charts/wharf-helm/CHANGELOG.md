@@ -13,6 +13,19 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v1.2.0
+
+- Added more environment variables for the Wharf API: (#17)
+
+  - `.Values.api.http.basicAuth`: `BASIC_AUTH`
+  - `.Values.api.http.bindAddress`: `BIND_ADDRESS`
+
+- Added more environment variables for the Wharf providers: (#17)
+
+  - `.Values.provider.X.http.bindAddress`: `BIND_ADDRESS`
+  - `.Values.provider.X.urlOverride`: `WHARF_URL`
+  - `.Values.provider.X.apiUrlOverride`: `WHARF_API_URL`
+
 ## v1.1.6
 
 - Changed image version of `web` from v1.3.0 to v1.3.1. (#16)
