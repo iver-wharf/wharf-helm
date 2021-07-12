@@ -7,6 +7,8 @@
 */}}
 {{- $providerName := $provider.nameOverride | default $providerName }}
 {{- $providerUrlBase := $provider.urlBaseOverride | default (printf "/import/%s" $providerName) }}
+{{- $apiUrl := $provider.apiUrlOverride | default (printf "http://%s-api" $fullName) }}
+{{- $url := $provider.urlOverride | default $.Values.global.url }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -71,11 +73,16 @@ spec:
           {{- end }}
           env:
             - name: WHARF_URL
-              value: {{ $.Values.global.url | quote }}
+              {{- $url | include "wharf-helm.environmentValue" | nindent 14 }}
             - name: WHARF_API_URL
-              value: {{ printf "http://%s-api" $fullName | quote }}
+              {{- $apiUrl | include "wharf-helm.environmentValue" | nindent 14 }}
             - name: WHARF_PROVIDER_URL_BASE
               value: {{ $providerUrlBase | quote }}
+            {{- with $provider.http }}
+            - name: BIND_ADDRESS
+              {{- .bindAddress | include "wharf-helm.environmentValue" | nindent 14 }}
+            {{- end }}
+
             {{- if $.Values.global.isProduction }}
             - name: GIN_MODE
               value: release
