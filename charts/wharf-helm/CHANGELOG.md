@@ -13,6 +13,14 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v1.2.1
+
+- Changed image version of `web` from v1.3.1 to v1.3.2. (#18)
+- Changed image version of `api` from v4.1.0 to v4.1.1. (#18)
+- Changed image version of `providers.github` from v1.1.1 to v2.0.0. (#18)
+- Changed image version of `providers.gitlab` from v1.1.1 to v1.2.0. (#18)
+- Changed image version of `providers.azuredevops` from v1.1.1 to v1.2.0. (#18)
+
 ## v1.2.0
 
 - Added more environment variables for the Wharf API: (#17)
