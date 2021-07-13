@@ -23,7 +23,7 @@ web:
   replicaCount: 1
 
   # -- Docker image that runs the frontend/web
-  image: quay.io/iver-wharf/wharf-web:v1.3.1
+  image: quay.io/iver-wharf/wharf-web:v1.3.3
 
   # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
   imagePullPolicy: ""
@@ -106,7 +106,7 @@ api:
   replicaCount: 1
 
   # -- Docker image that runs the frontend/web
-  image: quay.io/iver-wharf/wharf-api:v4.1.0
+  image: quay.io/iver-wharf/wharf-api:v4.1.1
   
   # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
   imagePullPolicy: ""
@@ -435,7 +435,7 @@ providers:
     # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `gitlab` provider
-    image: quay.io/iver-wharf/wharf-provider-gitlab:v1.1.1
+    image: quay.io/iver-wharf/wharf-provider-gitlab:v1.2.0
     # -- Default image pull policy used in the `gitlab` provider
     imagePullPolicy: IfNotPresent
     # -- Default resources requested by the GitLab provider
@@ -455,7 +455,7 @@ providers:
     # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `github` provider
-    image: quay.io/iver-wharf/wharf-provider-github:v1.1.1
+    image: quay.io/iver-wharf/wharf-provider-github:v2.0.0
     # -- Default image pull policy used in the `github` provider
     imagePullPolicy: IfNotPresent
     # -- Default resources requested by the `github` provider
@@ -475,7 +475,7 @@ providers:
     # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `azuredevops` provider
-    image: quay.io/iver-wharf/wharf-provider-azuredevops:v1.1.1
+    image: quay.io/iver-wharf/wharf-provider-azuredevops:v1.2.0
     # -- Default image pull policy used in the `azuredevops` provider
     imagePullPolicy: IfNotPresent
     # -- Default resources requested by the `azuredevops` provider
