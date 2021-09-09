@@ -13,6 +13,18 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v2.0.0
+
+- BREAKING: Changed image version of `providers.azuredevops` from v1.2.0 to
+  v2.0.1. (#20)
+
+  See the changes on the release page [v2.0.0 wharf-provider-azuredevops](https://github.com/iver-wharf/wharf-provider-azuredevops/releases/tag/v2.0.0)
+  to list all breaking changes.
+
+- Changed image version of `web` from v1.3.3 to v1.4.0. (#20)
+
+- Changed image version of `api` from v4.1.1 to v4.2.0. (#20)
+
 ## v1.2.1
 
 - Changed image version of `web` from v1.3.1 to v1.3.3. (#18)

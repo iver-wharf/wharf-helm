@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6d3504733d1844c49a8678633b1a78f8)](https://www.codacy.com/gh/iver-wharf/wharf-helm/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iver-wharf/wharf-helm&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6d3504733d1844c49a8678633b1a78f8)](https://www.codacy.com/gh/iver-wharf/wharf-helm/dashboard?utm_source=github.com\&utm_medium=referral\&utm_content=iver-wharf/wharf-helm\&utm_campaign=Badge_Grade)
 
 Repository of Wharf's [Helm](https://helm.sh/) charts. Currently hosting:
 
@@ -24,7 +24,7 @@ The `README.md` files in each chart is generated using
    If you have Go installed, you may run:
 
    ```sh
-   go get -u github.com/norwoodj/helm-docs/cmd/helm-docs
+   go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.5.0
    ```
 
 2. Run `helm-docs`, preferrably before you create your pull requests:
