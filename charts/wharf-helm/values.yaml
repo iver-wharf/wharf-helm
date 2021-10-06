@@ -170,9 +170,11 @@ api:
   containerPort: 8080
   
   # -- Jenkins webhook endpoint used when starting new builds.
+  # Sets `WHARF_CI_TRIGGERURL` environment variable.
   # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
   ciUrl: http://jenkins.example.com/generic-webhook-trigger/invoke
   # -- Jenkins webhook secret token used when starting new builds.
+  # Sets `WHARF_CI_TRIGGERTOKEN` environment variable.
   # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
   ciToken: changeit
   #ciToken:
@@ -182,37 +184,39 @@ api:
   #      key: webhook-token
 
   http:
-    # -- Adds BasicAuth to the API. This is expiermental and is not
+    # -- Adds BasicAuth to the API. This is experimental and is not
     # automatically applied to the web, but only applied to the API.
+    # Sets `WHARF_HTTP_BASICAUTH` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     basicAuth: ""
 
     # -- Sets the IP address and port to bind the API server to.
-    # Sets `BIND_ADDRESS` environment variable.
+    # Sets `WHARF_HTTP_BINDADDRESS` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     bindAddress: "0.0.0.0:8080"
 
   # Settings for Wharf API's database connection
   db:
     # -- Currently only `"postgres"` is a valid value here. Set to `null` or
-    # empty string `""` if you wish to populate the `DBHOST`, `DBPORT`,
-    # `DBUSER`, `DBPASS` environment variables yourself via `api.extraEnvs`
-    # Sets `DBDRIVER` environment variable.
+    # empty string `""` if you wish to populate the `WHARF_DB_HOST`,
+    # `WHARF_DB_PORT`, `WHARF_DB_USER`, `WHARF_DB_PASS` environment variables
+    # yourself via `api.extraEnvs`.
+    # Sets `WHARF_DB_DRIVER` environment variable.
     # Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
     driver: postgres
   
     # -- Name of the database (or "schema" in MySQL terms) holding all the
-    # tables. Sets `DBNAME` environment variable.
+    # tables. Sets `WHARF_DB_NAME` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     name: wharf
 
     # -- Username used when connecting to the database.
-    # Sets `DBUSER` environment variable.
+    # Sets `WHARF_DB_USERNAME` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     username: postgres
   
     # -- Password used when connecting to the database.
-    # Sets `DBPASS` environment variable.
+    # Sets `WHARF_DB_PASSWORD` environment variable.
     # Recommended to pull this from a secret.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     password: changeit
@@ -223,14 +227,36 @@ api:
     #      key: postgresql-password
 
     # -- Database hostname used when connecting to the database.
-    # Sets `DBHOST` environment variable.
+    # Sets `WHARF_DB_HOST` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     host: wharf-db
 
     # -- Database port used when connecting to the database.
-    # Sets `DBPORT` environment variable. ***(Integers must be quoted!)***
+    # Sets `WHARF_DB_PORT` environment variable. ***(Integers must be quoted!)***
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     port: "5432"
+
+    # -- Maximum number of idle connections that wharf-api will use towards the
+    # database at a single point in time.
+    # Sets `WHARF_DB_MAXIDLECONNS` environment variable.
+    # ***(Integers must be quoted!)***
+    # See [GORM docs](https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns).
+    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+    maxIdleConns: "2"
+
+    # -- Maximum number of open connections that wharf-api will use towards the
+    # database at a single point in time. Values <= 0 means no limit.
+    # Sets `WHARF_DB_MAXOPENCONNS` environment variable. ***(Integers must be quoted!)***
+    # See [GORM docs](https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns).
+    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+    maxOpenConns: "0"
+
+    # -- Maximum age for a given database connection. If any connection exceeds
+    # this limit, while not it use, it will be disconnected.
+    # Sets `WHARF_DB_MAXCONNLIFETIME` environment variable.
+    # Value is a Go duration, see [Go docs](https://pkg.go.dev/time#ParseDuration).
+    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+    maxConnLifetime: 20m
 
   # Settings Wharf API's integration with RabbitMQ
   rabbitmq:
@@ -240,11 +266,11 @@ api:
     # Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
     enabled: false
     # -- Username used by Wharf to authenticate with RabbitMQ.
-    # Sets `RABBITMQUSER` environment variable.
+    # Sets `WHARF_MQ_USERNAME` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     username: user
     # -- Password used by Wharf to authenticate with RabbitMQ.
-    # Sets `RABBITMQPASS` environment variable.
+    # Sets `WHARF_MQ_PASSWORD` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     password: changeit
     #password:
@@ -253,24 +279,24 @@ api:
     #      name: rabbitmq-auth
     #      value: password
     # -- Host name *(without the protocol)* used by Wharf to connect to RabbitMQ.
-    # Sets `RABBITMQHOST` environment variable.
+    # Sets `WHARF_MQ_HOST` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     host: rabbitmq.local
     # -- Host port used by Wharf to connect to RabbitMQ.
-    # Sets `RABBITMQPORT` environment variable. ***(Integers must be quoted!)***
+    # Sets `WHARF_MQ_PORT` environment variable. ***(Integers must be quoted!)***
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     port: "5672"
     # -- RabbitMQ virtual host to push RabbitMQ messages into.
-    # Sets `RABBITMQVHOST` environment variable.
+    # Sets `WHARF_MQ_VHOST` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     vHost: /
     # -- RabbitMQ queue name to push RabbitMQ messages into.
-    # Sets `RABBITMQNAME` environment variable.
+    # Sets `WHARF_MQ_NAME` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     name: wharf_queue
     # -- When the Wharf API starts up, how many times should it attempt to connect
     # to the RabbitMQ instance before giving up and restarting?
-    # Sets `RABBITMQCONNATTEMPTS` environment variable.
+    # Sets `WHARF_MQ_CONNATTEMPTS` environment variable.
     # ***(Integers must be quoted!)***
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     connAttempts: "10"
@@ -280,13 +306,13 @@ api:
   # database connection here.
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
-    #- name: DBHOST
+    #- name: WHARF_DB_HOST
     #  value: wharf-db
-    #- name: DBPORT
+    #- name: WHARF_DB_PORT
     #  value: "5432"
-    #- name: DBUSER
+    #- name: WHARF_DB_USER
     #  value: postgres
-    #- name: DBPASS
+    #- name: WHARF_DB_PASS
     #  value: changeit
 
 # Provider settings. You are free to add more providers here. This is done by

@@ -80,10 +80,10 @@ setting such as:
 
 ```yaml
 env:
-  - name: "DBHOST"
+  - name: "WHARF_DB_HOST"
     value: "my value"
 
-  - name: "DBHOST"
+  - name: "WHARF_DB_HOST"
     valueFrom:
       secretKeyRef:
         name: my-secret
@@ -105,7 +105,7 @@ api:
       value: "my value"
     # Would be added to the Pod's environment variables as:
     #env:
-    #  - name: DBHOST
+    #  - name: WHARF_DB_HOST
     #    value: "my value"
 
     host:
@@ -115,7 +115,7 @@ api:
           key: my-key-in-the-secret
     # Would be added to the Pod's environment variables as:
     #env:
-    #  - name: DBHOST
+    #  - name: WHARF_DB_HOST
     #    valueFrom:
     #      secretKeyRef:
     #        name: my-secret
@@ -124,7 +124,7 @@ api:
     host: "my value"
     # Would be added to the Pod's environment variables as:
     #env:
-    #  - name: DBHOST
+    #  - name: WHARF_DB_HOST
     #    value: "my value"
 ```
 

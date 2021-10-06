@@ -79,8 +79,7 @@ spec:
             - name: WHARF_PROVIDER_URL_BASE
               value: {{ $providerUrlBase | quote }}
             {{- with $provider.http }}
-            - name: BIND_ADDRESS
-              {{- .bindAddress | include "wharf-helm.environmentValue" | nindent 14 }}
+            {{- list .bindAddress "BIND_ADDRESS" "WHARF_HTTP_BINDADDRESS" | include "wharf-helm.environment" | nindent 12 }}
             {{- end }}
 
             {{- if $.Values.global.isProduction }}
