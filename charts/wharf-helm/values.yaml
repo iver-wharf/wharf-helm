@@ -291,7 +291,7 @@ api:
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     vHost: /
     # -- RabbitMQ queue name to push RabbitMQ messages into.
-    # Sets `WHARF_MQ_NAME` environment variable.
+    # Sets `WHARF_MQ_QUEUENAME` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     name: wharf_queue
     # -- When the Wharf API starts up, how many times should it attempt to connect

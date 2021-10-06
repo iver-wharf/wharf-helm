@@ -217,7 +217,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `api.rabbitmq.name`
 
-> RabbitMQ queue name to push RabbitMQ messages into. Sets `WHARF_MQ_NAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> RabbitMQ queue name to push RabbitMQ messages into. Sets `WHARF_MQ_QUEUENAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"wharf_queue"`
