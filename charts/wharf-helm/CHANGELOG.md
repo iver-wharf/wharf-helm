@@ -13,6 +13,38 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v2.1.0
+
+- Added new environment variable mappings. The old ones are still applied. (#22)
+
+  - `api.ciUrl`: `WHARF_CI_TRIGGERURL` (was `CI_URL`)
+  - `api.ciToken`: `WHARF_CI_TRIGGERTOKEN` (was `CI_TOKEN`)
+  - `api.http.basicAuth`: `WHARF_HTTP_BASICAUTH` (was `BASIC_AUTH`)
+  - `api.http.bindAddress`: `WHARF_HTTP_BINDADDRESS` (was `BIND_ADDRESS`)
+  - `api.db.driver`: `WHARF_DB_DRIVER` (was `DBDRIVER`)
+  - `api.db.name`: `WHARF_DB_NAME` (was `DBNAME`)
+  - `api.db.username`: `WHARF_DB_USERNAME` (was `DBUSER`)
+  - `api.db.password`: `WHARF_DB_PASSWORD` (was `DBPASS`)
+  - `api.db.host`: `WHARF_DB_HOST` (was `DBHOST`)
+  - `api.db.port`: `WHARF_DB_PORT` (was `DBPORT`)
+  - `api.rabbitmq.enabled`: `WHARF_MQ_ENABLED` (was `RABBITMQENABLED`)
+  - `api.rabbitmq.username`: `WHARF_MQ_USERNAME` (was `RABBITMQUSER`)
+  - `api.rabbitmq.password`: `WHARF_MQ_PASSWORD` (was `RABBITMQPASS`)
+  - `api.rabbitmq.host`: `WHARF_MQ_HOST` (was `RABBITMQHOST`)
+  - `api.rabbitmq.port`: `WHARF_MQ_PORT` (was `RABBITMQPORT`)
+  - `api.rabbitmq.vHost`: `WHARF_MQ_VHOST` (was `RABBITMQVHOST`)
+  - `api.rabbitmq.name`: `WHARF_MQ_NAME` (was `RABBITMQNAME`)
+  - `api.rabbitmq.connAttempts`: `WHARF_MQ_CONNATTEMPTS` (was `RABBITMQCONNATTEMPTS`)
+
+- Added more environment variables for the Wharf API: (#22)
+
+  - `.Values.api.db.maxIdleConns`: `DBMAXIDLECONNS` & `WHARF_DB_MAXIDLECONNS`
+  - `.Values.api.db.maxOpenConns`: `DBMAXOPENCONNS` & `WHARF_DB_MAXOPENCONNS`
+  - `.Values.api.db.maxConnLifetime`: `DBMAXCONNLIFETIME` & `WHARF_DB_MAXCONNLIFETIME`
+
+- Added `WHARF_DB_LOG=false` environment variable to wharf-api service when
+  `.Values.global.isProduction` is set, which will suppress debug logs. (#22)
+
 ## v2.0.0
 
 - BREAKING: Changed image version of `providers.azuredevops` from v1.2.0 to
