@@ -91,7 +91,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `api.db.maxConnLifetime`
 
-> Maximum age for a given database connection. If any connection exceeds this limit, while not it use, it will be disconnected. Sets `WHARF_DB_MAXCONNLIFETIME` environment variable. Value is a Go duration, see [Go docs](https://pkg.go.dev/time#ParseDuration). Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Maximum age for a given database connection. If any connection exceeds this limit, while not in use, it will be disconnected. Sets `WHARF_DB_MAXCONNLIFETIME` environment variable. Value is a Go duration, see [Go docs](https://pkg.go.dev/time#ParseDuration). Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"20m"`
