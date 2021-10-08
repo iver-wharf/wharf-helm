@@ -54,7 +54,7 @@ spec:
             {{- list .Values.api.ciToken "CI_TOKEN" "WHARF_CI_TRIGGERTOKEN" | include "wharf-helm.environment" | nindent 12 }}
 
             {{- with .Values.api.http }}
-              {{- list .bindAddress "BASIC_AUTH" "WHARF_HTTP_BASICAUTH" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .basicAuth "BASIC_AUTH" "WHARF_HTTP_BASICAUTH" | include "wharf-helm.environment" | nindent 12 }}
               {{- list .bindAddress "BIND_ADDRESS" "WHARF_HTTP_BINDADDRESS" | include "wharf-helm.environment" | nindent 12 }}
             {{- end }}{{/* with .Values.api.http */}}
 
