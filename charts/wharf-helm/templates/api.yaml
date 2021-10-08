@@ -47,17 +47,15 @@ spec:
             {{- with .Values.global.instanceId }}
             - name: WHARF_INSTANCE
               value: {{ quote . }}
+            - name: WHARF_INSTANCEID
+              value: {{ quote . }}
             {{- end }}
-            - name: CI_URL
-              {{- .Values.api.ciUrl | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: CI_TOKEN
-              {{- .Values.api.ciToken | include "wharf-helm.environmentValue" | nindent 14 }}
+            {{- list .Values.api.ciUrl "CI_URL" "WHARF_CI_TRIGGERURL" | include "wharf-helm.environment" | nindent 12 }}
+            {{- list .Values.api.ciToken "CI_TOKEN" "WHARF_CI_TRIGGERTOKEN" | include "wharf-helm.environment" | nindent 12 }}
 
             {{- with .Values.api.http }}
-            - name: BASIC_AUTH
-              {{- .basicAuth | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: BIND_ADDRESS
-              {{- .bindAddress | include "wharf-helm.environmentValue" | nindent 14 }}
+              {{- list .bindAddress "BASIC_AUTH" "WHARF_HTTP_BASICAUTH" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .bindAddress "BIND_ADDRESS" "WHARF_HTTP_BINDADDRESS" | include "wharf-helm.environment" | nindent 12 }}
             {{- end }}{{/* with .Values.api.http */}}
 
             {{- if .Values.global.isProduction }}
@@ -66,44 +64,37 @@ spec:
             {{- end }}
 
             {{- with .Values.api.rabbitmq }}
-            {{- if .enabled }}
-            - name: RABBITMQENABLED
-              value: "true"
-            - name: RABBITMQUSER
-              {{- .username | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: RABBITMQPASS
-              {{- .password | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: RABBITMQHOST
-              {{- .host | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: RABBITMQPORT
-              {{- .port | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: RABBITMQVHOST
-              {{- .vHost | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: RABBITMQNAME
-              {{- .name | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: RABBITMQCONNATTEMPTS
-              {{- .connAttempts | include "wharf-helm.environmentValue" | nindent 14 }}
-            {{- else }}
-            - name: RABBITMQENABLED
-              value: "false"
-            {{- end }}{{/* if .enabled */}}
+              {{- if .enabled }}
+                {{- list "true" "RABBITMQENABLED" "WHARF_MQ_ENABLED" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .username "RABBITMQUSER" "WHARF_MQ_USERNAME" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .password "RABBITMQPASS" "WHARF_MQ_PASSWORD" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .host "RABBITMQHOST" "WHARF_MQ_HOST" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .port "RABBITMQPORT" "WHARF_MQ_PORT" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .vHost "RABBITMQVHOST" "WHARF_MQ_VHOST" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .name "RABBITMQNAME" "WHARF_MQ_QUEUENAME" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .connAttempts "RABBITMQCONNATTEMPTS" "WHARF_MQ_CONNATTEMPTS" | include "wharf-helm.environment" | nindent 12 }}
+              {{- else }}
+                {{- list "false" "RABBITMQENABLED" "WHARF_MQ_ENABLED" | include "wharf-helm.environment" | nindent 12 }}
+              {{- end }}{{/* if .enabled */}}
             {{- end }}{{/* with .Values.api.rabbitmq */}}
 
             {{- with .Values.api.db }}
-            - name: DBDRIVER
-              {{- .driver | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: DBNAME
-              {{- .name | include "wharf-helm.environmentValue" | nindent 14 }}
-            {{- if eq .driver "postgres" }}
-            - name: DBUSER
-              {{- .username | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: DBPASS
-              {{- .password | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: DBPORT
-              {{- .port | include "wharf-helm.environmentValue" | nindent 14 }}
-            - name: DBHOST
-              {{- .host | include "wharf-helm.environmentValue" | nindent 14 }}
-            {{- end }}{{/* if .driver == "postgres" */}}
+              {{- if $.Values.global.isProduction }}
+                {{- list "false" "DBLOG" "WHARF_DB_LOG" | include "wharf-helm.environment" | nindent 12 }}
+              {{- else }}
+                {{- list "true" "DBLOG" "WHARF_DB_LOG" | include "wharf-helm.environment" | nindent 12 }}
+              {{- end }}{{/* if $.Values.global.isProduction */}}
+              {{- list .driver "DBDRIVER" "WHARF_DB_DRIVER" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .name "DBNAME" "WHARF_DB_NAME" | include "wharf-helm.environment" | nindent 12 }}
+              {{- if eq .driver "postgres" }}
+                {{- list .username "DBUSER" "WHARF_DB_USERNAME" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .password "DBPASS" "WHARF_DB_PASSWORD" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .port "DBPORT" "WHARF_DB_PORT" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .host "DBHOST" "WHARF_DB_HOST" | include "wharf-helm.environment" | nindent 12 }}
+              {{- end }}{{/* if .driver == "postgres" */}}
+              {{- list .maxIdleConns "DBMAXIDLECONNS" "WHARF_DB_MAXIDLECONNS" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .maxOpenConns "DBMAXOPENCONNS" "WHARF_DB_MAXOPENCONNS" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .maxConnLifetime "DBMAXCONNLIFETIME" "WHARF_DB_MAXCONNLIFETIME" | include "wharf-helm.environment" | nindent 12 }}
             {{- end }}{{/* with .Values.api.db */}}
 
             {{- with .Values.api.extraEnvs }}

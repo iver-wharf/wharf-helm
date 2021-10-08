@@ -101,3 +101,35 @@ Which will generate:
     value: {{ toYaml . -}}
   {{- end -}}
 {{- end -}}
+
+{{/*
+Environment variable mapping.
+Takes a list as argument, where the first value is the environment value passed
+on to wharf-helm.environmentValue, while the rest are the environment names.
+
+Given the value:
+
+  host: exampleValue
+
+And the templating usage:
+
+  {{- list .host "DBHOST" "WHARF_DB_HOST" | include "wharf-helm.environment" | nindent 12 }}
+
+Which will generate:
+
+  - name: DBHOST
+    value: exampleValue
+  - name: WHARF_DB_HOST
+    value: exampleValue
+
+*/}}
+{{- define "wharf-helm.environment" -}}
+  {{- $value := first . -}}
+  {{- range $i, $envName := rest . -}}
+    {{- if gt $i 0 -}}
+      {{- printf "\n" -}}
+    {{- end -}}
+    - name: {{ $envName | quote }}
+    {{- $value | include "wharf-helm.environmentValue" | nindent 2 }}
+  {{- end -}}
+{{- end -}}

@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square)
+![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
@@ -49,14 +49,14 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `api.ciToken`
 
-> Jenkins webhook secret token used when starting new builds. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Jenkins webhook secret token used when starting new builds. Sets `WHARF_CI_TRIGGERTOKEN` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"changeit"`
 
 ### `api.ciUrl`
 
-> Jenkins webhook endpoint used when starting new builds. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Jenkins webhook endpoint used when starting new builds. Sets `WHARF_CI_TRIGGERURL` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"http://jenkins.example.com/generic-webhook-trigger/invoke"`
@@ -77,42 +77,63 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `api.db.driver`
 
-> Currently only `"postgres"` is a valid value here. Set to `null` or empty string `""` if you wish to populate the `DBHOST`, `DBPORT`, `DBUSER`, `DBPASS` environment variables yourself via `api.extraEnvs` Sets `DBDRIVER` environment variable. Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
+> Currently only `"postgres"` is a valid value here. Set to `null` or empty string `""` if you wish to populate the `WHARF_DB_HOST`, `WHARF_DB_PORT`, `WHARF_DB_USER`, `WHARF_DB_PASS` environment variables yourself via `api.extraEnvs`. Sets `WHARF_DB_DRIVER` environment variable. Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"postgres"`
 
 ### `api.db.host`
 
-> Database hostname used when connecting to the database. Sets `DBHOST` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Database hostname used when connecting to the database. Sets `WHARF_DB_HOST` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"wharf-db"`
 
+### `api.db.maxConnLifetime`
+
+> Maximum age for a given database connection. If any connection exceeds this limit, while not in use, it will be disconnected. Sets `WHARF_DB_MAXCONNLIFETIME` environment variable. Value is a Go duration, see [Go docs](https://pkg.go.dev/time#ParseDuration). Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+
+*Type:* `string`\
+*Default:* `"20m"`
+
+### `api.db.maxIdleConns`
+
+> Maximum number of idle connections that wharf-api will use towards the database at a single point in time. Sets `WHARF_DB_MAXIDLECONNS` environment variable. ***(Integers must be quoted!)*** See [GORM docs](https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns). Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+
+*Type:* `string`\
+*Default:* `"2"`
+
+### `api.db.maxOpenConns`
+
+> Maximum number of open connections that wharf-api will use towards the database at a single point in time. Values <= 0 means no limit. Sets `WHARF_DB_MAXOPENCONNS` environment variable. ***(Integers must be quoted!)*** See [GORM docs](https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns). Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+
+*Type:* `string`\
+*Default:* `"0"`
+
 ### `api.db.name`
 
-> Name of the database (or "schema" in MySQL terms) holding all the tables. Sets `DBNAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Name of the database (or "schema" in MySQL terms) holding all the tables. Sets `WHARF_DB_NAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"wharf"`
 
 ### `api.db.password`
 
-> Password used when connecting to the database. Sets `DBPASS` environment variable. Recommended to pull this from a secret. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Password used when connecting to the database. Sets `WHARF_DB_PASSWORD` environment variable. Recommended to pull this from a secret. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"changeit"`
 
 ### `api.db.port`
 
-> Database port used when connecting to the database. Sets `DBPORT` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Database port used when connecting to the database. Sets `WHARF_DB_PORT` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"5432"`
 
 ### `api.db.username`
 
-> Username used when connecting to the database. Sets `DBUSER` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Username used when connecting to the database. Sets `WHARF_DB_USERNAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"postgres"`
@@ -126,14 +147,14 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `api.http.basicAuth`
 
-> Adds BasicAuth to the API. This is expiermental and is not automatically applied to the web, but only applied to the API. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Adds BasicAuth to the API. This is experimental and is not automatically applied to the web, but only applied to the API. Sets `WHARF_HTTP_BASICAUTH` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `""`
 
 ### `api.http.bindAddress`
 
-> Sets the IP address and port to bind the API server to. Sets `BIND_ADDRESS` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Sets the IP address and port to bind the API server to. Sets `WHARF_HTTP_BINDADDRESS` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"0.0.0.0:8080"`
@@ -175,7 +196,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `api.rabbitmq.connAttempts`
 
-> When the Wharf API starts up, how many times should it attempt to connect to the RabbitMQ instance before giving up and restarting? Sets `RABBITMQCONNATTEMPTS` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> When the Wharf API starts up, how many times should it attempt to connect to the RabbitMQ instance before giving up and restarting? Sets `WHARF_MQ_CONNATTEMPTS` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"10"`
@@ -196,35 +217,35 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `api.rabbitmq.name`
 
-> RabbitMQ queue name to push RabbitMQ messages into. Sets `RABBITMQNAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> RabbitMQ queue name to push RabbitMQ messages into. Sets `WHARF_MQ_QUEUENAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"wharf_queue"`
 
 ### `api.rabbitmq.password`
 
-> Password used by Wharf to authenticate with RabbitMQ. Sets `RABBITMQPASS` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Password used by Wharf to authenticate with RabbitMQ. Sets `WHARF_MQ_PASSWORD` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"changeit"`
 
 ### `api.rabbitmq.port`
 
-> Host port used by Wharf to connect to RabbitMQ. Sets `RABBITMQPORT` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Host port used by Wharf to connect to RabbitMQ. Sets `WHARF_MQ_PORT` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"5672"`
 
 ### `api.rabbitmq.username`
 
-> Username used by Wharf to authenticate with RabbitMQ. Sets `RABBITMQUSER` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> Username used by Wharf to authenticate with RabbitMQ. Sets `WHARF_MQ_USERNAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"user"`
 
 ### `api.rabbitmq.vHost`
 
-> RabbitMQ virtual host to push RabbitMQ messages into. Sets `RABBITMQVHOST` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
+> RabbitMQ virtual host to push RabbitMQ messages into. Sets `WHARF_MQ_VHOST` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
 
 *Type:* `string`\
 *Default:* `"/"`
@@ -860,10 +881,10 @@ setting such as:
 
 ```yaml
 env:
-  - name: "DBHOST"
+  - name: "WHARF_DB_HOST"
     value: "my value"
 
-  - name: "DBHOST"
+  - name: "WHARF_DB_HOST"
     valueFrom:
       secretKeyRef:
         name: my-secret
@@ -885,7 +906,7 @@ api:
       value: "my value"
     # Would be added to the Pod's environment variables as:
     #env:
-    #  - name: DBHOST
+    #  - name: WHARF_DB_HOST
     #    value: "my value"
 
     host:
@@ -895,7 +916,7 @@ api:
           key: my-key-in-the-secret
     # Would be added to the Pod's environment variables as:
     #env:
-    #  - name: DBHOST
+    #  - name: WHARF_DB_HOST
     #    valueFrom:
     #      secretKeyRef:
     #        name: my-secret
@@ -904,7 +925,7 @@ api:
     host: "my value"
     # Would be added to the Pod's environment variables as:
     #env:
-    #  - name: DBHOST
+    #  - name: WHARF_DB_HOST
     #    value: "my value"
 ```
 
