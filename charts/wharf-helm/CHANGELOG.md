@@ -13,6 +13,11 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v2.1.1
+
+- Fixed issue where `api.bindAddress` value was applied to both
+  `WHARF_HTTP_BINDADDRESS` and `WHARF_HTTP_BASICAUTH`. (#23)
+
 ## v2.1.0
 
 - Added new environment variable mappings. The old ones are still applied. (#22)
