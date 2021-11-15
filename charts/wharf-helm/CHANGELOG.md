@@ -13,6 +13,10 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v2.1.2
+
+- Changed image version of `web` from v1.4.0 to v1.5.0. (#24)
+
 ## v2.1.1
 
 - Fixed issue where `api.bindAddress` value was applied to both
