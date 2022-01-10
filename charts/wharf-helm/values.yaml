@@ -461,7 +461,7 @@ providers:
     # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `gitlab` provider
-    image: quay.io/iver-wharf/wharf-provider-gitlab:v1.2.0
+    image: quay.io/iver-wharf/wharf-provider-gitlab:v1.3.0
     # -- Default image pull policy used in the `gitlab` provider
     imagePullPolicy: IfNotPresent
     # -- Default resources requested by the GitLab provider
