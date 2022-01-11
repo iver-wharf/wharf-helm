@@ -16,6 +16,7 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 ## v2.1.4
 
 - Changed image version of `web` from v1.5.0 to v1.5.1. (#26)
+- Added ArtifactHub annotations to Chart.yaml. (#26)
 
 ## v2.1.3
 
