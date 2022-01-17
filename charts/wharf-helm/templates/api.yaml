@@ -45,17 +45,15 @@ spec:
           {{- end }}
           env:
             {{- with .Values.global.instanceId }}
-            - name: WHARF_INSTANCE
-              value: {{ quote . }}
             - name: WHARF_INSTANCEID
               value: {{ quote . }}
             {{- end }}
-            {{- list .Values.api.ciUrl "CI_URL" "WHARF_CI_TRIGGERURL" | include "wharf-helm.environment" | nindent 12 }}
-            {{- list .Values.api.ciToken "CI_TOKEN" "WHARF_CI_TRIGGERTOKEN" | include "wharf-helm.environment" | nindent 12 }}
+            {{- list .Values.api.ciUrl "WHARF_CI_TRIGGERURL" | include "wharf-helm.environment" | nindent 12 }}
+            {{- list .Values.api.ciToken "WHARF_CI_TRIGGERTOKEN" | include "wharf-helm.environment" | nindent 12 }}
 
             {{- with .Values.api.http }}
-              {{- list .basicAuth "BASIC_AUTH" "WHARF_HTTP_BASICAUTH" | include "wharf-helm.environment" | nindent 12 }}
-              {{- list .bindAddress "BIND_ADDRESS" "WHARF_HTTP_BINDADDRESS" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .basicAuth "WHARF_HTTP_BASICAUTH" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .bindAddress "WHARF_HTTP_BINDADDRESS" | include "wharf-helm.environment" | nindent 12 }}
             {{- end }}{{/* with .Values.api.http */}}
 
             {{- if .Values.global.isProduction }}
@@ -65,21 +63,21 @@ spec:
 
             {{- with .Values.api.db }}
               {{- if $.Values.global.isProduction }}
-                {{- list "false" "DBLOG" "WHARF_DB_LOG" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list "false" "WHARF_DB_LOG" | include "wharf-helm.environment" | nindent 12 }}
               {{- else }}
-                {{- list "true" "DBLOG" "WHARF_DB_LOG" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list "true" "WHARF_DB_LOG" | include "wharf-helm.environment" | nindent 12 }}
               {{- end }}{{/* if $.Values.global.isProduction */}}
-              {{- list .driver "DBDRIVER" "WHARF_DB_DRIVER" | include "wharf-helm.environment" | nindent 12 }}
-              {{- list .name "DBNAME" "WHARF_DB_NAME" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .driver "WHARF_DB_DRIVER" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .name "WHARF_DB_NAME" | include "wharf-helm.environment" | nindent 12 }}
               {{- if eq .driver "postgres" }}
-                {{- list .username "DBUSER" "WHARF_DB_USERNAME" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .password "DBPASS" "WHARF_DB_PASSWORD" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .port "DBPORT" "WHARF_DB_PORT" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .host "DBHOST" "WHARF_DB_HOST" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .username "WHARF_DB_USERNAME" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .password "WHARF_DB_PASSWORD" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .port "WHARF_DB_PORT" | include "wharf-helm.environment" | nindent 12 }}
+                {{- list .host "WHARF_DB_HOST" | include "wharf-helm.environment" | nindent 12 }}
               {{- end }}{{/* if .driver == "postgres" */}}
-              {{- list .maxIdleConns "DBMAXIDLECONNS" "WHARF_DB_MAXIDLECONNS" | include "wharf-helm.environment" | nindent 12 }}
-              {{- list .maxOpenConns "DBMAXOPENCONNS" "WHARF_DB_MAXOPENCONNS" | include "wharf-helm.environment" | nindent 12 }}
-              {{- list .maxConnLifetime "DBMAXCONNLIFETIME" "WHARF_DB_MAXCONNLIFETIME" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .maxIdleConns "WHARF_DB_MAXIDLECONNS" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .maxOpenConns "WHARF_DB_MAXOPENCONNS" | include "wharf-helm.environment" | nindent 12 }}
+              {{- list .maxConnLifetime "WHARF_DB_MAXCONNLIFETIME" | include "wharf-helm.environment" | nindent 12 }}
             {{- end }}{{/* with .Values.api.db */}}
 
             {{- with .Values.api.extraEnvs }}
