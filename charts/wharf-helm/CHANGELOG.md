@@ -13,6 +13,37 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v3.0.0
+
+- BREAKING: Changed image version of `api` from v4.2.0 to v5.0.0. (#27)
+
+  See the changes on the release page [v5.0.0 wharf-api](https://github.com/iver-wharf/wharf-api/releases/tag/v5.0.0)
+  to list all breaking changes.
+
+- Removed all `api.rabbitmq.*` values, as wharf-api v5.0.0 dropped support for
+  RabbitMQ. (#27)
+
+- Removed all old environment variable mappings for the `api`, which were
+  marked as deprecated in wharf-helm v2.1.0: (#27)
+
+  - `WHARF_INSTANCE`
+  - `CI_URL`
+  - `CI_TOKEN`
+  - `BASIC_AUTH`
+  - `BASIC_AUTH`
+  - `BIND_ADDRESS`
+  - `DBLOG`
+  - `DBLOG`
+  - `DBDRIVER`
+  - `DBNAME`
+  - `DBUSER`
+  - `DBPASS`
+  - `DBPORT`
+  - `DBHOST`
+  - `DBMAXIDLECONNS`
+  - `DBMAXOPENCONNS`
+  - `DBMAXCONNLIFETIME`
+
 ## v2.1.4
 
 - Changed image version of `web` from v1.5.0 to v1.5.1. (#26)
