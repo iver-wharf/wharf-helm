@@ -15,6 +15,8 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 
 ## v3.0.0
 
+- BREAKING: Removes support for wharf-api v4.x.x and older.
+
 - BREAKING: Changed image version of `api` from v4.2.0 to v5.0.0. (#27)
 
   See the changes on the release page [v5.0.0 wharf-api](https://github.com/iver-wharf/wharf-api/releases/tag/v5.0.0)
