@@ -63,21 +63,6 @@ spec:
               value: release
             {{- end }}
 
-            {{- with .Values.api.rabbitmq }}
-              {{- if .enabled }}
-                {{- list "true" "RABBITMQENABLED" "WHARF_MQ_ENABLED" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .username "RABBITMQUSER" "WHARF_MQ_USERNAME" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .password "RABBITMQPASS" "WHARF_MQ_PASSWORD" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .host "RABBITMQHOST" "WHARF_MQ_HOST" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .port "RABBITMQPORT" "WHARF_MQ_PORT" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .vHost "RABBITMQVHOST" "WHARF_MQ_VHOST" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .name "RABBITMQNAME" "WHARF_MQ_QUEUENAME" | include "wharf-helm.environment" | nindent 12 }}
-                {{- list .connAttempts "RABBITMQCONNATTEMPTS" "WHARF_MQ_CONNATTEMPTS" | include "wharf-helm.environment" | nindent 12 }}
-              {{- else }}
-                {{- list "false" "RABBITMQENABLED" "WHARF_MQ_ENABLED" | include "wharf-helm.environment" | nindent 12 }}
-              {{- end }}{{/* if .enabled */}}
-            {{- end }}{{/* with .Values.api.rabbitmq */}}
-
             {{- with .Values.api.db }}
               {{- if $.Values.global.isProduction }}
                 {{- list "false" "DBLOG" "WHARF_DB_LOG" | include "wharf-helm.environment" | nindent 12 }}
