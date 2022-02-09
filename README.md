@@ -57,18 +57,25 @@ Once you're ready to deploy it you create a pull request from that release
 branch over to `master`, where it will be published automatically as soon as
 it's merged.
 
-## Linting markdown
+## Linting
 
-- Requires Node.js (npm) to be installed: <https://nodejs.org/en/download/>
+You can lint all of the above at the same time by running:
 
 ```sh
-npm install
+make lint
 
-npm run lint-md
+make lint-helm # only lint Helm charts
+make lint-md # only lint Markdown files
+```
 
-# Some errors can be fixed automatically. Keep in mind that this updates the
-# files in place.
-npm run lint-md-fix
+Some errors can be fixed automatically. Keep in mind that this updates the
+files in place.
+
+```sh
+make lint-fix
+
+#make lint-fix-helm # Helm linter does not support fixes
+make lint-fix-md # only lint and fix Markdown files
 ```
 
 ---

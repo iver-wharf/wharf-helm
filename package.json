@@ -1,8 +1,4 @@
 {
-  "scripts": {
-    "lint": "remark . .github",
-    "lint-fix": "remark . .github -o"
-  },
   "devDependencies": {
     "remark-cli": "^9.0.0",
     "remark-lint": "^8.0.0",
