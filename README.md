@@ -59,9 +59,9 @@ it's merged.
 
 ## Linting
 
-You can lint all of the above at the same time by running:
-
 ```sh
+make deps # download linting dependencies
+
 make lint
 
 make lint-helm # only lint Helm charts
