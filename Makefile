@@ -1,6 +1,6 @@
 .PHONY: helm-docs deps \
 	lint lint-md lint-helm \
-	lint-fix lint-md-fix
+	lint-fix lint-fix-md
 
 helm-docs:
 	helm-docs
@@ -10,12 +10,12 @@ deps:
 	npm install
 
 lint: lint-md lint-helm
-lint-fix: lint-md-fix
+lint-fix: lint-fix-md
 
 lint-md:
 	npx remark . .github
 
-lint-md-fix:
+lint-fix-md:
 	npx remark . .github -o
 
 lint-helm:
