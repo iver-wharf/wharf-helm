@@ -106,7 +106,7 @@ api:
   replicaCount: 1
 
   # -- Docker image that runs the frontend/web
-  image: quay.io/iver-wharf/wharf-api:v4.2.0
+  image: quay.io/iver-wharf/wharf-api:v5.0.0
   
   # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
   imagePullPolicy: ""
@@ -257,50 +257,6 @@ api:
     # Value is a Go duration, see [Go docs](https://pkg.go.dev/time#ParseDuration).
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     maxConnLifetime: 20m
-
-  # Settings Wharf API's integration with RabbitMQ
-  rabbitmq:
-    # -- `true` to enable RabbitMQ integration, `false` to disable it.
-    # All other `api.rabbitmq...` settings are ignored if RabbitMQ has been
-    # disabled.
-    # Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
-    enabled: false
-    # -- Username used by Wharf to authenticate with RabbitMQ.
-    # Sets `WHARF_MQ_USERNAME` environment variable.
-    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-    username: user
-    # -- Password used by Wharf to authenticate with RabbitMQ.
-    # Sets `WHARF_MQ_PASSWORD` environment variable.
-    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-    password: changeit
-    #password:
-    #  valueFrom:
-    #    secretKeyRef:
-    #      name: rabbitmq-auth
-    #      value: password
-    # -- Host name *(without the protocol)* used by Wharf to connect to RabbitMQ.
-    # Sets `WHARF_MQ_HOST` environment variable.
-    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-    host: rabbitmq.local
-    # -- Host port used by Wharf to connect to RabbitMQ.
-    # Sets `WHARF_MQ_PORT` environment variable. ***(Integers must be quoted!)***
-    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-    port: "5672"
-    # -- RabbitMQ virtual host to push RabbitMQ messages into.
-    # Sets `WHARF_MQ_VHOST` environment variable.
-    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-    vHost: /
-    # -- RabbitMQ queue name to push RabbitMQ messages into.
-    # Sets `WHARF_MQ_QUEUENAME` environment variable.
-    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-    name: wharf_queue
-    # -- When the Wharf API starts up, how many times should it attempt to connect
-    # to the RabbitMQ instance before giving up and restarting?
-    # Sets `WHARF_MQ_CONNATTEMPTS` environment variable.
-    # ***(Integers must be quoted!)***
-    # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-    connAttempts: "10"
-
 
   # -- If `api.db.driver` is unset, then you must populate your own
   # database connection here.

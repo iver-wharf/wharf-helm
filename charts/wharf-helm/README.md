@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 2.1.4](https://img.shields.io/badge/Version-2.1.4-informational?style=flat-square)
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
@@ -32,7 +32,7 @@ helm install my-release iver-wharf/wharf-helm
 
 | GitHub repository | Quay.io version | Image
 | ----------------- | --------------- | -----
-| [iver-wharf/wharf-api](https://github.com/iver-wharf/wharf-api) | [![Version: v4.2.0](https://img.shields.io/badge/Version-v4.2.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-api) |`"quay.io/iver-wharf/wharf-api:v4.2.0"`
+| [iver-wharf/wharf-api](https://github.com/iver-wharf/wharf-api) | [![Version: v5.0.0](https://img.shields.io/badge/Version-v5.0.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-api) |`"quay.io/iver-wharf/wharf-api:v5.0.0"`
 | [iver-wharf/wharf-web](https://github.com/iver-wharf/wharf-web) | [![Version: v1.5.1](https://img.shields.io/badge/Version-v1.5.1-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-web) |`"quay.io/iver-wharf/wharf-web:v1.5.1"`
 | [iver-wharf/wharf-provider-github](https://github.com/iver-wharf/wharf-provider-github) | [![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-github) |`"quay.io/iver-wharf/wharf-provider-github:v2.0.0"`
 | [iver-wharf/wharf-provider-gitlab](https://github.com/iver-wharf/wharf-provider-gitlab) | [![Version: v1.3.0](https://img.shields.io/badge/Version-v1.3.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-gitlab) |`"quay.io/iver-wharf/wharf-provider-gitlab:v1.3.0"`
@@ -164,7 +164,7 @@ helm install my-release iver-wharf/wharf-helm
 > Docker image that runs the frontend/web
 
 *Type:* `string`\
-*Default:* `"quay.io/iver-wharf/wharf-api:v4.2.0"`
+*Default:* `"quay.io/iver-wharf/wharf-api:v5.0.0"`
 
 ### `api.imagePullPolicy`
 
@@ -193,62 +193,6 @@ helm install my-release iver-wharf/wharf-helm
 
 *Type:* `object`\
 *Default:* `{}`
-
-### `api.rabbitmq.connAttempts`
-
-> When the Wharf API starts up, how many times should it attempt to connect to the RabbitMQ instance before giving up and restarting? Sets `WHARF_MQ_CONNATTEMPTS` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-
-*Type:* `string`\
-*Default:* `"10"`
-
-### `api.rabbitmq.enabled`
-
-> `true` to enable RabbitMQ integration, `false` to disable it. All other `api.rabbitmq...` settings are ignored if RabbitMQ has been disabled. Does not support ["Smart environment fields"](./README.md#smart-environment-fields)
-
-*Type:* `bool`\
-*Default:* `false`
-
-### `api.rabbitmq.host`
-
->
-
-*Type:* `string`\
-*Default:* `"rabbitmq.local"`
-
-### `api.rabbitmq.name`
-
-> RabbitMQ queue name to push RabbitMQ messages into. Sets `WHARF_MQ_QUEUENAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-
-*Type:* `string`\
-*Default:* `"wharf_queue"`
-
-### `api.rabbitmq.password`
-
-> Password used by Wharf to authenticate with RabbitMQ. Sets `WHARF_MQ_PASSWORD` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-
-*Type:* `string`\
-*Default:* `"changeit"`
-
-### `api.rabbitmq.port`
-
-> Host port used by Wharf to connect to RabbitMQ. Sets `WHARF_MQ_PORT` environment variable. ***(Integers must be quoted!)*** Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-
-*Type:* `string`\
-*Default:* `"5672"`
-
-### `api.rabbitmq.username`
-
-> Username used by Wharf to authenticate with RabbitMQ. Sets `WHARF_MQ_USERNAME` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-
-*Type:* `string`\
-*Default:* `"user"`
-
-### `api.rabbitmq.vHost`
-
-> RabbitMQ virtual host to push RabbitMQ messages into. Sets `WHARF_MQ_VHOST` environment variable. Supports ["Smart environment fields"](./README.md#smart-environment-fields)
-
-*Type:* `string`\
-*Default:* `"/"`
 
 ### `api.readinessProbe`
 
