@@ -105,8 +105,8 @@ data:
       {{- with $.Values.web.http.oidc }}
       "oidcConfig": {
           "authority": "{{ .authority }}",
-          "redirectUrl": "{{ .redirectUrl }}",
-          "postLogoutRedirectUri": "{{ .postLogoutRedirectUri }}",
+          "redirectUrl": "{{ .redirectUrl | default (printf "https://%s" $.Values.global.url) }}",
+          "postLogoutRedirectUri": "{{ .redirectUrl | default (printf "https://%s" $.Values.global.url) }}",
           "clientId": "{{ .clientId }}",
           "scope": "{{ .scope }}",
           "logLevel": "{{ .logLevel }}",
