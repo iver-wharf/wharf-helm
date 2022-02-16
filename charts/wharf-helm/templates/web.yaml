@@ -103,7 +103,7 @@ data:
       "UpdateLatency": 20000,
       "UpdateFrequency": 30000,
       {{- with $.Values.web.http.oidc }}
-      {
+      "oidcConfig": {
           "authority": "{{ .authority }}",
           "redirectUrl": "{{ .redirectUrl }}",
           "postLogoutRedirectUri": "{{ .postLogoutRedirectUri }}",
