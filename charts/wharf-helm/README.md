@@ -1,7 +1,7 @@
 # Wharf Helm chart
 
-![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) 
-![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) 
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square)
+![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
 
@@ -39,7 +39,6 @@ helm install my-release iver-wharf/wharf-helm
 | [iver-wharf/wharf-provider-azuredevops](https://github.com/iver-wharf/wharf-provider-azuredevops) | [![Version: v2.0.1](https://img.shields.io/badge/Version-v2.0.1-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-azuredevops) |`"quay.io/iver-wharf/wharf-provider-azuredevops:v2.0.1"`
 
 ## Values
-
 
 ### `api.affinity`
 
@@ -337,21 +336,21 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `imagePullSecrets`
 
-> 
+>
 
 *Type:* `list`\
 *Default:* `[]`
 
 ### `ingress.annotations`
 
-> 
+>
 
 *Type:* `object`\
 *Default:* `{}`
 
 ### `ingress.apiVersion`
 
-> 
+>
 
 *Type:* `string`\
 *Default:* `"networking.k8s.io/v1beta1"`
@@ -372,14 +371,14 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingress.tls`
 
-> 
+>
 
 *Type:* `object`\
 *Default:* `{}`
 
 ### `ingressRoute.apiVersion`
 
-> 
+>
 
 *Type:* `string`\
 *Default:* `"traefik.containo.us/v1alpha1"`
@@ -393,7 +392,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingressRoute.entries[0].annotations`
 
-> 
+>
 
 *Type:* `object`\
 *Default:* `{}`
@@ -421,14 +420,14 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingressRoute.entries[0].tls`
 
-> 
+>
 
 *Type:* `object`\
 *Default:* `{}`
 
 ### `ingressRoute.entries[1].annotations`
 
-> 
+>
 
 *Type:* `object`\
 *Default:* `{}`
@@ -442,7 +441,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingressRoute.entries[1].middlewares`
 
-> 
+>
 
 *Type:* `list`\
 *Default:* `[]`
@@ -456,7 +455,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingressRoute.entries[1].tls.secretName`
 
-> 
+>
 
 *Type:* `string`\
 *Default:* `"wharf-example-tls"`
@@ -582,7 +581,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `providers.example.imagePullSecrets`
 
-> 
+>
 
 *Type:* `list`\
 *Default:* `[]`
@@ -617,7 +616,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `providers.example.podAnnotations`
 
-> 
+>
 
 *Type:* `object`\
 *Default:* `{}`
@@ -887,7 +886,6 @@ helm install my-release iver-wharf/wharf-helm
 
 *Type:* `list`\
 *Default:* `[{"emptyDir":{},"name":"cache"},{"emptyDir":{},"name":"run"}]`
-
 
 ## Smart environment fields
 
