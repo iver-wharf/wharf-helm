@@ -112,11 +112,11 @@ data:
           "logLevel": "{{ .logLevel }}",
           "useRefreshToken": {{ .useRefreshToken }},
           "silentRenew": {{ .silentRenew }},
-          "responseType": "{{ .responseType }}",
+          "responseType": "id_token token",
           "ignoreNonceAfterRefresh": {{ .ignoreNonceAfterRefresh }},
           "maxIdTokenIatOffsetAllowedInSeconds": {{ .maxIdTokenIatOffsetAllowedInSeconds }},
-          "issValidationOff": {{ .issValidationOff }},
-          "autoUserInfo": {{ .autoUserInfo }}
+          "issValidationOff": false,
+          "autoUserInfo": false
       },
       {{- end }}
       "BackendUrls": {
