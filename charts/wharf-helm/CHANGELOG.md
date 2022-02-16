@@ -13,6 +13,10 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v3.0.1
+
+- Add oidc config values for Web. (#31)
+
 ## v3.0.0
 
 - BREAKING: Removes support for wharf-api v4.x.x and older.

@@ -1,7 +1,7 @@
 # Wharf Helm chart
 
-![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square)
-![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) 
+![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) 
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
 
@@ -39,6 +39,7 @@ helm install my-release iver-wharf/wharf-helm
 | [iver-wharf/wharf-provider-azuredevops](https://github.com/iver-wharf/wharf-provider-azuredevops) | [![Version: v2.0.1](https://img.shields.io/badge/Version-v2.0.1-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-azuredevops) |`"quay.io/iver-wharf/wharf-provider-azuredevops:v2.0.1"`
 
 ## Values
+
 
 ### `api.affinity`
 
@@ -159,6 +160,76 @@ helm install my-release iver-wharf/wharf-helm
 *Type:* `string`\
 *Default:* `"0.0.0.0:8080"`
 
+### `api.http.oidc.authority`
+
+> The url to the Security Token Service (STS). The authority issues tokens. This field is required.
+
+*Type:* `string`\
+*Default:* `"https://login.microsoftonline.com/841df554-ef9d-48b1-bc6e-44cf8543a8fc/v2.0/.well-known/openid-configuration"`
+
+### `api.http.oidc.clientId`
+
+> The Client MUST validate that the aud (audience) Claim contains its client_id value registered at the Issuer identified by the iss (issuer) Claim as an audience. The ID Token MUST be rejected if the ID Token does not list the Client as a valid audience, or if it contains additional audiences not trusted by the Client.
+
+*Type:* `string`\
+*Default:* `"01fcb3dc-7a2b-4b1c-a7d6-d7033089c779"`
+
+### `api.http.oidc.ignoreNonceAfterRefresh`
+
+> A token obtained by using a refresh token normally doesn't contain a nonce value. The library checks it is not there. However, some OIDC endpoint implementations do send one. Setting `ignoreNonceAfterRefresh` to `true` disables the check if a nonce is present. Please note that the nonce value, if present, will not be verified. Default is `false`.
+
+*Type:* `bool`\
+*Default:* `true`
+
+### `api.http.oidc.logLevel`
+
+> 0, 1, 2 can be used to set the log level displayed in the console.
+
+*Type:* `string`\
+*Default:* `"debug"`
+
+### `api.http.oidc.maxIdTokenIatOffsetAllowedInSeconds`
+
+> Amount of offset allowed between the server creating the token and the client app receiving the id_token. The diff in time between the server time and client time is also important in validating this value. All times are in UTC.
+
+*Type:* `int`\
+*Default:* `600`
+
+### `api.http.oidc.postLogoutRedirectUri`
+
+> URL to redirect to after a server logout if using the end session API.
+
+*Type:* `string`\
+*Default:* `"https://wharf.stage.atlas.dgc.local"`
+
+### `api.http.oidc.redirectUrl`
+
+> The redirect URL defined on the Security Token Service.
+
+*Type:* `string`\
+*Default:* `"https://wharf.stage.atlas.dgc.local"`
+
+### `api.http.oidc.scope`
+
+> List of scopes which are requested from the server from this client. This must match the Security Token Service configuration for the client you use. The openid scope is required. The offline_access scope can be requested when using refresh tokens but this is optional and some Security Token Service do not support this or recommend not requesting this even when using refresh tokens in the browser.
+
+*Type:* `string`\
+*Default:* `"openid profile email offline_access api://wharf-internal/read api://wharf-internal/admin api://wharf-internal/deploy"`
+
+### `api.http.oidc.silentRenew`
+
+> Renews the client tokens, once the id_token expires. Can use iframes or refresh tokens.
+
+*Type:* `bool`\
+*Default:* `true`
+
+### `api.http.oidc.useRefreshToken`
+
+> When set to true, refresh tokens are used to renew the user session. When set to false, standard silent renew is used. Default value is false.
+
+*Type:* `bool`\
+*Default:* `true`
+
 ### `api.image`
 
 > Docker image that runs the frontend/web
@@ -266,21 +337,21 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `imagePullSecrets`
 
->
+> 
 
 *Type:* `list`\
 *Default:* `[]`
 
 ### `ingress.annotations`
 
->
+> 
 
 *Type:* `object`\
 *Default:* `{}`
 
 ### `ingress.apiVersion`
 
->
+> 
 
 *Type:* `string`\
 *Default:* `"networking.k8s.io/v1beta1"`
@@ -301,14 +372,14 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingress.tls`
 
->
+> 
 
 *Type:* `object`\
 *Default:* `{}`
 
 ### `ingressRoute.apiVersion`
 
->
+> 
 
 *Type:* `string`\
 *Default:* `"traefik.containo.us/v1alpha1"`
@@ -322,7 +393,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingressRoute.entries[0].annotations`
 
->
+> 
 
 *Type:* `object`\
 *Default:* `{}`
@@ -350,14 +421,14 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingressRoute.entries[0].tls`
 
->
+> 
 
 *Type:* `object`\
 *Default:* `{}`
 
 ### `ingressRoute.entries[1].annotations`
 
->
+> 
 
 *Type:* `object`\
 *Default:* `{}`
@@ -371,7 +442,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingressRoute.entries[1].middlewares`
 
->
+> 
 
 *Type:* `list`\
 *Default:* `[]`
@@ -385,7 +456,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `ingressRoute.entries[1].tls.secretName`
 
->
+> 
 
 *Type:* `string`\
 *Default:* `"wharf-example-tls"`
@@ -511,7 +582,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `providers.example.imagePullSecrets`
 
->
+> 
 
 *Type:* `list`\
 *Default:* `[]`
@@ -546,7 +617,7 @@ helm install my-release iver-wharf/wharf-helm
 
 ### `providers.example.podAnnotations`
 
->
+> 
 
 *Type:* `object`\
 *Default:* `{}`
@@ -816,6 +887,7 @@ helm install my-release iver-wharf/wharf-helm
 
 *Type:* `list`\
 *Default:* `[{"emptyDir":{},"name":"cache"},{"emptyDir":{},"name":"run"}]`
+
 
 ## Smart environment fields
 
