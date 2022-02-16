@@ -102,10 +102,28 @@ data:
       },
       "UpdateLatency": 20000,
       "UpdateFrequency": 30000,
+      {{- with $.Values.web.http.oidc }}
+      {
+          "authority": "{{ .authority }}",
+          "redirectUrl": "{{ .redirectUrl }}",
+          "postLogoutRedirectUri": "{{ .postLogoutRedirectUri }}",
+          "clientId": "{{ .clientId }}",
+          "scope": "{{ .scope }}",
+          "logLevel": "{{ .logLevel }}",
+          "useRefreshToken": {{ .useRefreshToken }},
+          "silentRenew": {{ .silentRenew }},
+          "responseType": "{{ .responseType }}",
+          "ignoreNonceAfterRefresh": {{ .ignoreNonceAfterRefresh }},
+          "maxIdTokenIatOffsetAllowedInSeconds": {{ .maxIdTokenIatOffsetAllowedInSeconds }},
+          "issValidationOff": {{ .issValidationOff }},
+          "autoUserInfo": {{ .autoUserInfo }}
+      },
+      {{- end }}
       "BackendUrls": {
           "Api": "/api",
           "GitlabImport" : "/import",
           "GithubImport" : "/import",
           "AzureDevopsImport" : "/import"
       }
+
     }
