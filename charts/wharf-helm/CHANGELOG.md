@@ -15,7 +15,7 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 
 ## v3.0.1
 
-- Add oidc config values for Web. (#31)
+- Added OIDC config values for Web. (#31)
 
 ## v3.0.0
 
