@@ -125,5 +125,4 @@ data:
           "GithubImport" : "/import",
           "AzureDevopsImport" : "/import"
       }
-
     }
