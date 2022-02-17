@@ -201,12 +201,6 @@ api:
       # -- The url to the Security Token Service (STS). The authority issues tokens. This field is required.
       authority: "https://login.microsoftonline.com/841df554-ef9d-48b1-bc6e-44cf8543a8fc/v2.0/.well-known/openid-configuration"
 
-      # -- The redirect URL defined on the Security Token Service.
-      redirectUrl: ""
-
-      # -- URL to redirect to after a server logout if using the end session API.
-      postLogoutRedirectUri: ""
-
       # -- The Client MUST validate that the aud (audience) Claim contains its client_id value registered at the Issuer identified by the iss (issuer) Claim as an audience. The ID Token MUST be rejected if the ID Token does not list the Client as a valid audience, or if it contains additional audiences not trusted by the Client.
       clientId: "01fcb3dc-7a2b-4b1c-a7d6-d7033089c779"
 
