@@ -102,7 +102,7 @@ data:
       },
       "UpdateLatency": 20000,
       "UpdateFrequency": 30000,
-      {{- with $.Values.web.http.oidc }}
+      {{- with .Values.web.oidc }}
       "oidcConfig": {
           "authority": "{{ .authority }}",
           "redirectUrl": "{{ (printf "https://%s" $.Values.global.url) }}",

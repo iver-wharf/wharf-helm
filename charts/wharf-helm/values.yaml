@@ -101,6 +101,33 @@ web:
   # listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
   containerPort: 8080
 
+  # -- Settings for the OpenId Connect authentication login.
+  oidc:
+
+    # -- The url to the Security Token Service (STS). The authority issues tokens. This field is required.
+    authority: "https://login.microsoftonline.com/841df554-ef9d-48b1-bc6e-44cf8543a8fc/v2.0/.well-known/openid-configuration"
+
+    # -- The Client MUST validate that the aud (audience) Claim contains its client_id value registered at the Issuer identified by the iss (issuer) Claim as an audience. The ID Token MUST be rejected if the ID Token does not list the Client as a valid audience, or if it contains additional audiences not trusted by the Client.
+    clientId: "01fcb3dc-7a2b-4b1c-a7d6-d7033089c779"
+
+    # -- List of scopes which are requested from the server from this client. This must match the Security Token Service configuration for the client you use. The openid scope is required. The offline_access scope can be requested when using refresh tokens but this is optional and some Security Token Service do not support this or recommend not requesting this even when using refresh tokens in the browser.
+    scope: "openid profile email offline_access api://wharf-internal/read api://wharf-internal/admin api://wharf-internal/deploy"
+
+    # -- 0, 1, 2 can be used to set the log level displayed in the console.
+    logLevel: "debug"
+
+    # -- When set to true, refresh tokens are used to renew the user session. When set to false, standard silent renew is used. Default value is false.
+    useRefreshToken: true
+
+    # -- Renews the client tokens, once the id_token expires. Can use iframes or refresh tokens.
+    silentRenew: true
+
+    # -- A token obtained by using a refresh token normally doesn't contain a nonce value. The library checks it is not there. However, some OIDC endpoint implementations do send one. Setting `ignoreNonceAfterRefresh` to `true` disables the check if a nonce is present. Please note that the nonce value, if present, will not be verified. Default is `false`.
+    ignoreNonceAfterRefresh: true
+
+    # -- Amount of offset allowed between the server creating the token and the client app receiving the id_token. The diff in time between the server time and client time is also important in validating this value. All times are in UTC.
+    maxIdTokenIatOffsetAllowedInSeconds: 600
+
 api:
   # -- Number of deployment replicas.
   replicaCount: 1
@@ -194,33 +221,6 @@ api:
     # Sets `WHARF_HTTP_BINDADDRESS` environment variable.
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     bindAddress: "0.0.0.0:8080"
-
-    # --
-    oidc:
-
-      # -- The url to the Security Token Service (STS). The authority issues tokens. This field is required.
-      authority: "https://login.microsoftonline.com/841df554-ef9d-48b1-bc6e-44cf8543a8fc/v2.0/.well-known/openid-configuration"
-
-      # -- The Client MUST validate that the aud (audience) Claim contains its client_id value registered at the Issuer identified by the iss (issuer) Claim as an audience. The ID Token MUST be rejected if the ID Token does not list the Client as a valid audience, or if it contains additional audiences not trusted by the Client.
-      clientId: "01fcb3dc-7a2b-4b1c-a7d6-d7033089c779"
-
-      # -- List of scopes which are requested from the server from this client. This must match the Security Token Service configuration for the client you use. The openid scope is required. The offline_access scope can be requested when using refresh tokens but this is optional and some Security Token Service do not support this or recommend not requesting this even when using refresh tokens in the browser.
-      scope: "openid profile email offline_access api://wharf-internal/read api://wharf-internal/admin api://wharf-internal/deploy"
-
-      # -- 0, 1, 2 can be used to set the log level displayed in the console.
-      logLevel: "debug"
-
-      # -- When set to true, refresh tokens are used to renew the user session. When set to false, standard silent renew is used. Default value is false.
-      useRefreshToken: true
-
-      # -- Renews the client tokens, once the id_token expires. Can use iframes or refresh tokens.
-      silentRenew: true
-
-      # -- A token obtained by using a refresh token normally doesn't contain a nonce value. The library checks it is not there. However, some OIDC endpoint implementations do send one. Setting `ignoreNonceAfterRefresh` to `true` disables the check if a nonce is present. Please note that the nonce value, if present, will not be verified. Default is `false`.
-      ignoreNonceAfterRefresh: true
-
-      # -- Amount of offset allowed between the server creating the token and the client app receiving the id_token. The diff in time between the server time and client time is also important in validating this value. All times are in UTC.
-      maxIdTokenIatOffsetAllowedInSeconds: 600
 
   # Settings for Wharf API's database connection
   db:
