@@ -101,6 +101,36 @@ web:
   # listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
   containerPort: 8080
 
+  # -- If this is `false` or unset then no OIDC configs will be applied.
+  oidcEnabled: false
+
+  # -- Settings for the OpenId Connect authentication login. These are the
+  # config values for the angular-auth-oidc-client NPM package that wharf-web
+  # uses.
+  #
+  # The `web.oidc.redirectUrl` and `web.oidc.postLogoutRedirectUri` defaults to
+  # the `global.url` Helm value prefixed with `https://`.
+  #
+  # See documentation on configs here: https://nice-hill-002425310.azurestaticapps.net/docs/documentation/configuration#config-values
+  # See source code for configs here: https://github.com/damienbod/angular-auth-oidc-client/blob/release_13_1_0/projects/angular-auth-oidc-client/src/lib/config/openid-configuration.ts
+  #
+  # Note: These configs are ignored unless `web.oidcEnabled` is set to `true`.
+  oidc:
+    redirectUrl: # defaults to `https://` added to the `global.url` value
+    postLogoutRedirectUri: # defaults to `https://` added to the `global.url` value
+
+    authority: "https://login.microsoftonline.com/841df554-ef9d-48b1-bc6e-44cf8543a8fc/v2.0/.well-known/openid-configuration"
+    clientId: "01fcb3dc-7a2b-4b1c-a7d6-d7033089c779"
+    responseType: id_token token
+    scope: "openid profile email offline_access api://wharf-internal/read api://wharf-internal/admin api://wharf-internal/deploy"
+    logLevel: 2
+    useRefreshToken: true
+    silentRenew: true
+    ignoreNonceAfterRefresh: true
+    maxIdTokenIatOffsetAllowedInSeconds: 600
+    issValidationOff: false
+    autoUserInfo: false
+
 api:
   # -- Number of deployment replicas.
   replicaCount: 1

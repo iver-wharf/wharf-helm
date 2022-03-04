@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square)
+![Version: 3.1.0](https://img.shields.io/badge/Version-3.1.0-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
@@ -753,6 +753,20 @@ helm install my-release iver-wharf/wharf-helm
 
 *Type:* `object`\
 *Default:* `{"kubernetes.io/os":"linux"}`
+
+### `web.oidc`
+
+> Settings for the OpenId Connect authentication login. These are the config values for the angular-auth-oidc-client NPM package that wharf-web uses. The `web.oidc.redirectUrl` and `web.oidc.postLogoutRedirectUri` defaults to the `global.url` Helm value prefixed with `https://`. See documentation on configs here: https://nice-hill-002425310.azurestaticapps.net/docs/documentation/configuration#config-values See source code for configs here: https://github.com/damienbod/angular-auth-oidc-client/blob/release_13_1_0/projects/angular-auth-oidc-client/src/lib/config/openid-configuration.ts Note: These configs are ignored unless `web.oidcEnabled` is set to `true`.
+
+*Type:* `object`\
+*Default:* `{"authority":"https://login.microsoftonline.com/841df554-ef9d-48b1-bc6e-44cf8543a8fc/v2.0/.well-known/openid-configuration","autoUserInfo":false,"clientId":"01fcb3dc-7a2b-4b1c-a7d6-d7033089c779","ignoreNonceAfterRefresh":true,"issValidationOff":false,"logLevel":2,"maxIdTokenIatOffsetAllowedInSeconds":600,"postLogoutRedirectUri":null,"redirectUrl":null,"responseType":"id_token token","scope":"openid profile email offline_access api://wharf-internal/read api://wharf-internal/admin api://wharf-internal/deploy","silentRenew":true,"useRefreshToken":true}`
+
+### `web.oidcEnabled`
+
+> If this is `false` or unset then no OIDC configs will be applied.
+
+*Type:* `bool`\
+*Default:* `false`
 
 ### `web.podSecurityContext`
 

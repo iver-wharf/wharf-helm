@@ -95,17 +95,24 @@ metadata:
 data:
   config.json: |
     {
-      "Environment":
-      {
-          "Name": {{ .Values.global.instanceId | quote }},
-          "IsProduction": {{ .Values.global.isProduction }}
+      "Environment": {
+        "Name": {{ .Values.global.instanceId | quote }},
+        "IsProduction": {{ .Values.global.isProduction }}
       },
       "UpdateLatency": 20000,
       "UpdateFrequency": 30000,
+      {{- if .Values.web.oidcEnabled }}
+      {{- with .Values.web.oidc }}
+      {{- $conf := . }}
+      {{- $conf := get . "redirectUrl" | default ((printf "https://%s" $.Values.global.url)) | set $conf "redirectUrl" }}
+      {{- $conf := get . "postLogoutRedirectUri" | default ((printf "https://%s" $.Values.global.url)) | set $conf "postLogoutRedirectUri" }}
+      "oidcConfig": {{ $conf | toPrettyJson | indent 6 | trim }},
+      {{- end }}
+      {{- end }}
       "BackendUrls": {
-          "Api": "/api",
-          "GitlabImport" : "/import",
-          "GithubImport" : "/import",
-          "AzureDevopsImport" : "/import"
+        "Api": "/api",
+        "GitlabImport" : "/import",
+        "GithubImport" : "/import",
+        "AzureDevopsImport" : "/import"
       }
     }
