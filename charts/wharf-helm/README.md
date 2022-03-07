@@ -32,7 +32,7 @@ helm install my-release iver-wharf/wharf-helm
 
 | GitHub repository | Quay.io version | Image
 | ----------------- | --------------- | -----
-| [iver-wharf/wharf-api](https://github.com/iver-wharf/wharf-api) | [![Version: v5.1.0](https://img.shields.io/badge/Version-v5.1.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-api) |`"quay.io/iver-wharf/wharf-api:v5.1.0"`
+| [iver-wharf/wharf-api](https://github.com/iver-wharf/wharf-api) | [![Version: v5.1.1](https://img.shields.io/badge/Version-v5.1.1-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-api) |`"quay.io/iver-wharf/wharf-api:v5.1.1"`
 | [iver-wharf/wharf-web](https://github.com/iver-wharf/wharf-web) | [![Version: v1.5.1](https://img.shields.io/badge/Version-v1.5.1-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-web) |`"quay.io/iver-wharf/wharf-web:v1.5.1"`
 | [iver-wharf/wharf-provider-github](https://github.com/iver-wharf/wharf-provider-github) | [![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-github) |`"quay.io/iver-wharf/wharf-provider-github:v2.0.0"`
 | [iver-wharf/wharf-provider-gitlab](https://github.com/iver-wharf/wharf-provider-gitlab) | [![Version: v1.3.0](https://img.shields.io/badge/Version-v1.3.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-gitlab) |`"quay.io/iver-wharf/wharf-provider-gitlab:v1.3.0"`
@@ -164,7 +164,7 @@ helm install my-release iver-wharf/wharf-helm
 > Docker image that runs the frontend/web
 
 *Type:* `string`\
-*Default:* `"quay.io/iver-wharf/wharf-api:v5.1.0"`
+*Default:* `"quay.io/iver-wharf/wharf-api:v5.1.1"`
 
 ### `api.imagePullPolicy`
 
