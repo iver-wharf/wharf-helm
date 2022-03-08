@@ -15,7 +15,7 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 
 ## v3.1.1
 
-- Changed image version of `api` from v5.0.0 to v5.1.1. (#32)
+- Changed image version of `api` from v5.0.0 to v5.1.2. (#32)
 
 ## v3.1.0
 
