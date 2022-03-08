@@ -136,7 +136,7 @@ api:
   replicaCount: 1
 
   # -- Docker image that runs the frontend/web
-  image: quay.io/iver-wharf/wharf-api:v5.0.0
+  image: quay.io/iver-wharf/wharf-api:v5.1.2
   
   # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
   imagePullPolicy: ""
