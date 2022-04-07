@@ -467,7 +467,7 @@ providers:
     # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `github` provider
-    image: quay.io/iver-wharf/wharf-provider-github:v2.0.0
+    image: quay.io/iver-wharf/wharf-provider-github:v3.0.0
     # -- Default image pull policy used in the `github` provider
     imagePullPolicy: IfNotPresent
     # -- Default resources requested by the `github` provider
