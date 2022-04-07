@@ -13,6 +13,10 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v3.1.2
+
+- Changed image version of `github` from v2.0.0 to v3.0.0. (#33)
+
 ## v3.1.1
 
 - Changed image version of `api` from v5.0.0 to v5.1.2. (#32)
