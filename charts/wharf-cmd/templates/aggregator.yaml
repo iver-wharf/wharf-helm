@@ -23,7 +23,7 @@ spec:
         - name: aggregator
           image: {{ .Values.aggregator.image | default .Values.common.image | quote }}
           imagePullPolicy: Always
-          args: [ aggregator, serve, --loglevel, {{ .Values.aggregator.loglevel | default .Values.loglevel | quote }} ]
+          args: [ aggregator, serve, --loglevel, {{ .Values.aggregator.loglevel | default .Values.common.loglevel | quote }} ]
           {{- with .Values.aggregator.extraEnvs }}
           env: {{- toYaml . | nindent 12}}
           {{- end }}

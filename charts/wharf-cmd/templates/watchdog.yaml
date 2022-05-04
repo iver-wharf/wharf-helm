@@ -23,7 +23,7 @@ spec:
         - name: watchdog
           image: {{ .Values.watchdog.image | default .Values.common.image | quote }}
           imagePullPolicy: Always
-          args: [ watchdog, serve, --loglevel, {{ .Values.watchdog.loglevel | default .Values.loglevel | quote }} ]
+          args: [ watchdog, serve, --loglevel, {{ .Values.watchdog.loglevel | default .Values.common.loglevel | quote }} ]
           {{- with .Values.watchdog.extraEnvs }}
           env: {{- toYaml . | nindent 12}}
           {{- end }}
