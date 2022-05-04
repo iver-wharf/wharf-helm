@@ -83,7 +83,7 @@ provisioner:
 
 watchdog:
   # -- Enable the wharf-cmd-watchdog component.
-  enabled: true
+  enabled: false
 
   # -- (string) Docker image of wharf-cmd-provisioner.
   # @default -- common.image
