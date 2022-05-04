@@ -51,7 +51,7 @@ helm install wharf-cmd iver-wharf/wharf-cmd
 | provisioner.serviceType | string | `"ClusterIP"` | Service type. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types) |
 | provisioner.tolerations | list | `[]` | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) |
 | watchdog.affinity | object | `{}` | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) |
-| watchdog.enabled | bool | `true` | Enable the wharf-cmd-watchdog component. |
+| watchdog.enabled | bool | `false` | Enable the wharf-cmd-watchdog component. |
 | watchdog.extraEnvs | list | `[]` | Environment variables to add to the container. [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) |
 | watchdog.image | string | common.image | Docker image of wharf-cmd-provisioner. |
 | watchdog.loglevel | string | common.loglevel | Logging level for wharf-cmd-provisioner. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
