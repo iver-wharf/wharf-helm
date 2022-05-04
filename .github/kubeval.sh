@@ -3,7 +3,7 @@ set -euo pipefail
 
 : ${KUBERNETES_VERSION:=${1:?"Kubernetes version must be passed as first argument or as environment variable KUBERNETES_VERSION"}}
 : ${KUBEVAL_VERSION:="0.16.1"}
-: ${SCHEMA_LOCATION:="https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/"}
+: ${SCHEMA_LOCATION:="https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/"}
 
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 CHART_DIRS="$(git diff --find-renames --name-only "$GIT_BRANCH" remotes/origin/master -- charts | grep '[Cc]hart.yaml' | sed -e 's#/[Cc]hart.yaml##g')"

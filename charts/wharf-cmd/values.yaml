@@ -1,0 +1,109 @@
+
+# -- String to partially override the pod and service names. Will maintain the
+# release name.
+nameOverride: ""
+# -- String to fully override the pod and service names. If set, deployments,
+# services, ingresses, *etc*, will use this name, and `nameOverride` will be
+# ignored.
+fullnameOverride: ""
+
+common:
+  # -- Default logging level for all components.
+  # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
+  loglevel: debug
+
+  # -- Default Docker image for all components.
+  # The same image can be used for all wharf-cmd components as it uses the same
+  # binary to perform the different tasks.
+  image: quay.io/iver-wharf/wharf-cmd:latest
+
+aggregator:
+  # -- Enable the wharf-cmd-aggregator component.
+  enabled: true
+
+  # -- (string) Docker image of wharf-cmd-provisioner.
+  # @default -- common.image
+  image: null
+
+  # -- (string) Logging level for wharf-cmd-provisioner.
+  # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
+  # @default -- common.loglevel
+  loglevel: null
+
+  # -- Selects which node to run on, based on node labels.
+  # [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
+  nodeSelector:
+    kubernetes.io/os: linux
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+  tolerations: []
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+  affinity: {}
+
+  # -- Environment variables to add to the container.
+  # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
+  extraEnvs: []
+
+provisioner:
+  # -- Enable the wharf-cmd-provisioner component.
+  enabled: true
+
+  # -- (string) Docker image of wharf-cmd-provisioner.
+  # @default -- common.image
+  image: null
+
+  # -- (string) Logging level for wharf-cmd-provisioner.
+  # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
+  # @default -- common.loglevel
+  loglevel: null
+
+  # -- Service type. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
+  serviceType: ClusterIP
+
+  # -- Service port. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
+  servicePort: 80
+
+  # -- Container port. This needs to correlate to the port that the application
+  # listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
+  containerPort: 5009
+
+  # -- Selects which node to run on, based on node labels.
+  # [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
+  nodeSelector:
+    kubernetes.io/os: linux
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+  tolerations: []
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+  affinity: {}
+
+  # -- Environment variables to add to the container.
+  # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
+  extraEnvs: []
+
+watchdog:
+  # -- Enable the wharf-cmd-watchdog component.
+  enabled: false
+
+  # -- (string) Docker image of wharf-cmd-provisioner.
+  # @default -- common.image
+  image: null
+
+  # -- (string) Logging level for wharf-cmd-provisioner.
+  # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
+  # @default -- common.loglevel
+  loglevel: null
+
+  # -- Selects which node to run on, based on node labels.
+  # [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
+  nodeSelector:
+    kubernetes.io/os: linux
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+  tolerations: []
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+  affinity: {}
+
+  # -- Environment variables to add to the container.
+  # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
+  extraEnvs: []

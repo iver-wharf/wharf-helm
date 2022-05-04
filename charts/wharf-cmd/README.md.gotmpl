@@ -1,0 +1,60 @@
+# Wharf Helm chart
+
+{{ template "chart.versionBadge" . }}
+{{ template "chart.typeBadge" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{- $defaultValues := dict }}
+{{- range .Values }}
+  {{- $defaultValues = set $defaultValues (replace "." "_" .Key) .Default }}
+{{- end }}
+
+{{- define "wharf-helm.imageVersionBadge" }}
+{{- $imageVersion := regexReplaceAll ".*:([\\w_+.-]+)[\"`]*" . "${1}" -}}
+![Version: {{ $imageVersion }}](https://img.shields.io/badge/Version-{{ $imageVersion | replace "-" "--" }}-informational?style=flat-square)
+{{- end }}
+
+{{- define "wharf-helm.imageGitHubRepoLink" }}
+{{- $gitHubRepo := regexReplaceAll "[\"`]*quay\\.io/(.*):.*" . "${1}" -}}
+[{{ $gitHubRepo }}](https://github.com/{{ $gitHubRepo }})
+{{- end }}
+
+{{- define "wharf-helm.imageQuayIoRepo" -}}
+https://quay.io/repository/{{- regexReplaceAll "[\"`]*quay\\.io/(.*):.*" . "${1}" }}
+{{- end }}
+
+{{- define "wharf-helm.imageColumns" }}
+{{- template "wharf-helm.imageGitHubRepoLink" . }} | [{{ template "wharf-helm.imageVersionBadge" . }}]({{ template "wharf-helm.imageQuayIoRepo" . }}) | {{- . }}
+{{- end }}
+
+## Prerequisites
+
+- Wharf API, for wharf-cmd-watchdog and wharf-cmd-aggregator to
+  communicate with.
+
+## Installing the Chart
+
+To install the chart with the release name `my-release`:
+
+```sh
+helm repo add iver-wharf https://iver-wharf.github.io/wharf-helm
+helm install wharf-cmd iver-wharf/wharf-cmd
+```
+
+## Default images
+
+| GitHub repository | Quay.io version | Image
+| ----------------- | --------------- | -----
+| {{ template "wharf-helm.imageColumns" $defaultValues.common_image }}
+
+{{ template "chart.valuesSection" . }}
+
+## Changes
+
+See the [CHANGELOG.md](./CHANGELOG.md) file inside this Helm chart.
+
+---
+
+Maintained by [Iver](https://www.iver.com/en).
+Licensed under the [MIT license](https://github.com/iver-wharf/wharf-helm/blob/master/LICENSE).
