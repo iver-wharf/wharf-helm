@@ -67,14 +67,19 @@ jobs:
       matrix:
         k8s:
           # Possible values based on folder names from
-          # https://github.com/instrumenta/kubernetes-json-schema
+          # https://github.com/yannh/kubernetes-json-schema
           - v1.12.10
           - v1.13.11
           - v1.14.10
           - v1.15.7
           - v1.16.4
           - v1.17.4
-          - v1.18.1
+          - v1.18.19
+          - v1.19.11
+          - v1.20.7
+          - v1.21.11
+          - v1.22.7
+          - v1.23.5
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -104,7 +109,9 @@ jobs:
           - v1.18.19
           - v1.19.11
           - v1.20.7
-          - v1.21.1
+          - v1.21.11
+          - v1.22.7
+          - v1.23.5
     steps:
       - name: Checkout
         uses: actions/checkout@v1
