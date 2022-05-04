@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-: ${HELM_DOCS_VERSION:="1.5.0"}
+: ${HELM_DOCS_VERSION:="1.9.1"}
 
 # Install helm-docs
 curl --silent --show-error --fail --location \

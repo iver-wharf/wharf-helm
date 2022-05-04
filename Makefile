@@ -6,7 +6,7 @@ helm-docs:
 	helm-docs
 
 deps:
-	go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.5.0
+	go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.9.1
 	npm install
 
 lint: lint-md lint-helm
