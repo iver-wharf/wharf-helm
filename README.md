@@ -2,10 +2,18 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6d3504733d1844c49a8678633b1a78f8)](https://www.codacy.com/gh/iver-wharf/wharf-helm/dashboard?utm_source=github.com\&utm_medium=referral\&utm_content=iver-wharf/wharf-helm\&utm_campaign=Badge_Grade)
 
-Repository of Wharf's [Helm](https://helm.sh/) charts. Currently hosting:
+Repository of Wharf's [Helm](https://helm.sh/) charts.
 
-- [`wharf-helm`](charts/wharf-helm/README.md):
-  Deploy Wharf to Kubernetes using Helm
+## Helm charts in this repo
+
+<!--lint disable maximum-line-length -->
+
+| Chart | Description |
+| ----- | ----------- |
+| [wharf-helm](charts/wharf-helm/README.md) | Deploy Wharf to Kubernetes using Helm |
+| [wharf-cmd](charts/wharf-cmd/README.md)   | Deploy wharf-cmd, Wharf's execution engine, to Kubernetes |
+
+<!--lint enable maximum-line-length -->
 
 To start using, add the Wharf Helm chart repository:
 

@@ -1,0 +1,39 @@
+{{- if .Values.watchdog.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wharf-cmd.fullname" . }}-watchdog
+  labels:
+    component: watchdog
+    {{- include "wharf-cmd.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: watchdog
+      {{- include "wharf-cmd.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: watchdog
+        {{- include "wharf-cmd.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: wharf-cmd
+      containers:
+        - name: watchdog
+          image: {{ .Values.watchdog.image | default .Values.common.image | quote }}
+          imagePullPolicy: Always
+          args: [ watchdog, serve, --loglevel, {{ .Values.watchdog.loglevel | default .Values.loglevel | quote }} ]
+          {{- with .Values.watchdog.extraEnvs }}
+          env: {{- toYaml . | nindent 12}}
+          {{- end }}
+      {{- with .Values.watchdog.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.watchdog.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.watchdog.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

@@ -1,0 +1,71 @@
+{{- if .Values.provisioner.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wharf-cmd.fullname" . }}-provisioner
+  labels:
+    component: provisioner
+    {{- include "wharf-cmd.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: provisioner
+      {{- include "wharf-cmd.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: provisioner
+        {{- include "wharf-cmd.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: wharf-cmd
+      containers:
+        - name: provisioner
+          image: {{ .Values.provisioner.image | default .Values.common.image | quote }}
+          imagePullPolicy: Always
+          args: [ provisioner, serve, --loglevel, {{ .Values.provisioner.loglevel | default .Values.loglevel | quote }} ]
+          {{- with .Values.provisioner.extraEnvs }}
+          env: {{- toYaml . | nindent 12}}
+          {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          ports:
+            - name: http
+              containerPort: {{ .Values.provisioner.containerPort }}
+              protocol: TCP
+      {{- with .Values.provisioner.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.provisioner.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.provisioner.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wharf-cmd.fullname" . }}-provisioner
+  labels:
+    component: provisioner
+    {{- include "wharf-cmd.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.provisioner.serviceType | quote }}
+  ports:
+  - name: http
+    port: {{ .Values.provisioner.servicePort }}
+    protocol: TCP
+    targetPort: http
+  selector:
+    component: provisioner
+    {{- include "wharf-cmd.selectorLabels" . | nindent 4 }}
+  type: ClusterIP
+{{- end }}

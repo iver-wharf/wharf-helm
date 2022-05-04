@@ -1,0 +1,39 @@
+{{- if .Values.aggregator.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wharf-cmd.fullname" . }}-aggregator
+  labels:
+    component: aggregator
+    {{- include "wharf-cmd.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: aggregator
+      {{- include "wharf-cmd.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: aggregator
+        {{- include "wharf-cmd.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: wharf-cmd
+      containers:
+        - name: aggregator
+          image: {{ .Values.aggregator.image | default .Values.common.image | quote }}
+          imagePullPolicy: Always
+          args: [ aggregator, serve, --loglevel, {{ .Values.aggregator.loglevel | default .Values.loglevel | quote }} ]
+          {{- with .Values.aggregator.extraEnvs }}
+          env: {{- toYaml . | nindent 12}}
+          {{- end }}
+      {{- with .Values.aggregator.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.aggregator.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.aggregator.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

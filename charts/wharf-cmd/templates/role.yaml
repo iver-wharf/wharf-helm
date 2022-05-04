@@ -1,0 +1,20 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: wharf-cmd
+rules:
+- apiGroups: [""]
+  resources: [pods]
+  verbs: ["*"]
+
+- apiGroups: [""]
+  resources: [pods/log]
+  verbs: [get, list, watch]
+
+- apiGroups: [""]
+  resources: [pods/portforward]
+  verbs: [get, list, create]
+
+- apiGroups: [""]
+  resources: [pods/exec]
+  verbs: [create]
