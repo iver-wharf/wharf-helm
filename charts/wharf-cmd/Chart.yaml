@@ -4,3 +4,12 @@ description: Deploy wharf-cmd, Wharf's execution engine, to Kubernetes.
 type: application
 version: 0.1.0
 appVersion: "0.8.0"
+home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-cmd
+maintainers:
+  - name: jilleJr
+    email: kalle.fagerberg@iver.se
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/links: |
+    - name: support
+      url: https://github.com/iver-wharf/wharf-helm/issues/new
