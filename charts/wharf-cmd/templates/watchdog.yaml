@@ -67,5 +67,7 @@ metadata:
 data:
   wharf-cmd-config.yml: |
     instanceId: {{ .Values.global.instanceId | quote }}
-    {{- deepCopy .Values.common.config | merge .Values.watchdog.config | toYaml | nindent 4 }}
+    {{- with deepCopy .Values.common.config | merge .Values.watchdog.config }}
+    {{- . | toYaml | nindent 4 }}
+    {{- end }}
 {{- end }}
