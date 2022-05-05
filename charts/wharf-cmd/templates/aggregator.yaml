@@ -26,10 +26,6 @@ spec:
           args: 
             - --loglevel
             - {{ .Values.aggregator.loglevel | default .Values.common.loglevel | quote }}
-            {{- with .Values.global.instanceId }}
-            - --instance
-            - {{- . | quote }}
-            {{- end }}
             - aggregator
             - serve
             {{- with .Values.aggregator.extraArgs }}
@@ -38,6 +34,10 @@ spec:
           {{- with .Values.aggregator.extraEnvs }}
           env: {{- toYaml . | nindent 12 }}
           {{- end }}
+          volumeMounts:
+          - mountPath: /etc/iver-wharf/wharf-cmd
+            name: config
+            readOnly: true
       {{- with .Values.aggregator.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -47,4 +47,20 @@ spec:
       {{- with .Values.aggregator.tolerations }}
       tolerations: {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ include "wharf-cmd.fullname" . }}-aggregator-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "wharf-cmd.fullname" . }}-aggregator-config
+  labels:
+    component: aggregator
+    {{- include "wharf-cmd.labels" . | nindent 4 }}
+data:
+  wharf-cmd-config.yml: |
+    instanceId: {{ .Values.global.instanceId | quote }}
+    {{- deepCopy .Values.common.config | merge .Values.aggregator.config | toYaml | nindent 4 }}
 {{- end }}

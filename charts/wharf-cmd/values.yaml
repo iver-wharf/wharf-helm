@@ -22,6 +22,11 @@ common:
   # binary to perform the different tasks.
   image: quay.io/iver-wharf/wharf-cmd:latest
 
+  # -- Default configuration for all components.
+  # This is later merged with each per-component configs, where their config
+  # values take precedence. [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  config: {}
+
 aggregator:
   # -- Enable the wharf-cmd-aggregator component.
   enabled: true
@@ -51,6 +56,11 @@ aggregator:
 
   # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
   extraArgs: []
+
+  # -- Configuration for wharf-cmd added only to the aggregator component.
+  # This is merged with `common.config`, where values here take precedence.
+  # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  config: {}
 
 provisioner:
   # -- Enable the wharf-cmd-provisioner component.
@@ -92,6 +102,11 @@ provisioner:
   # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
   extraArgs: []
 
+  # -- Configuration for wharf-cmd added only to the aggregator component.
+  # This is merged with `common.config`, where values here take precedence.
+  # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  config: {}
+
 watchdog:
   # -- Enable the wharf-cmd-watchdog component.
   enabled: false
@@ -121,3 +136,8 @@ watchdog:
 
   # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
   extraArgs: []
+
+  # -- Configuration for wharf-cmd added only to the aggregator component.
+  # This is merged with `common.config`, where values here take precedence.
+  # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  config: {}
