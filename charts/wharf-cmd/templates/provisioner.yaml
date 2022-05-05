@@ -23,7 +23,18 @@ spec:
         - name: provisioner
           image: {{ .Values.provisioner.image | default .Values.common.image | quote }}
           imagePullPolicy: Always
-          args: [ provisioner, serve, --loglevel, {{ .Values.provisioner.loglevel | default .Values.common.loglevel | quote }} ]
+          args:
+            - --loglevel
+            - {{ .Values.provisioner.loglevel | default .Values.common.loglevel | quote }}
+            {{- with .Values.global.instanceId }}
+            - --instance
+            - {{- . | quote }}
+            {{- end }}
+            - provisioner
+            - serve
+            {{- with .Values.provisioner.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- with .Values.provisioner.extraEnvs }}
           env: {{- toYaml . | nindent 12}}
           {{- end }}

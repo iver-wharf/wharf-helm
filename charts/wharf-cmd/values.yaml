@@ -7,6 +7,11 @@ nameOverride: ""
 # ignored.
 fullnameOverride: ""
 
+global:
+  # -- Used by Wharf to differentiate between installations in the same
+  # namespace.
+  instanceId: dev
+
 common:
   # -- Default logging level for all components.
   # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
@@ -43,6 +48,9 @@ aggregator:
   # -- Environment variables to add to the container.
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
+
+  # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  extraArgs: []
 
 provisioner:
   # -- Enable the wharf-cmd-provisioner component.
@@ -81,6 +89,9 @@ provisioner:
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
 
+  # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  extraArgs: []
+
 watchdog:
   # -- Enable the wharf-cmd-watchdog component.
   enabled: false
@@ -107,3 +118,6 @@ watchdog:
   # -- Environment variables to add to the container.
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
+
+  # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  extraArgs: []

@@ -23,9 +23,20 @@ spec:
         - name: aggregator
           image: {{ .Values.aggregator.image | default .Values.common.image | quote }}
           imagePullPolicy: Always
-          args: [ aggregator, serve, --loglevel, {{ .Values.aggregator.loglevel | default .Values.common.loglevel | quote }} ]
+          args: 
+            - --loglevel
+            - {{ .Values.aggregator.loglevel | default .Values.common.loglevel | quote }}
+            {{- with .Values.global.instanceId }}
+            - --instance
+            - {{- . | quote }}
+            {{- end }}
+            - aggregator
+            - serve
+            {{- with .Values.aggregator.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- with .Values.aggregator.extraEnvs }}
-          env: {{- toYaml . | nindent 12}}
+          env: {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- with .Values.aggregator.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
