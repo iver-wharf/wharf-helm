@@ -15,14 +15,14 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 
 ## v0.2.0
 
-- Added ability to set configs via:
+- Added ability to set configs via: (#36)
 
   - `.Values.common.config`
   - `.Values.aggregator.config`
   - `.Values.provisioner.config`
   - `.Values.watchdog.config`
 
-- Added ability to add additional command line arguments:
+- Added ability to add additional command line arguments: (#36)
 
   - `.Values.aggregator.extraArgs`
   - `.Values.provisioner.extraArgs`
