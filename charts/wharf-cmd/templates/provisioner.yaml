@@ -78,10 +78,8 @@ metadata:
     {{- include "wharf-cmd.labels" . | nindent 4 }}
 data:
   wharf-cmd-config.yml: |
-    instanceId: {{ .Values.global.instanceId | quote }}
-    {{- with deepCopy .Values.common.config | merge .Values.provisioner.config }}
-    {{- . | toYaml | nindent 4 }}
-    {{- end }}
+    {{- $config := deepCopy .Values.common.config | merge .Values.provisioner.config }}
+    {{- set $config "instanceId" .Values.global.instanceId | toYaml | nindent 4 }}
 
 ---
 apiVersion: v1
