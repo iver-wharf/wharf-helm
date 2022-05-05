@@ -66,11 +66,15 @@ pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
 | aggregator.extraArgs | list | `[]` | (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]` |
 | aggregator.extraEnvs | list | `[]` | Environment variables to add to the container. [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) |
 | aggregator.image | string | common.image | Docker image of wharf-cmd-provisioner. |
+| aggregator.imagePullPolicy | string | common.imagePullPolicy | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
+| aggregator.imagePullSecrets | list | common.imagePullSecrets | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) |
 | aggregator.loglevel | string | common.loglevel | Logging level for wharf-cmd-provisioner. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
 | aggregator.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | Selects which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/) |
 | aggregator.tolerations | list | `[]` | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) |
 | common.config | object | `{}` | Default configuration for all components. This is later merged with each per-component configs, where their config values take precedence. [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config) |
 | common.image | string | `"quay.io/iver-wharf/wharf-cmd:latest"` | Default Docker image for all components. The same image can be used for all wharf-cmd components as it uses the same binary to perform the different tasks. |
+| common.imagePullPolicy | string | `""` | Default imagePullPolicy for all components. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
+| common.imagePullSecrets | list | `[]` | Default imagePullSecrets for all components. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) |
 | common.loglevel | string | `"debug"` | Default logging level for all components. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
 | fullnameOverride | string | `""` | String to fully override the pod and service names. If set, deployments, services, ingresses, *etc*, will use this name, and `nameOverride` will be ignored. |
 | global.instanceId | string | `"dev"` | Used by Wharf to differentiate between installations in the same namespace. |
@@ -82,6 +86,8 @@ pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
 | provisioner.extraArgs | list | `[]` | (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]` |
 | provisioner.extraEnvs | list | `[]` | Environment variables to add to the container. [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) |
 | provisioner.image | string | common.image | Docker image of wharf-cmd-provisioner. |
+| provisioner.imagePullPolicy | string | common.imagePullPolicy | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
+| provisioner.imagePullSecrets | list | common.imagePullSecrets | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) |
 | provisioner.loglevel | string | common.loglevel | Logging level for wharf-cmd-provisioner. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
 | provisioner.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | Selects which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/) |
 | provisioner.servicePort | int | `80` | Service port. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service) |
@@ -93,6 +99,8 @@ pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
 | watchdog.extraArgs | list | `[]` | (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]` |
 | watchdog.extraEnvs | list | `[]` | Environment variables to add to the container. [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) |
 | watchdog.image | string | common.image | Docker image of wharf-cmd-provisioner. |
+| watchdog.imagePullPolicy | string | common.imagePullPolicy | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
+| watchdog.imagePullSecrets | list | common.imagePullSecrets | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) |
 | watchdog.loglevel | string | common.loglevel | Logging level for wharf-cmd-provisioner. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
 | watchdog.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | Selects which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/) |
 | watchdog.tolerations | list | `[]` | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) |

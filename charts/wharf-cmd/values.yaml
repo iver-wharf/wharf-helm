@@ -22,6 +22,15 @@ common:
   # binary to perform the different tasks.
   image: quay.io/iver-wharf/wharf-cmd:latest
 
+  # -- Default imagePullPolicy for all components.
+  # [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+  imagePullPolicy: ""
+
+  # -- Default imagePullSecrets for all components.
+  # [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+  imagePullSecrets: []
+  #  - name: myDockerCredentialsSecret
+
   # -- Default configuration for all components.
   # This is later merged with each per-component configs, where their config
   # values take precedence. [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
@@ -31,9 +40,18 @@ aggregator:
   # -- Enable the wharf-cmd-aggregator component.
   enabled: true
 
-  # -- (string) Docker image of wharf-cmd-provisioner.
+  # -- Docker image of wharf-cmd-provisioner.
   # @default -- common.image
-  image: null
+  image: ""
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+  # @default -- common.imagePullPolicy
+  imagePullPolicy: ""
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+  # @default -- common.imagePullSecrets
+  imagePullSecrets: []
+  #  - name: myDockerCredentialsSecret
 
   # -- (string) Logging level for wharf-cmd-provisioner.
   # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
@@ -69,6 +87,15 @@ provisioner:
   # -- (string) Docker image of wharf-cmd-provisioner.
   # @default -- common.image
   image: null
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+  # @default -- common.imagePullPolicy
+  imagePullPolicy: ""
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+  # @default -- common.imagePullSecrets
+  imagePullSecrets: []
+  #  - name: myDockerCredentialsSecret
 
   # -- (string) Logging level for wharf-cmd-provisioner.
   # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
@@ -114,6 +141,15 @@ watchdog:
   # -- (string) Docker image of wharf-cmd-provisioner.
   # @default -- common.image
   image: null
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+  # @default -- common.imagePullPolicy
+  imagePullPolicy: ""
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+  # @default -- common.imagePullSecrets
+  imagePullSecrets: []
+  #  - name: myDockerCredentialsSecret
 
   # -- (string) Logging level for wharf-cmd-provisioner.
   # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.

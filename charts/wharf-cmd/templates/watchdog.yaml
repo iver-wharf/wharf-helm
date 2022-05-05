@@ -19,10 +19,15 @@ spec:
         {{- include "wharf-cmd.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: wharf-cmd
+      {{- with .Values.watchdog.imagePullSecrets | default .Values.common.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: watchdog
           image: {{ .Values.watchdog.image | default .Values.common.image | quote }}
-          imagePullPolicy: Always
+          {{- with .Values.watchdog.imagePullPolicy | default .Values.common.imagePullPolicy }}
+          imagePullPolicy: {{ . | quote }}
+          {{- end }}
           args: 
             - --loglevel
             - {{ .Values.watchdog.loglevel | default .Values.common.loglevel | quote }}

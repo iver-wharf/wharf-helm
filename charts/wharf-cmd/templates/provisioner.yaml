@@ -19,10 +19,15 @@ spec:
         {{- include "wharf-cmd.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: wharf-cmd
+      {{- with .Values.provisioner.imagePullSecrets | default .Values.common.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: provisioner
           image: {{ .Values.provisioner.image | default .Values.common.image | quote }}
-          imagePullPolicy: Always
+          {{- with .Values.provisioner.imagePullPolicy | default .Values.common.imagePullPolicy }}
+          imagePullPolicy: {{ . | quote }}
+          {{- end }}
           args:
             - --loglevel
             - {{ .Values.provisioner.loglevel | default .Values.common.loglevel | quote }}
