@@ -25,6 +25,37 @@ helm install wharf-cmd iver-wharf/wharf-cmd
 | ----------------- | --------------- | -----
 | [iver-wharf/wharf-cmd](https://github.com/iver-wharf/wharf-cmd) | [![Version: latest](https://img.shields.io/badge/Version-latest-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-cmd) |`"quay.io/iver-wharf/wharf-cmd:latest"`
 
+## Configs disclaimer
+
+The chart allows you to set YAML configs for the different components.
+
+Please note that wharf-cmd does not support hot-reloading configs, so if you
+do a Helm upgrade with only configs changes, then Kubernetes only updates
+the ConfigMaps and will not restart the services for you.
+
+To restart the services manually, you can delete the pods, and let the
+Deployment recreate them, like so:
+
+```console
+$ kubectl delete pod -l app.kubernetes.io/name=wharf-cmd
+pod "wharf-cmd-stage-aggregator-857b7d4949-4dgnk" deleted
+pod "wharf-cmd-stage-provisioner-8b5b5f85c-b4fqj" deleted
+pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
+```
+
+Or delete only one of the components:
+
+```console
+$ kubectl delete pod -l app.kubernetes.io/name=wharf-cmd,component=aggregator
+pod "wharf-cmd-stage-aggregator-857b7d4949-4dgnk" deleted
+
+$ kubectl delete pod -l app.kubernetes.io/name=wharf-cmd,component=provisioner
+pod "wharf-cmd-stage-provisioner-8b5b5f85c-b4fqj" deleted
+
+$ kubectl delete pod -l app.kubernetes.io/name=wharf-cmd,component=watchdog
+pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
+```
+
 ## Values
 
 | Key | Type | Default | Description |
