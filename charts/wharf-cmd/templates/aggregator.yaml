@@ -19,14 +19,30 @@ spec:
         {{- include "wharf-cmd.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: wharf-cmd
+      {{- with .Values.aggregator.imagePullSecrets | default .Values.common.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: aggregator
           image: {{ .Values.aggregator.image | default .Values.common.image | quote }}
-          imagePullPolicy: Always
-          args: [ aggregator, serve, --loglevel, {{ .Values.aggregator.loglevel | default .Values.common.loglevel | quote }} ]
-          {{- with .Values.aggregator.extraEnvs }}
-          env: {{- toYaml . | nindent 12}}
+          {{- with .Values.aggregator.imagePullPolicy | default .Values.common.imagePullPolicy }}
+          imagePullPolicy: {{ . | quote }}
           {{- end }}
+          args: 
+            - --loglevel
+            - {{ .Values.aggregator.loglevel | default .Values.common.loglevel | quote }}
+            - aggregator
+            - serve
+            {{- with .Values.aggregator.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.aggregator.extraEnvs }}
+          env: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+          - mountPath: /etc/iver-wharf/wharf-cmd
+            name: config
+            readOnly: true
       {{- with .Values.aggregator.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -36,4 +52,20 @@ spec:
       {{- with .Values.aggregator.tolerations }}
       tolerations: {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ include "wharf-cmd.fullname" . }}-aggregator-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "wharf-cmd.fullname" . }}-aggregator-config
+  labels:
+    component: aggregator
+    {{- include "wharf-cmd.labels" . | nindent 4 }}
+data:
+  wharf-cmd-config.yml: |
+    {{- $config := deepCopy .Values.common.config | merge .Values.aggregator.config }}
+    {{- set $config "instanceId" .Values.global.instanceId | toYaml | nindent 4 }}
 {{- end }}

@@ -7,6 +7,11 @@ nameOverride: ""
 # ignored.
 fullnameOverride: ""
 
+global:
+  # -- Used by Wharf to differentiate between installations in the same
+  # namespace.
+  instanceId: dev
+
 common:
   # -- Default logging level for all components.
   # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
@@ -17,13 +22,36 @@ common:
   # binary to perform the different tasks.
   image: quay.io/iver-wharf/wharf-cmd:latest
 
+  # -- Default imagePullPolicy for all components.
+  # [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+  imagePullPolicy: ""
+
+  # -- Default imagePullSecrets for all components.
+  # [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+  imagePullSecrets: []
+  #  - name: myDockerCredentialsSecret
+
+  # -- Default configuration for all components.
+  # This is later merged with each per-component configs, where their config
+  # values take precedence. [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  config: {}
+
 aggregator:
   # -- Enable the wharf-cmd-aggregator component.
   enabled: true
 
-  # -- (string) Docker image of wharf-cmd-provisioner.
+  # -- Docker image of wharf-cmd-provisioner.
   # @default -- common.image
-  image: null
+  image: ""
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+  # @default -- common.imagePullPolicy
+  imagePullPolicy: ""
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+  # @default -- common.imagePullSecrets
+  imagePullSecrets: []
+  #  - name: myDockerCredentialsSecret
 
   # -- (string) Logging level for wharf-cmd-provisioner.
   # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
@@ -44,6 +72,14 @@ aggregator:
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
 
+  # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  extraArgs: []
+
+  # -- Configuration for wharf-cmd added only to the aggregator component.
+  # This is merged with `common.config`, where values here take precedence.
+  # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  config: {}
+
 provisioner:
   # -- Enable the wharf-cmd-provisioner component.
   enabled: true
@@ -51,6 +87,15 @@ provisioner:
   # -- (string) Docker image of wharf-cmd-provisioner.
   # @default -- common.image
   image: null
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+  # @default -- common.imagePullPolicy
+  imagePullPolicy: ""
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+  # @default -- common.imagePullSecrets
+  imagePullSecrets: []
+  #  - name: myDockerCredentialsSecret
 
   # -- (string) Logging level for wharf-cmd-provisioner.
   # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
@@ -81,6 +126,14 @@ provisioner:
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
 
+  # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  extraArgs: []
+
+  # -- Configuration for wharf-cmd added only to the aggregator component.
+  # This is merged with `common.config`, where values here take precedence.
+  # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  config: {}
+
 watchdog:
   # -- Enable the wharf-cmd-watchdog component.
   enabled: false
@@ -88,6 +141,15 @@ watchdog:
   # -- (string) Docker image of wharf-cmd-provisioner.
   # @default -- common.image
   image: null
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+  # @default -- common.imagePullPolicy
+  imagePullPolicy: ""
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+  # @default -- common.imagePullSecrets
+  imagePullSecrets: []
+  #  - name: myDockerCredentialsSecret
 
   # -- (string) Logging level for wharf-cmd-provisioner.
   # Possible values: `debug`, `info`, `warn`, `error`, and `panic`.
@@ -107,3 +169,11 @@ watchdog:
   # -- Environment variables to add to the container.
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
+
+  # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  extraArgs: []
+
+  # -- Configuration for wharf-cmd added only to the aggregator component.
+  # This is merged with `common.config`, where values here take precedence.
+  # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  config: {}

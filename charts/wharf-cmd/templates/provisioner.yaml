@@ -19,14 +19,30 @@ spec:
         {{- include "wharf-cmd.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: wharf-cmd
+      {{- with .Values.provisioner.imagePullSecrets | default .Values.common.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: provisioner
           image: {{ .Values.provisioner.image | default .Values.common.image | quote }}
-          imagePullPolicy: Always
-          args: [ provisioner, serve, --loglevel, {{ .Values.provisioner.loglevel | default .Values.common.loglevel | quote }} ]
+          {{- with .Values.provisioner.imagePullPolicy | default .Values.common.imagePullPolicy }}
+          imagePullPolicy: {{ . | quote }}
+          {{- end }}
+          args:
+            - --loglevel
+            - {{ .Values.provisioner.loglevel | default .Values.common.loglevel | quote }}
+            - provisioner
+            - serve
+            {{- with .Values.provisioner.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- with .Values.provisioner.extraEnvs }}
           env: {{- toYaml . | nindent 12}}
           {{- end }}
+          volumeMounts:
+          - mountPath: /etc/iver-wharf/wharf-cmd
+            name: config
+            readOnly: true
           livenessProbe:
             httpGet:
               path: /
@@ -48,6 +64,22 @@ spec:
       {{- with .Values.provisioner.tolerations }}
       tolerations: {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ include "wharf-cmd.fullname" . }}-provisioner-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "wharf-cmd.fullname" . }}-provisioner-config
+  labels:
+    component: provisioner
+    {{- include "wharf-cmd.labels" . | nindent 4 }}
+data:
+  wharf-cmd-config.yml: |
+    {{- $config := deepCopy .Values.common.config | merge .Values.provisioner.config }}
+    {{- set $config "instanceId" .Values.global.instanceId | toYaml | nindent 4 }}
 
 ---
 apiVersion: v1

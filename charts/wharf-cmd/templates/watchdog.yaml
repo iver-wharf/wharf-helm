@@ -19,14 +19,30 @@ spec:
         {{- include "wharf-cmd.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: wharf-cmd
+      {{- with .Values.watchdog.imagePullSecrets | default .Values.common.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: watchdog
           image: {{ .Values.watchdog.image | default .Values.common.image | quote }}
-          imagePullPolicy: Always
-          args: [ watchdog, serve, --loglevel, {{ .Values.watchdog.loglevel | default .Values.common.loglevel | quote }} ]
+          {{- with .Values.watchdog.imagePullPolicy | default .Values.common.imagePullPolicy }}
+          imagePullPolicy: {{ . | quote }}
+          {{- end }}
+          args: 
+            - --loglevel
+            - {{ .Values.watchdog.loglevel | default .Values.common.loglevel | quote }}
+            - watchdog
+            - serve
+            {{- with .Values.watchdog.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- with .Values.watchdog.extraEnvs }}
           env: {{- toYaml . | nindent 12}}
           {{- end }}
+          volumeMounts:
+          - mountPath: /etc/iver-wharf/wharf-cmd
+            name: config
+            readOnly: true
       {{- with .Values.watchdog.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -36,4 +52,20 @@ spec:
       {{- with .Values.watchdog.tolerations }}
       tolerations: {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ include "wharf-cmd.fullname" . }}-watchdog-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "wharf-cmd.fullname" . }}-watchdog-config
+  labels:
+    component: watchdog
+    {{- include "wharf-cmd.labels" . | nindent 4 }}
+data:
+  wharf-cmd-config.yml: |
+    {{- $config := deepCopy .Values.common.config | merge .Values.watchdog.config }}
+    {{- set $config "instanceId" .Values.global.instanceId | toYaml | nindent 4 }}
 {{- end }}
