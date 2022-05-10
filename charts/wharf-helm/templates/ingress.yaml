@@ -2,7 +2,7 @@
 {{- $fullName := include "wharf-helm.fullname" . -}}
 {{- $svcPortWeb := .Values.web.servicePort -}}
 {{- $svcPortApi := .Values.api.servicePort -}}
-{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
 apiVersion: networking.k8s.io/v1
 {{- else }}
 apiVersion: networking.k8s.io/v1beta1
@@ -26,7 +26,7 @@ spec:
       http:
         paths:
           - path: /
-{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
             pathType: Prefix
             backend:
               service:
@@ -39,7 +39,7 @@ spec:
               servicePort: {{ $svcPortWeb }}
 {{- end }}
           - path: /api
-{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
             pathType: Prefix
             backend:
               service:
@@ -60,7 +60,7 @@ spec:
           {{- $providerName := $provider.name | default $providerName }}
           {{- $providerUrlBase := $provider.urlBaseOverride | default (printf "/import/%s" $providerName) }}
           - path: {{ $providerUrlBase | quote }}
-{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
             pathType: Prefix
             backend:
               service:
