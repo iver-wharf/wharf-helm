@@ -13,6 +13,12 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v0.2.1
+
+- Changed documentation of Helm repo from
+  `https://iver-wharf.github.io/wharf-helm` to
+  `https://wharf.iver.com/wharf-helm` (#41)
+
 ## v0.2.0
 
 - Added values to set configs via: (#36)
