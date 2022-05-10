@@ -2,12 +2,15 @@
 {{- $fullName := include "wharf-helm.fullname" . -}}
 {{- $svcPortWeb := .Values.web.servicePort -}}
 {{- $svcPortApi := .Values.api.servicePort -}}
-{{- $ingressRouteApiVersion := .Values.ingressRoute.apiVersion | default "traefik.containo.us/v1alpha1" -}}
 {{- $url := .Values.global.url }}
 {{- $labels := include "wharf-helm.labels" . }}
 
 {{- range $index, $entry := .Values.ingressRoute.entries -}}
-apiVersion: {{ $ingressRouteApiVersion | quote }}
+{{- if .Capabilities.APIVersions.Has "traefik.containo.us/v1" }}
+apiVersion: traefik.containo.us/v1
+{{- else }}
+apiVersion: traefik.containo.us/v1alpha1
+{{- end }}
 kind: IngressRoute
 metadata:
   name: {{ printf "%v-%v" $fullName $entry.name | quote }}

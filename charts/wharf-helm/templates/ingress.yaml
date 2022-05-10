@@ -2,7 +2,11 @@
 {{- $fullName := include "wharf-helm.fullname" . -}}
 {{- $svcPortWeb := .Values.web.servicePort -}}
 {{- $svcPortApi := .Values.api.servicePort -}}
-apiVersion: {{ .Values.ingress.apiVersion | default "networking.k8s.io/v1beta1" | quote }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+apiVersion: networking.k8s.io/v1
+{{- else }}
+apiVersion: networking.k8s.io/v1beta1
+{{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName | quote }}
@@ -22,13 +26,31 @@ spec:
       http:
         paths:
           - path: /
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ printf "%v-web" $fullName | quote }}
+                port:
+                  number: {{ $svcPortWeb }}
+{{- else }}
             backend:
               serviceName: {{ printf "%v-web" $fullName | quote }}
               servicePort: {{ $svcPortWeb }}
+{{- end }}
           - path: /api
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ printf "%v-api" $fullName | quote }}
+                port:
+                  number: {{ $svcPortApi }}
+{{- else }}
             backend:
               serviceName: {{ printf "%v-api" $fullName | quote }}
               servicePort: {{ $svcPortApi }}
+{{- end }}
           {{- with .Values.providers }}
           {{- range $providerName, $provider := . }}
           {{- if $provider.enabled }}
@@ -38,9 +60,18 @@ spec:
           {{- $providerName := $provider.name | default $providerName }}
           {{- $providerUrlBase := $provider.urlBaseOverride | default (printf "/import/%s" $providerName) }}
           - path: {{ $providerUrlBase | quote }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ printf "%s-%s" $fullName $providerName | quote }}
+                port:
+                  number: {{ $provider.servicePort | default 80 }}
+{{- else }}
             backend:
               serviceName: {{ printf "%s-%s" $fullName $providerName | quote }}
               servicePort: {{ $provider.servicePort | default 80 }}
+{{- end }}
           {{- end }}{{/* if provider.enabled */}}
           {{- end }}{{/* range of providers */}}
           {{- end }}{{/* with .Values.providers */}}

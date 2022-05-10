@@ -13,6 +13,17 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v3.2.0
+
+- Changed image version of `web` from v1.5.1 to v1.6.0. (#38)
+
+- Changed image version of `azuredevops` from v2.0.1 to v3.0.0. (#38)
+
+- Changed image version of `gitlab` from v1.3.0 to v2.0.0. (#38)
+
+- Removed Ingress & IngressRoute `apiVersion`, relying on automatic values
+  instead. (#38)
+
 ## v3.1.2
 
 - Changed image version of `github` from v2.0.0 to v3.0.0. (#33)

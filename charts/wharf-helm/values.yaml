@@ -23,7 +23,7 @@ web:
   replicaCount: 1
 
   # -- Docker image that runs the frontend/web
-  image: quay.io/iver-wharf/wharf-web:v1.5.1
+  image: quay.io/iver-wharf/wharf-web:v1.6.0
 
   # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
   imagePullPolicy: ""
@@ -447,7 +447,7 @@ providers:
     # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `gitlab` provider
-    image: quay.io/iver-wharf/wharf-provider-gitlab:v1.3.0
+    image: quay.io/iver-wharf/wharf-provider-gitlab:v2.0.0
     # -- Default image pull policy used in the `gitlab` provider
     imagePullPolicy: IfNotPresent
     # -- Default resources requested by the GitLab provider
@@ -487,7 +487,7 @@ providers:
     # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `azuredevops` provider
-    image: quay.io/iver-wharf/wharf-provider-azuredevops:v2.0.1
+    image: quay.io/iver-wharf/wharf-provider-azuredevops:v3.0.0
     # -- Default image pull policy used in the `azuredevops` provider
     imagePullPolicy: IfNotPresent
     # -- Default resources requested by the `azuredevops` provider
@@ -518,7 +518,6 @@ ingress:
   # -- Enables deploying a preconfigured Kubernetes Ingress to route traffic
   # to the different Wharf services, using `global.url` as host name.
   enabled: false
-  apiVersion: networking.k8s.io/v1beta1
   annotations: {}
   tls: {}
     # secretName: wharf-example-tls
@@ -536,7 +535,6 @@ ingressRoute:
   # -- Enables deploying a preconfigured Traefik IngressRoute to route traffic
   # to the different Wharf services, using `global.url` as host name.
   enabled: false
-  apiVersion: traefik.containo.us/v1alpha1
 
   entries:
     - # -- Only used in the IngressRoute object names
