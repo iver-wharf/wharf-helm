@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 3.1.3](https://img.shields.io/badge/Version-3.1.3-informational?style=flat-square)
+![Version: 3.2.0](https://img.shields.io/badge/Version-3.2.0-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
@@ -278,13 +278,6 @@ helm install my-release iver-wharf/wharf-helm
 *Type:* `object`\
 *Default:* `{}`
 
-### `ingress.apiVersion`
-
->
-
-*Type:* `string`\
-*Default:* `"networking.k8s.io/v1beta1"`
-
 ### `ingress.enabled`
 
 > Enables deploying a preconfigured Kubernetes Ingress to route traffic to the different Wharf services, using `global.url` as host name.
@@ -305,13 +298,6 @@ helm install my-release iver-wharf/wharf-helm
 
 *Type:* `object`\
 *Default:* `{}`
-
-### `ingressRoute.apiVersion`
-
->
-
-*Type:* `string`\
-*Default:* `"traefik.containo.us/v1alpha1"`
 
 ### `ingressRoute.enabled`
 

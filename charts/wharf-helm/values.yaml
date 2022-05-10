@@ -518,7 +518,6 @@ ingress:
   # -- Enables deploying a preconfigured Kubernetes Ingress to route traffic
   # to the different Wharf services, using `global.url` as host name.
   enabled: false
-  apiVersion: networking.k8s.io/v1beta1
   annotations: {}
   tls: {}
     # secretName: wharf-example-tls
@@ -536,7 +535,6 @@ ingressRoute:
   # -- Enables deploying a preconfigured Traefik IngressRoute to route traffic
   # to the different Wharf services, using `global.url` as host name.
   enabled: false
-  apiVersion: traefik.containo.us/v1alpha1
 
   entries:
     - # -- Only used in the IngressRoute object names
