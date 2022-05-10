@@ -6,7 +6,7 @@
 {{- $labels := include "wharf-helm.labels" . }}
 
 {{- range $index, $entry := .Values.ingressRoute.entries -}}
-{{- if .Capabilities.APIVersions.Has "traefik.containo.us/v1" }}
+{{- if $.Capabilities.APIVersions.Has "traefik.containo.us/v1" }}
 apiVersion: traefik.containo.us/v1
 {{- else }}
 apiVersion: traefik.containo.us/v1alpha1
