@@ -16,6 +16,8 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 ## v3.1.3
 
 - Changed image version of `web` from v1.5.1 to v1.6.0. (#38)
+- Changed image version of `azuredevops` from v2.0.1 to v3.0.0. (#38)
+- Changed image version of `gitlab` from v1.3.0 to v2.0.0. (#38)
 
 ## v3.1.2
 

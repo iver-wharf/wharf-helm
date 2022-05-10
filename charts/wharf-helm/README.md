@@ -35,8 +35,8 @@ helm install my-release iver-wharf/wharf-helm
 | [iver-wharf/wharf-api](https://github.com/iver-wharf/wharf-api) | [![Version: v5.1.2](https://img.shields.io/badge/Version-v5.1.2-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-api) |`"quay.io/iver-wharf/wharf-api:v5.1.2"`
 | [iver-wharf/wharf-web](https://github.com/iver-wharf/wharf-web) | [![Version: v1.6.0](https://img.shields.io/badge/Version-v1.6.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-web) |`"quay.io/iver-wharf/wharf-web:v1.6.0"`
 | [iver-wharf/wharf-provider-github](https://github.com/iver-wharf/wharf-provider-github) | [![Version: v3.0.0](https://img.shields.io/badge/Version-v3.0.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-github) |`"quay.io/iver-wharf/wharf-provider-github:v3.0.0"`
-| [iver-wharf/wharf-provider-gitlab](https://github.com/iver-wharf/wharf-provider-gitlab) | [![Version: v1.3.0](https://img.shields.io/badge/Version-v1.3.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-gitlab) |`"quay.io/iver-wharf/wharf-provider-gitlab:v1.3.0"`
-| [iver-wharf/wharf-provider-azuredevops](https://github.com/iver-wharf/wharf-provider-azuredevops) | [![Version: v2.0.1](https://img.shields.io/badge/Version-v2.0.1-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-azuredevops) |`"quay.io/iver-wharf/wharf-provider-azuredevops:v2.0.1"`
+| [iver-wharf/wharf-provider-gitlab](https://github.com/iver-wharf/wharf-provider-gitlab) | [![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-gitlab) |`"quay.io/iver-wharf/wharf-provider-gitlab:v2.0.0"`
+| [iver-wharf/wharf-provider-azuredevops](https://github.com/iver-wharf/wharf-provider-azuredevops) | [![Version: v3.0.0](https://img.shields.io/badge/Version-v3.0.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-provider-azuredevops) |`"quay.io/iver-wharf/wharf-provider-azuredevops:v3.0.0"`
 
 ## Values
 
@@ -416,7 +416,7 @@ helm install my-release iver-wharf/wharf-helm
 > Default image used in the `azuredevops` provider
 
 *Type:* `string`\
-*Default:* `"quay.io/iver-wharf/wharf-provider-azuredevops:v2.0.1"`
+*Default:* `"quay.io/iver-wharf/wharf-provider-azuredevops:v3.0.0"`
 
 ### `providers.azuredevops.imagePullPolicy`
 
@@ -668,7 +668,7 @@ helm install my-release iver-wharf/wharf-helm
 > Default image used in the `gitlab` provider
 
 *Type:* `string`\
-*Default:* `"quay.io/iver-wharf/wharf-provider-gitlab:v1.3.0"`
+*Default:* `"quay.io/iver-wharf/wharf-provider-gitlab:v2.0.0"`
 
 ### `providers.gitlab.imagePullPolicy`
 
