@@ -1,0 +1,31 @@
+apiVersion: v2
+name: wharf-aino
+description: Wharf all-in-one, with wharf-helm, wharf-cmd, and Postgres
+type: application
+version: 0.1.0
+appVersion: ""
+home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-aino
+maintainers:
+  - name: jilleJr
+    email: kalle.fagerberg@iver.se
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/links: |
+    - name: support
+      url: https://github.com/iver-wharf/wharf-helm/issues/new
+
+dependencies:
+  - name: wharf-helm
+    version: ">=3.2.0"
+    repository: file://../wharf-helm
+    condition: wharf-helm.enabled
+
+  - name: wharf-cmd
+    version: ">=0.2.0"
+    repository: file://../wharf-cmd
+    condition: wharf-cmd.enabled
+
+  - name: postgresql
+    version: ">=11.1.6"
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled

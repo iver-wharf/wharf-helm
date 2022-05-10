@@ -1,0 +1,69 @@
+
+global:
+  # -- URL of this Wharf instance. Mostly only used in the `ingress` and
+  # `ingressRoute` settings to route the appropriate requests, but also in
+  # Wharf's API so it can properly refer to itself.
+  url: wharf.example.org
+  # -- Used in RabbitMQ & Jenkins to multiplex jobs and messages on the same
+  # instances while keeping track of their origin.
+  instanceId: dev
+  # -- This flag is forwarded to the frontend where it can be used to show
+  # slightly different styling depending on if it's for production or not.
+  isProduction: false
+
+wharf-cmd:
+  enabled: true
+
+  watchdog:
+    enabled: true
+    config:
+      watchdog:
+        wharfApiUrl: http://wharf-aino-wharf-helm-api:80
+        provisionerUrl: http://wharf-aino-wharf-cmd-provisioner:80
+
+  aggregator:
+    config:
+      aggregator:
+        wharfApiUrl: http://wharf-aino-wharf-helm-api:80
+
+wharf-helm:
+  enabled: true
+
+  api:
+    ciUrl: ""
+    ciToken: ""
+
+    extraEnvs:
+      - name: WHARF_CI_ENGINE_NAME
+        value: wharf-cmd
+      - name: WHARF_CI_ENGINE_ID
+        value: wharf-cmd
+      - name: WHARF_CI_ENGINE_URL
+        value: http://wharf-aino-wharf-cmd-provisioner:80/api/worker
+      - name: WHARF_CI_ENGINE_API
+        value: wharf-cmd.v1
+
+    db:
+      host: wharf-aino-postgresql
+      name: wharf
+      username: postgres
+      password:
+        valueFrom:
+          secretKeyRef:
+            name: wharf-aino-postgresql
+            key: postgres-password
+
+  ingress:
+    # -- Enables deploying a preconfigured Kubernetes Ingress to route traffic
+    # to the different Wharf services, using `global.url` as host name.
+    enabled: false
+  ingressRoute:
+    # -- Enables deploying a preconfigured Traefik IngressRoute to route traffic
+    # to the different Wharf services, using `global.url` as host name.
+    enabled: false
+
+postgresql:
+  enabled: true
+
+  auth:
+    database: wharf
