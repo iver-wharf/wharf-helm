@@ -8,6 +8,25 @@ entries:
           url: https://github.com/iver-wharf/wharf-helm/issues/new
     apiVersion: v2
     appVersion: 0.8.0
+    created: "2022-05-10T17:11:44.511576428Z"
+    description: Deploy wharf-cmd, Wharf's execution engine, to Kubernetes.
+    digest: d0ce4b85d34603cf42fe92abe7989a87832d33a01ffb1c57ebfa28616f3fff0e
+    home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-cmd
+    maintainers:
+    - email: kalle.fagerberg@iver.se
+      name: jilleJr
+    name: wharf-cmd
+    type: application
+    urls:
+    - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-cmd-0.2.1/wharf-cmd-0.2.1.tgz
+    version: 0.2.1
+  - annotations:
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/iver-wharf/wharf-helm/issues/new
+    apiVersion: v2
+    appVersion: 0.8.0
     created: "2022-05-05T14:30:38.515523486Z"
     description: Deploy wharf-cmd, Wharf's execution engine, to Kubernetes.
     digest: cf2d287aac2acb18003c09a91e82984079cf201cfca83e357a8b1c8179374b62
@@ -40,6 +59,24 @@ entries:
     - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-cmd-0.1.0/wharf-cmd-0.1.0.tgz
     version: 0.1.0
   wharf-helm:
+  - annotations:
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/iver-wharf/wharf-helm/issues/new
+    apiVersion: v2
+    created: "2022-05-10T17:11:44.684365271Z"
+    description: Deploy Wharf to Kubernetes
+    digest: 7e5d08b93c7c5083c78cc9e279a2b1473383b6cb6acb3494b9654111107234d8
+    home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm
+    maintainers:
+    - email: kalle.fagerberg@iver.se
+      name: jilleJr
+    name: wharf-helm
+    type: application
+    urls:
+    - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-helm-3.2.2/wharf-helm-3.2.2.tgz
+    version: 3.2.2
   - annotations:
       artifacthub.io/license: MIT
       artifacthub.io/links: |
@@ -335,4 +372,4 @@ entries:
     urls:
     - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-helm-1.1.1/wharf-helm-1.1.1.tgz
     version: 1.1.1
-generated: "2022-05-10T14:01:18.31532792Z"
+generated: "2022-05-10T17:11:44.684804377Z"
