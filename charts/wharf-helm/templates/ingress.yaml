@@ -2,7 +2,7 @@
 {{- $fullName := include "wharf-helm.fullname" . -}}
 {{- $svcPortWeb := .Values.web.servicePort -}}
 {{- $svcPortApi := .Values.api.servicePort -}}
-{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
 apiVersion: networking.k8s.io/v1
 {{- else }}
 apiVersion: networking.k8s.io/v1beta1
@@ -27,7 +27,7 @@ spec:
         paths:
           - path: /
             backend:
-{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
               service:
                 name: {{ printf "%v-web" $fullName | quote }}
                 port:
@@ -38,7 +38,7 @@ spec:
 {{- end }}
           - path: /api
             backend:
-{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
               service:
                 name: {{ printf "%v-api" $fullName | quote }}
                 port:
@@ -57,7 +57,7 @@ spec:
           {{- $providerUrlBase := $provider.urlBaseOverride | default (printf "/import/%s" $providerName) }}
           - path: {{ $providerUrlBase | quote }}
             backend:
-{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+{{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
               service:
                 name: {{ printf "%s-%s" $fullName $providerName | quote }}
                 port:
