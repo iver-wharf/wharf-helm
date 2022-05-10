@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 3.2.1](https://img.shields.io/badge/Version-3.2.1-informational?style=flat-square)
+![Version: 3.2.2](https://img.shields.io/badge/Version-3.2.2-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
@@ -24,7 +24,7 @@
 To install the chart with the release name `my-release`:
 
 ```sh
-helm repo add iver-wharf https://iver-wharf.github.io/wharf-helm
+helm repo add iver-wharf https://wharf.iver.com/wharf-helm
 helm install my-release iver-wharf/wharf-helm
 ```
 
