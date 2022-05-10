@@ -26,24 +26,28 @@ spec:
       http:
         paths:
           - path: /
-            backend:
 {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+            pathType: Prefix
+            backend:
               service:
                 name: {{ printf "%v-web" $fullName | quote }}
                 port:
                   number: {{ $svcPortWeb }}
 {{- else }}
+            backend:
               serviceName: {{ printf "%v-web" $fullName | quote }}
               servicePort: {{ $svcPortWeb }}
 {{- end }}
           - path: /api
-            backend:
 {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+            pathType: Prefix
+            backend:
               service:
                 name: {{ printf "%v-api" $fullName | quote }}
                 port:
                   number: {{ $svcPortApi }}
 {{- else }}
+            backend:
               serviceName: {{ printf "%v-api" $fullName | quote }}
               servicePort: {{ $svcPortApi }}
 {{- end }}
@@ -56,13 +60,15 @@ spec:
           {{- $providerName := $provider.name | default $providerName }}
           {{- $providerUrlBase := $provider.urlBaseOverride | default (printf "/import/%s" $providerName) }}
           - path: {{ $providerUrlBase | quote }}
-            backend:
 {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1" }}
+            pathType: Prefix
+            backend:
               service:
                 name: {{ printf "%s-%s" $fullName $providerName | quote }}
                 port:
                   number: {{ $provider.servicePort | default 80 }}
 {{- else }}
+            backend:
               serviceName: {{ printf "%s-%s" $fullName $providerName | quote }}
               servicePort: {{ $provider.servicePort | default 80 }}
 {{- end }}
