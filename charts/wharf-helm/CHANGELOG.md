@@ -13,6 +13,10 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v3.2.1
+
+- Fixed capabilities check for `IngressRoute`. (#39)
+
 ## v3.2.0
 
 - Changed image version of `web` from v1.5.1 to v1.6.0. (#38)
