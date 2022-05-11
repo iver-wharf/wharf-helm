@@ -13,6 +13,18 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v3.2.3
+
+- Changed image version of `web` from v1.6.0 to v1.6.1. (#43)
+- Changed image version of `api` from v5.1.2 to v5.2.0. (#43)
+- Changed image version of `gitlab` from v2.0.0 to v2.0.1. (#43)
+
+## v3.2.2
+
+- Changed documentation of Helm repo from
+  `https://iver-wharf.github.io/wharf-helm` to
+  `https://wharf.iver.com/wharf-helm` (#41)
+
 ## v3.2.1
 
 - Fixed capabilities check for `IngressRoute`. (#39)

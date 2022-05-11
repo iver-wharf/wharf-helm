@@ -19,7 +19,7 @@ Repository of Wharf's [Helm](https://helm.sh/) charts.
 To start using, add the Wharf Helm chart repository:
 
 ```sh
-helm repo add iver-wharf https://iver-wharf.github.io/wharf-helm
+helm repo add iver-wharf https://wharf.iver.com/wharf-helm
 ```
 
 ## Generating `charts/*/README.md`
