@@ -1,0 +1,84 @@
+
+global:
+  # -- URL of this Wharf instance. Mostly only used in the `ingress` and
+  # `ingressRoute` settings to route the appropriate requests, but also in
+  # Wharf's API so it can properly refer to itself.
+  url: wharf.example.org
+  # -- Used in RabbitMQ & Jenkins to multiplex jobs and messages on the same
+  # instances while keeping track of their origin.
+  instanceId: dev
+  # -- This flag is forwarded to the frontend where it can be used to show
+  # slightly different styling depending on if it's for production or not.
+  isProduction: false
+
+wharf-cmd:
+  # -- If set to false, the wharf-cmd subchart (containing Wharf's execution
+  # engine) is skipped.
+  enabled: true
+
+  fullnameOverride: wharf-aino-cmd
+
+  watchdog:
+    enabled: true
+    config:
+      watchdog:
+        wharfApiUrl: http://wharf-aino-api:80
+        provisionerUrl: http://wharf-aino-cmd-provisioner:80
+
+  aggregator:
+    config:
+      aggregator:
+        wharfApiUrl: http://wharf-aino-api:80
+
+wharf-helm:
+  # -- If set to false, the wharf-helm subchart (containing wharf-api,
+  # wharf-web, and providers) is skipped.
+  enabled: true
+
+  fullnameOverride: wharf-aino
+
+  api:
+    ciUrl: ""
+    ciToken: ""
+
+    extraEnvs:
+      - name: WHARF_CI_ENGINE_NAME
+        value: wharf-cmd
+      - name: WHARF_CI_ENGINE_ID
+        value: wharf-cmd
+      - name: WHARF_CI_ENGINE_URL
+        value: http://wharf-aino-cmd-provisioner:80/api/worker
+      - name: WHARF_CI_ENGINE_API
+        value: wharf-cmd.v1
+
+    db:
+      host: wharf-aino-db
+      name: wharf
+      username: postgres
+      password:
+        valueFrom:
+          secretKeyRef:
+            name: wharf-aino-db
+            key: postgres-password
+
+  ingress:
+    # -- Enables deploying a preconfigured Kubernetes Ingress to route traffic
+    # to the different Wharf services, using `global.url` as host name.
+    enabled: false
+  ingressRoute:
+    # -- Enables deploying a preconfigured Traefik IngressRoute to route traffic
+    # to the different Wharf services, using `global.url` as host name.
+    enabled: false
+
+# PostgreSQL packaged by Bitnami
+# https://github.com/bitnami/charts/tree/master/bitnami/postgresql
+postgresql:
+  # -- If set to false, the Bitnami PostgreSQL subchart is skipped.
+  enabled: true
+
+  fullnameOverride: wharf-aino-db
+
+  auth:
+    database: wharf
+    username: postgres
+    postgresPassword: ""

@@ -12,6 +12,7 @@ Repository of Wharf's [Helm](https://helm.sh/) charts.
 | ----- | ----------- |
 | [wharf-helm](charts/wharf-helm/README.md) | Deploy Wharf to Kubernetes using Helm |
 | [wharf-cmd](charts/wharf-cmd/README.md)   | Deploy wharf-cmd, Wharf's execution engine, to Kubernetes |
+| [wharf-aino](charts/wharf-aino/README.md) | All-in-One Wharf deployment, including Postgres |
 
 <!--lint enable maximum-line-length -->
 
