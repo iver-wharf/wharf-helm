@@ -65,6 +65,24 @@ entries:
         - name: support
           url: https://github.com/iver-wharf/wharf-helm/issues/new
     apiVersion: v2
+    created: "2022-05-11T07:14:10.375980044Z"
+    description: Deploy Wharf to Kubernetes
+    digest: 463bfad94d9bec8b94224298848da5bd335da0fa6169bf25aacde5ff78a96d18
+    home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm
+    maintainers:
+    - email: kalle.fagerberg@iver.se
+      name: jilleJr
+    name: wharf-helm
+    type: application
+    urls:
+    - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-helm-3.2.3/wharf-helm-3.2.3.tgz
+    version: 3.2.3
+  - annotations:
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/iver-wharf/wharf-helm/issues/new
+    apiVersion: v2
     created: "2022-05-10T17:11:44.684365271Z"
     description: Deploy Wharf to Kubernetes
     digest: 7e5d08b93c7c5083c78cc9e279a2b1473383b6cb6acb3494b9654111107234d8
@@ -372,4 +390,4 @@ entries:
     urls:
     - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-helm-1.1.1/wharf-helm-1.1.1.tgz
     version: 1.1.1
-generated: "2022-05-10T17:11:44.684804377Z"
+generated: "2022-05-11T07:14:10.376365547Z"
