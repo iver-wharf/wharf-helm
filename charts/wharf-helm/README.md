@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 3.2.2](https://img.shields.io/badge/Version-3.2.2-informational?style=flat-square)
+![Version: 3.2.3](https://img.shields.io/badge/Version-3.2.3-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm>
