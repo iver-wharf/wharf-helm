@@ -16,22 +16,26 @@ wharf-cmd:
   # engine) is skipped.
   enabled: true
 
+  fullnameOverride: wharf-aino-cmd
+
   watchdog:
     enabled: true
     config:
       watchdog:
-        wharfApiUrl: http://wharf-aino-wharf-helm-api:80
-        provisionerUrl: http://wharf-aino-wharf-cmd-provisioner:80
+        wharfApiUrl: http://wharf-aino-api:80
+        provisionerUrl: http://wharf-aino-cmd-provisioner:80
 
   aggregator:
     config:
       aggregator:
-        wharfApiUrl: http://wharf-aino-wharf-helm-api:80
+        wharfApiUrl: http://wharf-aino-api:80
 
 wharf-helm:
   # -- If set to false, the wharf-helm subchart (containing wharf-api,
   # wharf-web, and providers) is skipped.
   enabled: true
+
+  fullnameOverride: wharf-aino
 
   api:
     ciUrl: ""
@@ -43,15 +47,19 @@ wharf-helm:
       - name: WHARF_CI_ENGINE_ID
         value: wharf-cmd
       - name: WHARF_CI_ENGINE_URL
-        value: http://wharf-aino-wharf-cmd-provisioner:80/api/worker
+        value: http://wharf-aino-cmd-provisioner:80/api/worker
       - name: WHARF_CI_ENGINE_API
         value: wharf-cmd.v1
 
     db:
-      host: wharf-aino-postgresql
+      host: wharf-aino-db
       name: wharf
       username: postgres
-      password: changeit
+      password:
+        valueFrom:
+          secretKeyRef:
+            name: wharf-aino-db
+            key: postgres-password
 
   ingress:
     # -- Enables deploying a preconfigured Kubernetes Ingress to route traffic
@@ -68,7 +76,9 @@ postgresql:
   # -- If set to false, the Bitnami PostgreSQL subchart is skipped.
   enabled: true
 
+  fullnameOverride: wharf-aino-db
+
   auth:
     database: wharf
     username: postgres
-    password: changeit
+    postgresPassword: ""
