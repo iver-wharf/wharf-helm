@@ -13,6 +13,10 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v3.2.5
+
+- Added settings for validation of OpenID Connect authentication tokens. (#45)
+
 ## v3.2.4
 
 - Added support for Ingress of apiVersion `extensions/v1beta1`,

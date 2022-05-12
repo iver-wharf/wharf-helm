@@ -225,6 +225,20 @@ api:
     # Supports ["Smart environment fields"](./README.md#smart-environment-fields)
     bindAddress: "0.0.0.0:8080"
 
+    # -- Settings for the validation of OpenId Connect authentication.
+    # This is a sample config for an azure id provider (app registration).
+    # One way to get this information about any token from an authentication flow is to use a flow dissection tool
+    # like https://oauth.tools
+    oidc:
+      # -- Unless enabled the backend will not preform any validation on any tokens.
+      enable: false
+      # -- In azure this is a way of differentiation between different app registrations.
+      issuerURL: 'https://sts.windows.net/841df554-ef9d-48b1-bc6e-44cf8543a8fc/'
+      # -- This name is set inside the app registration and can be used to differentiate between different token types.
+      audienceURL: 'api://wharf-internal'
+      # -- Keys are used to validate the token signature.
+      keysURL: 'https://login.microsoftonline.com/841df554-ef9d-48b1-bc6e-44cf8543a8fc/discovery/v2.0/keys'
+
   # Settings for Wharf API's database connection
   db:
     # -- Currently only `"postgres"` is a valid value here. Set to `null` or
