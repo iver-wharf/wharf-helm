@@ -1,6 +1,6 @@
 # Wharf All-in-One chart
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-aino>
@@ -10,7 +10,7 @@
 To install the chart with the release name `my-release`:
 
 ```sh
-helm repo add iver-wharf https://iver-wharf.github.io/wharf-aino
+helm repo add iver-wharf https://wharf.iver.com/wharf-helm
 helm install wharf-aino iver-wharf/wharf-aino
 ```
 
