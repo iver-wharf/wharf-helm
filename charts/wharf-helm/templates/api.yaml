@@ -57,6 +57,14 @@ spec:
               {{- .basicAuth | include "wharf-helm.environmentValue" | nindent 14 }}
             - name: WHARF_HTTP_BINDADDRESS
               {{- .bindAddress | include "wharf-helm.environmentValue" | nindent 14 }}
+            - name: WHARF_HTTP_OIDC_ENABLE
+              {{- .enable }}
+            - name: WHARF_HTTP_OIDC_ISSUERURL
+              {{- .issuerURL }}
+            - name: WHARF_HTTP_OIDC_AUDIENCEURL
+              {{- .audienceURL }}
+            - name: WHARF_HTTP_OIDC_KEYSURL
+                {{- .keysURL }}
             {{- end }}{{/* with .Values.api.http */}}
 
             {{- if .Values.global.isProduction }}
