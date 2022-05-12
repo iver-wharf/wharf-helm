@@ -23,7 +23,7 @@ web:
   replicaCount: 1
 
   # -- Docker image that runs the frontend/web
-  image: quay.io/iver-wharf/wharf-web:v1.6.1
+  image: quay.io/iver-wharf/wharf-web:v1.6.2
 
   # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
   imagePullPolicy: ""
@@ -467,7 +467,7 @@ providers:
     # `providers.example.*` settings for a comparison.
     enabled: true
     # -- Default image used in the `github` provider
-    image: quay.io/iver-wharf/wharf-provider-github:v3.0.0
+    image: quay.io/iver-wharf/wharf-provider-github:v3.0.1
     # -- Default image pull policy used in the `github` provider
     imagePullPolicy: IfNotPresent
     # -- Default resources requested by the `github` provider
