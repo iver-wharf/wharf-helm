@@ -15,7 +15,7 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 
 ## v3.2.4
 
-- Added support for Deployment and Ingress of apiVersion `extensions/v1beta1`,
+- Added support for Ingress of apiVersion `extensions/v1beta1`,
   which adds support for Kubernetes as old as v1.13. (#44)
 
 ## v3.2.3

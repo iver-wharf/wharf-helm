@@ -10,11 +10,7 @@
 {{- $apiUrl := $provider.apiUrlOverride | default (printf "http://%s-api" $fullName) }}
 {{- $url := $provider.urlOverride | default $.Values.global.url }}
 ---
-{{- if $.Capabilities.APIVersions.Has "apps/v1/Deployment" }}
 apiVersion: apps/v1
-{{- else }}
-apiVersion: extensions/v1beta1
-{{- end }}
 kind: Deployment
 metadata:
   name: {{ printf "%s-%s" $fullName $providerName | quote }}
