@@ -7,6 +7,37 @@ entries:
         - name: support
           url: https://github.com/iver-wharf/wharf-helm/issues/new
     apiVersion: v2
+    created: "2022-05-13T09:47:55.870473971Z"
+    dependencies:
+    - condition: wharf-helm.enabled
+      name: wharf-helm
+      repository: file://../wharf-helm
+      version: '>=3.2.5'
+    - condition: wharf-cmd.enabled
+      name: wharf-cmd
+      repository: file://../wharf-cmd
+      version: '>=0.2.1'
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: '>=11.1.6'
+    description: Wharf all-in-one, with wharf-helm, wharf-cmd, and Postgres
+    digest: 4c12c853567739f749a816654315eec4a9a5f89b38471699790192cfb6bcda37
+    home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-aino
+    maintainers:
+    - email: kalle.fagerberg@iver.se
+      name: jilleJr
+    name: wharf-aino
+    type: application
+    urls:
+    - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-aino-0.1.2/wharf-aino-0.1.2.tgz
+    version: 0.1.2
+  - annotations:
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/iver-wharf/wharf-helm/issues/new
+    apiVersion: v2
     created: "2022-05-12T13:49:44.67095409Z"
     dependencies:
     - condition: wharf-helm.enabled
@@ -122,6 +153,24 @@ entries:
     - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-cmd-0.1.0/wharf-cmd-0.1.0.tgz
     version: 0.1.0
   wharf-helm:
+  - annotations:
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/iver-wharf/wharf-helm/issues/new
+    apiVersion: v2
+    created: "2022-05-13T09:47:56.067815425Z"
+    description: Deploy Wharf to Kubernetes
+    digest: f9dc65d6f86d6bb445b5414db036664ad934cbeb218a884f2646b53a7e049577
+    home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-helm
+    maintainers:
+    - email: kalle.fagerberg@iver.se
+      name: jilleJr
+    name: wharf-helm
+    type: application
+    urls:
+    - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-helm-3.2.5/wharf-helm-3.2.5.tgz
+    version: 3.2.5
   - annotations:
       artifacthub.io/license: MIT
       artifacthub.io/links: |
@@ -471,4 +520,4 @@ entries:
     urls:
     - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-helm-1.1.1/wharf-helm-1.1.1.tgz
     version: 1.1.1
-generated: "2022-05-12T13:49:44.671038291Z"
+generated: "2022-05-13T09:47:56.067971624Z"
