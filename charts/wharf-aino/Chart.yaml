@@ -2,7 +2,7 @@ apiVersion: v2
 name: wharf-aino
 description: Wharf all-in-one, with wharf-helm, wharf-cmd, and Postgres
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: ""
 home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-aino
 maintainers:
@@ -16,7 +16,7 @@ annotations:
 
 dependencies:
   - name: wharf-helm
-    version: ">=3.2.4"
+    version: ">=3.2.5"
     repository: file://../wharf-helm
     condition: wharf-helm.enabled
 
