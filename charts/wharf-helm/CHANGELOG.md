@@ -13,6 +13,11 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v3.2.5
+
+- Changed image version of `web` from v1.6.1 to v1.6.2. (#46)
+- Changed image version of `github` from v3.0.0 to v3.0.1. (#46)
+
 ## v3.2.4
 
 - Added support for Ingress of apiVersion `extensions/v1beta1`,

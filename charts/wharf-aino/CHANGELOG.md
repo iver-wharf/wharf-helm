@@ -13,6 +13,15 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v0.1.2
+
+- Changed version of wharf-helm from 3.2.4 to 3.2.5. (#46)
+
+## v0.1.1
+
+- Changed version of wharf-helm from 3.2.3 to 3.2.4.
+- Changed version of wharf-cmd from 0.2.0 to 0.2.1.
+
 ## v0.1.0
 
 - Initial release
