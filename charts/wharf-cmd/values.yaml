@@ -195,7 +195,6 @@ worker:
   imagePullSecrets: []
   #  - name: myDockerCredentialsSecret
 
-  #  - name: myDockerCredentialsSecret
   # -- Environment variables to add to the container.
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
