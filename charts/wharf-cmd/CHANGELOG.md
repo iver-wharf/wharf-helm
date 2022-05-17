@@ -13,6 +13,21 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v0.3.0
+
+- Added values to set wharf-cmd-worker configs as well: (#48)
+
+  - `.Values.worker.config`
+  - `.Values.worker.extraArgs`
+  - `.Values.worker.extraEnvs`
+  - `.Values.worker.imagePullPolicy`
+  - `.Values.worker.imagePullSecrets`
+  - `.Values.worker.image`
+
+- Added values to set built-in variables: (#48)
+
+  - `.Values.worker.vars`
+
 ## v0.2.1
 
 - Changed documentation of Helm repo from
