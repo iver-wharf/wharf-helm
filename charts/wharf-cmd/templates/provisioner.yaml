@@ -77,10 +77,39 @@ metadata:
     component: provisioner
     {{- include "wharf-cmd.labels" . | nindent 4 }}
 data:
-  wharf-cmd-config.yml: |
-    {{- $config := deepCopy .Values.common.config | merge .Values.provisioner.config }}
-    {{- set $config "instanceId" .Values.global.instanceId | toYaml | nindent 4 }}
+  {{- $configContainer := dict }}
+  {{- with .Values.worker.image | default .Values.common.image }}
+    {{- $_ := regexReplaceAll "(.*):.*" . "${1}" | set $configContainer "image" }}
+    {{- $_ := regexReplaceAll ".*:(.*)" . "${1}" | default "latest" | set $configContainer "imageTag" }}
+  {{- end }}
+  {{- with .Values.worker.imagePullPolicy | default .Values.common.imagePullPolicy }}
+    {{- $_ := . | set $configContainer "imagePullPolicy" }}
+  {{- end }}
 
+  {{- $workerConfig := (dict
+    "configMapName" (printf "%s-worker" (include "wharf-cmd.fullname" .))
+  ) }}
+  {{- with $configContainer }}
+    {{- $_ := . | set $workerConfig "container" }}
+  {{- end }}
+  {{- with .Values.worker.extraEnvs }}
+    {{- $_ := . | set $workerConfig "extraEnvs" }}
+  {{- end }}
+  {{- with .Values.worker.extraArgs }}
+    {{- $_ := . | set $workerConfig "extraArgs" }}
+  {{- end }}
+
+  {{- $config := deepCopy .Values.common.config | merge .Values.provisioner.config }}
+  {{- $config = dict
+    "instanceId" .Values.global.instanceId
+    "provisioner" (dict
+      "k8s" (dict
+        "worker" $workerConfig
+      )
+    )
+    | merge $config }}
+  wharf-cmd-config.yml: |
+    {{- $config | toYaml | nindent 4 }}
 ---
 apiVersion: v1
 kind: Service

@@ -72,12 +72,13 @@ aggregator:
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
 
-  # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  # -- Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
   extraArgs: []
 
   # -- Configuration for wharf-cmd added only to the aggregator component.
   # This is merged with `common.config`, where values here take precedence.
   # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  # @default -- common.config
   config: {}
 
 provisioner:
@@ -126,12 +127,13 @@ provisioner:
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
 
-  # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  # -- Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
   extraArgs: []
 
   # -- Configuration for wharf-cmd added only to the aggregator component.
   # This is merged with `common.config`, where values here take precedence.
   # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  # @default -- common.config
   config: {}
 
 watchdog:
@@ -170,10 +172,41 @@ watchdog:
   # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
   extraEnvs: []
 
-  # -- (string[]) Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  # -- Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
   extraArgs: []
 
-  # -- Configuration for wharf-cmd added only to the aggregator component.
+  # -- Configuration for wharf-cmd added only to the provisioner component.
   # This is merged with `common.config`, where values here take precedence.
   # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  # @default -- common.config
   config: {}
+
+worker:
+  # -- Docker image of wharf-cmd-provisioner.
+  # @default -- common.image
+  image: ""
+
+  # -- [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
+  # @default -- common.imagePullPolicy
+  imagePullPolicy: ""
+
+  #  - name: myDockerCredentialsSecret
+  # -- Environment variables to add to the container.
+  # [Read more (kubernetes.io)](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
+  extraEnvs: []
+
+  # -- Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
+  extraArgs: []
+
+  # -- Configuration for wharf-cmd added only to the worker component.
+  # This is merged with `common.config`, where values here take precedence.
+  # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
+  # @default -- common.config
+  config: {}
+
+  # -- Wharf built-in variables to use in a build. Each key-value pair will be
+  # available to all builds.
+  vars:
+    CHART_REPO: https://harbor.local/chartrepo
+    REG_URL: harbor.local
+    REG_SECRET: harbor-registry
