@@ -211,7 +211,7 @@ worker:
 
   # -- Wharf built-in variables to use in a build. Each key-value pair will be
   # available to all builds.
-  vars:
-    CHART_REPO: https://harbor.local/chartrepo
-    REG_URL: harbor.local
-    REG_SECRET: harbor-registry
+  vars: {}
+  #  CHART_REPO: https://harbor.local/chartrepo
+  #  REG_URL: harbor.local
+  #  REG_SECRET: harbor-registry

@@ -110,7 +110,7 @@ pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
 | worker.image | string | common.image | Docker image of wharf-cmd-worker. |
 | worker.imagePullPolicy | string | common.imagePullPolicy | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
 | worker.imagePullSecrets | list | common.imagePullSecrets | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) |
-| worker.vars | object | `{"CHART_REPO":"https://harbor.local/chartrepo","REG_SECRET":"harbor-registry","REG_URL":"harbor.local"}` | Wharf built-in variables to use in a build. Each key-value pair will be available to all builds. |
+| worker.vars | object | `{}` | Wharf built-in variables to use in a build. Each key-value pair will be available to all builds. |
 
 ## Changes
 
