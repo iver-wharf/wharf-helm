@@ -80,7 +80,7 @@ pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
 | global.instanceId | string | `"dev"` | Used by Wharf to differentiate between installations in the same namespace. |
 | nameOverride | string | `""` | String to partially override the pod and service names. Will maintain the release name. |
 | provisioner.affinity | object | `{}` | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) |
-| provisioner.config | object | common.config | Configuration for wharf-cmd added only to the aggregator component. This is merged with `common.config`, where values here take precedence. [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config) |
+| provisioner.config | object | common.config | Configuration for wharf-cmd added only to the provisioner component. This is merged with `common.config`, where values here take precedence. [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config) |
 | provisioner.containerPort | int | `5009` | Container port. This needs to correlate to the port that the application listens on. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service) |
 | provisioner.enabled | bool | `true` | Enable the wharf-cmd-provisioner component. |
 | provisioner.extraArgs | list | `[]` | Arguments to add to the container. E.g `[ "--another-arg", "value" ]` |
