@@ -98,6 +98,9 @@ data:
   {{- with .Values.worker.extraArgs }}
     {{- $_ := . | set $workerConfig "extraArgs" }}
   {{- end }}
+  {{- with .Values.worker.imagePullSecrets | default .Values.common.imagePullSecrets }}
+    {{- $_ := . | set $workerConfig "imagePullSecrets" }}
+  {{- end }}
 
   {{- $config := deepCopy .Values.common.config | merge .Values.provisioner.config }}
   {{- $config = dict
