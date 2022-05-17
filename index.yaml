@@ -102,6 +102,25 @@ entries:
           url: https://github.com/iver-wharf/wharf-helm/issues/new
     apiVersion: v2
     appVersion: 0.8.0
+    created: "2022-05-17T09:38:44.35057371Z"
+    description: Deploy wharf-cmd, Wharf's execution engine, to Kubernetes.
+    digest: db83dd9d77ba11fbc9aaa9f02cfec32001ee3d2a7d12322ec19783e57f1b35ec
+    home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-cmd
+    maintainers:
+    - email: kalle.fagerberg@iver.se
+      name: jilleJr
+    name: wharf-cmd
+    type: application
+    urls:
+    - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-cmd-0.3.0/wharf-cmd-0.3.0.tgz
+    version: 0.3.0
+  - annotations:
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/iver-wharf/wharf-helm/issues/new
+    apiVersion: v2
+    appVersion: 0.8.0
     created: "2022-05-10T17:11:44.511576428Z"
     description: Deploy wharf-cmd, Wharf's execution engine, to Kubernetes.
     digest: d0ce4b85d34603cf42fe92abe7989a87832d33a01ffb1c57ebfa28616f3fff0e
@@ -520,4 +539,4 @@ entries:
     urls:
     - https://github.com/iver-wharf/wharf-helm/releases/download/wharf-helm-1.1.1/wharf-helm-1.1.1.tgz
     version: 1.1.1
-generated: "2022-05-13T09:47:56.067971624Z"
+generated: "2022-05-17T09:38:44.350775911Z"
