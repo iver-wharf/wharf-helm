@@ -65,7 +65,8 @@ metadata:
     component: watchdog
     {{- include "wharf-cmd.labels" . | nindent 4 }}
 data:
+  {{- $config := deepCopy .Values.common.config | merge .Values.watchdog.config }}
+  {{- $config = dict "instanceId" .Values.global.instanceId | merge $config }}
   wharf-cmd-config.yml: |
-    {{- $config := deepCopy .Values.common.config | merge .Values.watchdog.config }}
-    {{- set $config "instanceId" .Values.global.instanceId | toYaml | nindent 4 }}
+    {{- $config | toYaml | nindent 4 }}
 {{- end }}
