@@ -130,7 +130,7 @@ provisioner:
   # -- Arguments to add to the container. E.g `[ "--another-arg", "value" ]`
   extraArgs: []
 
-  # -- Configuration for wharf-cmd added only to the aggregator component.
+  # -- Configuration for wharf-cmd added only to the provisioner component.
   # This is merged with `common.config`, where values here take precedence.
   # [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config)
   # @default -- common.config
