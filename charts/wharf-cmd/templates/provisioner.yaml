@@ -86,9 +86,7 @@ data:
     {{- $_ := . | set $configContainer "imagePullPolicy" }}
   {{- end }}
 
-  {{- $workerConfig := (dict
-    "configMapName" (printf "%s-worker" (include "wharf-cmd.fullname" .))
-  ) }}
+  {{- $workerConfig := (dict "configMapName" (printf "%s-worker" (include "wharf-cmd.fullname" .))) }}
   {{- with $configContainer }}
     {{- $_ := . | set $workerConfig "container" }}
   {{- end }}
@@ -102,15 +100,10 @@ data:
     {{- $_ := . | set $workerConfig "imagePullSecrets" }}
   {{- end }}
 
+  {{- $provisionerConfig := (dict "k8s" (dict "worker" $workerConfig)) }}
+
   {{- $config := deepCopy .Values.common.config | merge .Values.provisioner.config }}
-  {{- $config = dict
-    "instanceId" .Values.global.instanceId
-    "provisioner" (dict
-      "k8s" (dict
-        "worker" $workerConfig
-      )
-    )
-    | merge $config }}
+  {{- $config = dict "instanceId" .Values.global.instanceId "provisioner" $provisionerConfig | merge $config }}
   wharf-cmd-config.yml: |
     {{- $config | toYaml | nindent 4 }}
 ---
