@@ -1,6 +1,6 @@
 # Wharf Helm chart
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square)
 ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 **Homepage:** <https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-cmd>
@@ -23,7 +23,7 @@ helm install wharf-cmd iver-wharf/wharf-cmd
 
 | GitHub repository | Quay.io version | Image
 | ----------------- | --------------- | -----
-| [iver-wharf/wharf-cmd](https://github.com/iver-wharf/wharf-cmd) | [![Version: latest](https://img.shields.io/badge/Version-latest-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-cmd) |`"quay.io/iver-wharf/wharf-cmd:latest"`
+| [iver-wharf/wharf-cmd](https://github.com/iver-wharf/wharf-cmd) | [![Version: v0.8.0](https://img.shields.io/badge/Version-v0.8.0-informational?style=flat-square)](https://quay.io/repository/iver-wharf/wharf-cmd) |`"quay.io/iver-wharf/wharf-cmd:v0.8.0"`
 
 ## Configs disclaimer
 
@@ -72,7 +72,7 @@ pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
 | aggregator.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | Selects which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/) |
 | aggregator.tolerations | list | `[]` | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) |
 | common.config | object | `{}` | Default configuration for all components. This is later merged with each per-component configs, where their config values take precedence. [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config) |
-| common.image | string | `"quay.io/iver-wharf/wharf-cmd:latest"` | Default Docker image for all components. The same image can be used for all wharf-cmd components as it uses the same binary to perform the different tasks. |
+| common.image | string | `"quay.io/iver-wharf/wharf-cmd:v0.8.0"` | Default Docker image for all components. The same image can be used for all wharf-cmd components as it uses the same binary to perform the different tasks. |
 | common.imagePullPolicy | string | `""` | Default imagePullPolicy for all components. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
 | common.imagePullSecrets | list | `[]` | Default imagePullSecrets for all components. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) |
 | common.loglevel | string | `"debug"` | Default logging level for all components. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
