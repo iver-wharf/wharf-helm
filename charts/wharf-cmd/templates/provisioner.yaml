@@ -86,7 +86,7 @@ data:
     {{- $_ := . | set $configContainer "imagePullPolicy" }}
   {{- end }}
 
-  {{- $workerConfig := (dict "configMapName" (printf "%s-worker" (include "wharf-cmd.fullname" .))) }}
+  {{- $workerConfig := (dict "configMapName" (printf "%s-worker-config" (include "wharf-cmd.fullname" .))) }}
   {{- with $configContainer }}
     {{- $_ := . | set $workerConfig "container" }}
   {{- end }}
