@@ -20,7 +20,7 @@ common:
   # -- Default Docker image for all components.
   # The same image can be used for all wharf-cmd components as it uses the same
   # binary to perform the different tasks.
-  image: quay.io/iver-wharf/wharf-cmd:latest
+  image: quay.io/iver-wharf/wharf-cmd:v0.8.0
 
   # -- Default imagePullPolicy for all components.
   # [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
