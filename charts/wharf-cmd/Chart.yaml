@@ -2,7 +2,7 @@ apiVersion: v2
 name: wharf-cmd
 description: Deploy wharf-cmd, Wharf's execution engine, to Kubernetes.
 type: application
-version: 0.3.2
+version: 0.3.3
 appVersion: "0.8.2"
 home: https://github.com/iver-wharf/wharf-helm/blob/master/charts/wharf-cmd
 maintainers:
