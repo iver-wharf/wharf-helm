@@ -15,7 +15,7 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 
 ## v0.3.3
 
-- Changed version of wharf-cmd image from v0.8.0 to v0.8.2. (#?)
+- Changed version of wharf-cmd image from v0.8.0 to v0.8.2. (#51)
 
 ## v0.3.2
 
