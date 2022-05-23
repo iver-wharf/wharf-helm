@@ -33,7 +33,7 @@ The `README.md` files in each chart is generated using
    If you have Go installed, you may run:
 
    ```sh
-   go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.5.0
+   go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.9.1
    ```
 
 2. Run `helm-docs`, preferrably before you create your pull requests:
