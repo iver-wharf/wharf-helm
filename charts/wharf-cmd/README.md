@@ -68,7 +68,7 @@ pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
 | aggregator.image | string | common.image | Docker image of wharf-cmd-aggregator. |
 | aggregator.imagePullPolicy | string | common.imagePullPolicy | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
 | aggregator.imagePullSecrets | list | common.imagePullSecrets | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) |
-| aggregator.loglevel | string | `nil` | Logging level for wharf-cmd-aggregator. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
+| aggregator.loglevel | string | common.loglevel | Logging level for wharf-cmd-aggregator. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
 | aggregator.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | Selects which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/) |
 | aggregator.tolerations | list | `[]` | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) |
 | common.config | object | `{}` | Default configuration for all components. This is later merged with each per-component configs, where their config values take precedence. [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config) |
@@ -88,7 +88,7 @@ pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
 | provisioner.image | string | common.image | Docker image of wharf-cmd-provisioner. |
 | provisioner.imagePullPolicy | string | common.imagePullPolicy | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
 | provisioner.imagePullSecrets | list | common.imagePullSecrets | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) |
-| provisioner.loglevel | string | `nil` | Logging level for wharf-cmd-provisioner. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
+| provisioner.loglevel | string | common.loglevel | Logging level for wharf-cmd-provisioner. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
 | provisioner.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | Selects which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/) |
 | provisioner.servicePort | int | `80` | Service port. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service) |
 | provisioner.serviceType | string | `"ClusterIP"` | Service type. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types) |
@@ -101,7 +101,7 @@ pod "wharf-cmd-stage-watchdog-67d468df7f-278xn" deleted
 | watchdog.image | string | common.image | Docker image of wharf-cmd-watchdog. |
 | watchdog.imagePullPolicy | string | common.imagePullPolicy | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
 | watchdog.imagePullSecrets | list | common.imagePullSecrets | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) |
-| watchdog.loglevel | string | `nil` | Logging level for wharf-cmd-watchdog. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
+| watchdog.loglevel | string | common.loglevel | Logging level for wharf-cmd-watchdog. Possible values: `debug`, `info`, `warn`, `error`, and `panic`. |
 | watchdog.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | Selects which node to run on, based on node labels. [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/) |
 | watchdog.tolerations | list | `[]` | [Read more (kubernetes.io/docs)](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) |
 | worker.config | object | common.config | Configuration for wharf-cmd added only to the worker component. This is merged with `common.config`, where values here take precedence. [Read more (pkg.go.dev/github.com/iver-wharf/wharf-cmd)](https://pkg.go.dev/github.com/iver-wharf/wharf-cmd/pkg/config) |
