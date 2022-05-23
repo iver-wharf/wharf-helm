@@ -13,6 +13,10 @@ This chart tries to follow [SemVer 2.0.0](https://semver.org/).
 	https://changelog.md/
 -->
 
+## v0.3.3
+
+- Changed version of wharf-cmd image from v0.8.0 to v0.8.2. (#?)
+
 ## v0.3.2
 
 - Fixed templating of wharf-cmd-provisioner's config of ConfigMap name to
